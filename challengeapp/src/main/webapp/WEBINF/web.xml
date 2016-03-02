@@ -3,8 +3,8 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
-	<display-name>dictweb</display-name>
-	<description>RestContainer for dictionary</description>
+	<display-name>challengewebapp</display-name>
+	<description>RestContainer for challengewebapp</description>
 	<!-- Spring Context LOADER LISTENER -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -31,5 +31,3 @@
 	
 	<!-- ALL CONFIG HERE -->
 </web-app>
-
-<!-- 007646 Morgan15 -->
