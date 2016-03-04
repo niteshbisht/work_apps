@@ -5,7 +5,6 @@
        xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:cxf="http://cxf.apache.org/core"
-       xmlns:jaxws="http://cxf.apache.org/jaxws"
        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
@@ -13,8 +12,7 @@
           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
           http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
-          http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
-          http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+          http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
     
     <!--  CXF DEFAULT IMPORTS  -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
