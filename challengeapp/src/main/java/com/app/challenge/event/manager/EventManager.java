@@ -11,6 +11,7 @@ import com.app.challenge.domain.Challenge;
 import com.app.challenge.domain.UserAccount;
 import com.app.challenge.event.dao.EventManagerDao;
 import com.app.challenge.event.vo.AppResponseVO;
+import com.app.challenge.event.vo.ChallengeAppVO;
 import com.app.challenge.event.vo.UserAccountVO;
 
 @Component
@@ -18,26 +19,13 @@ public class EventManager {
 
 	@Autowired
 	EventManagerDao eventManagerDao;
-	
-	public void createChallenge(Challenge challenge){
-		
+
+	public void createChallenge(Challenge challenge) {
+
 	}
-	
-	@Transactional(rollbackFor=SQLException.class)
-	public AppResponseVO registerNewUserId(String token, String email) throws SQLException{
-		AppResponseVO response = new AppResponseVO();
-		String responseMessage;
-		try {
-			responseMessage=eventManagerDao.createNewUserId(email, token);
-		} catch (SQLException e) {
-			throw e;
-		}
-		response.setResponseMessage(responseMessage);
-		return response;
-	}
-	
-	@Transactional(rollbackFor=SQLException.class)
-	public AppResponseVO updateToken(String token, String email) throws SQLException{
+
+	@Transactional(rollbackFor = SQLException.class)
+	public AppResponseVO registerNewUserId(String token, String email) throws SQLException {
 		AppResponseVO response = new AppResponseVO();
 		String responseMessage;
 		try {
@@ -48,9 +36,22 @@ public class EventManager {
 		response.setResponseMessage(responseMessage);
 		return response;
 	}
-	
-	@Transactional(rollbackFor=SQLException.class)
-	public AppResponseVO registerDevice(UserAccountVO userAccountVO) throws SQLException{
+
+	@Transactional(rollbackFor = SQLException.class)
+	public AppResponseVO updateToken(String token, String email) throws SQLException {
+		AppResponseVO response = new AppResponseVO();
+		String responseMessage;
+		try {
+			responseMessage = eventManagerDao.createNewUserId(email, token);
+		} catch (SQLException e) {
+			throw e;
+		}
+		response.setResponseMessage(responseMessage);
+		return response;
+	}
+
+	@Transactional(rollbackFor = SQLException.class)
+	public AppResponseVO registerDevice(UserAccountVO userAccountVO) throws SQLException {
 		AppResponseVO response = new AppResponseVO();
 		String responseMessage = null;
 		UserAccount uac = new UserAccount();
@@ -60,10 +61,23 @@ public class EventManager {
 		} catch (Exception e) {
 			throw new SQLException();
 		}
-		
+
 		response.setResponseMessage(responseMessage);
 		return response;
 	}
-	
-	
+
+	public ChallengeAppVO fetchAllChallenges(int challengeFrom) {
+
+		return null;
+	}
+
+	public ChallengeAppVO fetchMyChallenges(long userID, int challengeFrom) {
+
+		return null;
+	}
+
+	public ChallengeAppVO fetchActiveChallenges(int challengeFrom) {
+
+		return null;
+	}
 }

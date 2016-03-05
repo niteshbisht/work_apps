@@ -2,6 +2,7 @@ package com.app.challenge.domain;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.List;
 
 public class Player implements Serializable	{
 
@@ -16,6 +17,21 @@ public class Player implements Serializable	{
 	private int fcbkLikeCounts;
 	private Blob playerImage;
 	private String playerType;
+	private List<String> playerInfo;
+
+	/**
+	 * @return the playerInfo
+	 */
+	public List<String> getPlayerInfo() {
+		return playerInfo;
+	}
+
+	/**
+	 * @param playerInfo the playerInfo to set
+	 */
+	public void setPlayerInfo(List<String> playerInfo) {
+		this.playerInfo = playerInfo;
+	}
 
 	public int getPlayerId() {
 		return playerId;
