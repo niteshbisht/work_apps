@@ -1,8 +1,13 @@
 package com.app.challenge.event.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ChallengeAppVO {
+public class ChallengeAppVO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3470535156522698068L;
 	private int challengeId;
 	private int creatorId;
 	private int acceptorId;
