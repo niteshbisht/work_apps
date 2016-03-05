@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin:'war'
 apply plugin: 'eclipse'
 apply plugin: 'eclipse-wtp'
 
@@ -31,7 +32,7 @@ project.ext {
             'spring-core',
             'spring-aop',
             'spring-web',
-            'spring-jdbc'
+            'spring-jdbc',
     ]
 }
 
