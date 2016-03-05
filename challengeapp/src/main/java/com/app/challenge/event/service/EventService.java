@@ -1,5 +1,7 @@
 package com.app.challenge.event.service;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,21 +34,21 @@ public interface EventService {
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/fetchAllChallenges")
-	public ChallengeAppResponseVO<ChallengeAppVO> fetchAllChallengesData(
+	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchAllChallengesData(
 			@QueryParam("challengeFrom") int challengeFrom);
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("/fetchMyChallenges")
-	public ChallengeAppResponseVO<ChallengeAppVO> fetchMyChallengesData(@QueryParam("userID") long userID,
+	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchMyChallengesData(@QueryParam("userID") long userID,
 			@QueryParam("challengeFrom") int challengeFrom);
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Path("/fetchACtiveChallenges")
-	public ChallengeAppResponseVO<ChallengeAppVO> fetchActiveChallengesData(
+	@Path("/fetchActiveChallenges")
+	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchActiveChallengesData(
 			@QueryParam("challengeFrom") int challengeFrom);
 
 }

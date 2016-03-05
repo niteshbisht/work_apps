@@ -1,6 +1,7 @@
 package com.app.challenge.event.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,35 +52,36 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public ChallengeAppResponseVO<ChallengeAppVO> fetchAllChallengesData(int challengeFrom) {
-		ChallengeAppResponseVO<ChallengeAppVO> response = null;
+	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchAllChallengesData(int challengeFrom) {
+		ChallengeAppResponseVO<List<ChallengeAppVO>> response = null;
 		try {
-			response = new ChallengeAppResponseVO<ChallengeAppVO>(eventManager.fetchAllChallenges(challengeFrom));
+			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(eventManager.fetchAllChallenges(challengeFrom));
 		} catch (Exception e) {
-			response = new ChallengeAppResponseVO<ChallengeAppVO>(true, e.getMessage());
+			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(true, e.getMessage());
 		}
 		return response;
 	}
 
 	@Override
-	public ChallengeAppResponseVO<ChallengeAppVO> fetchMyChallengesData(long userID, int challengeFrom) {
-		ChallengeAppResponseVO<ChallengeAppVO> response = null;
+	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchMyChallengesData(long userID, int challengeFrom) {
+		ChallengeAppResponseVO<List<ChallengeAppVO>> response = null;
 		try {
-			response = new ChallengeAppResponseVO<ChallengeAppVO>(
+			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(
 					eventManager.fetchMyChallenges(userID, challengeFrom));
 		} catch (Exception e) {
-			response = new ChallengeAppResponseVO<ChallengeAppVO>(true, e.getMessage());
+			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(true, e.getMessage());
 		}
 		return response;
 	}
 
 	@Override
-	public ChallengeAppResponseVO<ChallengeAppVO> fetchActiveChallengesData(int challengeFrom) {
-		ChallengeAppResponseVO<ChallengeAppVO> response = null;
+	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchActiveChallengesData(int challengeFrom) {
+		ChallengeAppResponseVO<List<ChallengeAppVO>> response = null;
 		try {
-			response = new ChallengeAppResponseVO<ChallengeAppVO>(eventManager.fetchActiveChallenges(challengeFrom));
+			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(
+					eventManager.fetchActiveChallenges(challengeFrom));
 		} catch (Exception e) {
-			response = new ChallengeAppResponseVO<ChallengeAppVO>(true, e.getMessage());
+			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(true, e.getMessage());
 		}
 		return response;
 	}
