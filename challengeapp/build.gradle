@@ -81,7 +81,8 @@ dependencies {
 	[ group: 'ch.qos.logback', name: 'logback-core', version: '1.0.1' ],
 	[ group: 'commons-logging', name: 'commons-logging', version: '1.2' ],
     [ group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2' ],
-    [ group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0' ]
+    [ group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0' ],
+    [ group: 'com.restfb', name: 'restfb', version:'1.19.0']
 	)
 	
 	compile "org.codehaus.jackson:jackson-jaxrs:1.9.13"
