@@ -14,9 +14,9 @@
 	<bean id="datasource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/challengeapp" />
+		<property name="url" value="jdbc:mysql://localhost:3306/rivals" />
 		<property name="username" value="root" />
-		<property name="password" value="welcome" />
+		<property name="password" value="root" />
 	</bean>
 	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 		<constructor-arg ref="datasource" />		

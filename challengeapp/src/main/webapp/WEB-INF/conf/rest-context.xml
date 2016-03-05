@@ -39,7 +39,7 @@
     <!--  -->
     <jaxrs:server id="restContainer" address="/">
         <jaxrs:serviceBeans>
-            <ref bean="webservImpl"/>
+            <ref bean="rivalService"/>
         </jaxrs:serviceBeans>
          <jaxrs:extensionMappings>
             <entry key="json" value="application/json" /> <!-- use .json to get data in JSON format -->
