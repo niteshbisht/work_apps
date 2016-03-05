@@ -24,7 +24,7 @@ public interface EventService {
 	@POST
 	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-	@Path("/registerNewUser")
+	@Path("/registerNewDevice")
 	ChallengeAppResponseVO<AppResponseVO> registerNewDevice(
 			UserAccountVO userAccountVO);
 }
