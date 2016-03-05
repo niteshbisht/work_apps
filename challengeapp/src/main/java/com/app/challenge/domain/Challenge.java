@@ -16,7 +16,10 @@ public class Challenge implements Serializable {
 	private String acceptorId;
 	private Date startDate;
 	private Date endDate;
-
+	private int defaultKill;
+	private String creatorDeviceId;
+	private String creatorDeviceType;
+	
 	public int getChallengeId() {
 		return challengeId;
 	}
@@ -73,6 +76,36 @@ public class Challenge implements Serializable {
 
 	public void setAcceptorId(String acceptorId) {
 		this.acceptorId = acceptorId;
+	}
+
+
+	public int getDefaultKill() {
+		return defaultKill;
+	}
+
+
+	public void setDefaultKill(int defaultKill) {
+		this.defaultKill = defaultKill;
+	}
+
+
+	public String getCreatorDeviceId() {
+		return creatorDeviceId;
+	}
+
+
+	public String getCreatorDeviceType() {
+		return creatorDeviceType;
+	}
+
+
+	public void setCreatorDeviceId(String creatorDeviceId) {
+		this.creatorDeviceId = creatorDeviceId;
+	}
+
+
+	public void setCreatorDeviceType(String creatorDeviceType) {
+		this.creatorDeviceType = creatorDeviceType;
 	}
 
 }
