@@ -30,9 +30,10 @@ CREATE TABLE `challenges` (
   `acceptoruid` int(11) DEFAULT NULL,
   `fbchallengeid` varchar(1000) DEFAULT NULL,
   `starttime` timestamp NULL DEFAULT NULL,
-  `duration` int(11) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `createddate` timestamp NULL DEFAULT NULL,
+  `challengetype` varchar(45) NOT NULL,
+  `endtime` varchar(45) NOT NULL,
   PRIMARY KEY (`challengeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -60,6 +61,7 @@ CREATE TABLE `player_challenge_mapping` (
   `winstatus` varchar(45) DEFAULT NULL,
   `fblikes` int(11) DEFAULT NULL,
   `player_image` blob,
+  `playertype` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`playerID`),
   KEY `uid_idx` (`uid`),
   CONSTRAINT `userid` FOREIGN KEY (`uid`) REFERENCES `user_tokens` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -87,8 +89,7 @@ CREATE TABLE `scheduler` (
   `challengeid` int(11) DEFAULT NULL,
   `creatoruid` int(11) DEFAULT NULL,
   `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `defaultexpiryindays` int(11) NOT NULL DEFAULT '2',
-  `expiryindays` int(11) NOT NULL,
+  `expiryindays` varchar(30) NOT NULL,
   PRIMARY KEY (`scheduleid`),
   KEY `challenge_id_idx` (`challengeid`),
   CONSTRAINT `challenge_id` FOREIGN KEY (`challengeid`) REFERENCES `challenges` (`challengeid`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -121,6 +122,7 @@ CREATE TABLE `user_account` (
   `totalwins` int(11) DEFAULT NULL,
   `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `lastupdateddate` timestamp NULL DEFAULT NULL,
+  `userimage` blob,
   PRIMARY KEY (`id`),
   CONSTRAINT `uid` FOREIGN KEY (`id`) REFERENCES `user_tokens` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -169,4 +171,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-05 15:05:17
+-- Dump completed on 2016-03-05 16:40:32
