@@ -33,7 +33,7 @@ CREATE TABLE `challenges` (
   `status` varchar(45) DEFAULT NULL,
   `createddate` timestamp NULL DEFAULT NULL,
   `challengetype` varchar(45) NOT NULL,
-  `endtime` varchar(45) NOT NULL,
+  `endtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`challengeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -122,9 +122,7 @@ CREATE TABLE `user_account` (
   `totalwins` int(11) DEFAULT NULL,
   `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `lastupdateddate` timestamp NULL DEFAULT NULL,
-  `userimage` blob,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `uid` FOREIGN KEY (`id`) REFERENCES `user_tokens` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `userimage` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -149,6 +147,7 @@ CREATE TABLE `user_tokens` (
   `fbtoken` varchar(1500) NOT NULL,
   `lastupdteddate` timestamp NULL DEFAULT NULL,
   `createddate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `useremail` varchar(500) NOT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -161,6 +160,14 @@ LOCK TABLES `user_tokens` WRITE;
 /*!40000 ALTER TABLE `user_tokens` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'rivals'
+--
+
+--
+-- Dumping routines for database 'rivals'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -171,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-05 16:40:32
+-- Dump completed on 2016-03-05 22:14:20
