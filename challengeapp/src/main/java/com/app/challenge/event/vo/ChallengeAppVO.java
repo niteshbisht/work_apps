@@ -1,15 +1,8 @@
-package com.app.challenge.domain;
+package com.app.challenge.event.vo;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Challenge implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2681868076818374734L;
-
+public class ChallengeAppVO {
 	private int challengeId;
 	private int creatorId;
 	private int acceptorId;
@@ -18,7 +11,7 @@ public class Challenge implements Serializable {
 	private Date endDate;
 	private String status;
 	private String challengeType;
-	
+
 	public int getChallengeId() {
 		return challengeId;
 	}
@@ -82,5 +75,4 @@ public class Challenge implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 }
