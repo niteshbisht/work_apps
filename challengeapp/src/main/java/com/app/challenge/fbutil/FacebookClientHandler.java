@@ -1,5 +1,9 @@
 package com.app.challenge.fbutil;
 
+import java.util.HashMap;
+import java.util.List;
+
+import com.app.challenge.domain.FBPostData;
 import com.restfb.Connection;
 import com.restfb.types.Post;
 import com.restfb.types.User;
@@ -18,5 +22,5 @@ public interface FacebookClientHandler {
 
 	public boolean deletePublishedObject(String token, String postID);
 
-	public Post getPostDataForLikeAndComment(String token, String postID);
+	public FBPostData getPostDataForLikeAndComment(String token, String postID);
 }
