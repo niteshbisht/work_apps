@@ -13,6 +13,8 @@ public class UserToken implements Serializable {
 	private String fcbkToken;
 	private Date createdDate;
 	private Date updatedDate;
+	private String emailId;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -36,6 +38,12 @@ public class UserToken implements Serializable {
 	}
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+	public String getEmailId() {
+		return emailId;
+	}
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 	
