@@ -82,10 +82,11 @@ public class EventManagerDao {
 	@Transactional(rollbackFor=SQLException.class)
 	public String registerDevice(UserAccount userAccount) throws SQLException {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		
 		/*paramMap.put(ChallengeConstants.DB_EMAIL, userEmail);
 		paramMap.put(ChallengeConstants.DB_TOKEN, token);
 		paramMap.put(ChallengeConstants.DB_DATE, new Date());*/
-		
+		paramMap.put(ChallengeConstants.DB_USERNAME, userAccount.getUserName());
 		
 		String sql = "update rival.user_tokens set fbtoken=:TOKEN,lastupdteddate=:DATE where useremail=:EMAIL";
 		try {

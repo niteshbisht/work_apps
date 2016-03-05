@@ -49,8 +49,4 @@ public class EventServiceImpl implements EventService {
 		}
 		return null;
 	}
-
-	
-	
-
 }
