@@ -13,4 +13,6 @@ public class ChallengeConstants {
 	public static final String FB_POST_SEPARATOR = "/";
 	public static final String FB_FRIENDS = "friends";
 	public static final String FB_IMAGE_TYPE = "png";
+	public static final String FB_FIELDS = null;
+	public static final String FB_MSG = null;
 }

@@ -86,8 +86,8 @@ public class EventManager {
 	}
 
 	public List<ChallengeAppVO> fetchActiveChallenges(int challengeFrom) {
-		List<ChallengeAppVO> responseList = new ArrayList<>();
-		List<String> playerInfo = new ArrayList<>();
+		List<ChallengeAppVO> responseList = new ArrayList<ChallengeAppVO>();
+		List<String> playerInfo = new ArrayList<String>();
 		ChallengeAppVO responseVO = new ChallengeAppVO();
 
 		responseVO.setAcceptorId(123);

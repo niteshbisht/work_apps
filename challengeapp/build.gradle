@@ -89,7 +89,7 @@ dependencies {
 	compile 'mysql:mysql-connector-java:5.1.6'
 	compile 'org.springframework.security:spring-security-core:4.0.1.RELEASE'
 	compile 'org.springframework.security:spring-security-web:4.0.3.RELEASE'
-	
+	compile 'com.google.code.gson:gson:2.6.2'
 	
 	springArtifacts.each { artifact ->
         compile "org.springframework:$artifact:$springVersion"
