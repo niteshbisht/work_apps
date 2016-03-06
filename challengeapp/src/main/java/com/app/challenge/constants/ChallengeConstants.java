@@ -15,4 +15,9 @@ public class ChallengeConstants {
 	public static final String FB_IMAGE_TYPE = "png";
 	public static final String FB_FIELDS = null;
 	public static final String FB_MSG = null;
+	public static final String DB_DEVICE_ID = "DEVICEID";
+	public static final String DB_DEVICE_TYPE = "DEVICETYPE";
+	public static final String DB_PLAYER_IMAGE = "PLAYERIMAGE";
+	public static final String DB_CREATED_DATE = "CREATED_DATE";
+	public static final String DB_UID = "UID";
 }

@@ -14,6 +14,7 @@ public class UserAccount {
 	private Date createdDate;
 	private Date lastUpdatedDate;
 	private Blob playerImage;
+	private UserToken userToken;
 
 	public int getId() {
 		return id;
@@ -93,6 +94,14 @@ public class UserAccount {
 
 	public void setPlayerImage(Blob playerImage) {
 		this.playerImage = playerImage;
+	}
+
+	public UserToken getUserToken() {
+		return userToken;
+	}
+
+	public void setUserToken(UserToken userToken) {
+		this.userToken = userToken;
 	}
 
 }

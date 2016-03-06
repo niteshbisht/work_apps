@@ -18,6 +18,9 @@ public class Challenge implements Serializable {
 	private Date endDate;
 	private String status;
 	private String challengeType;
+	private String topic;
+	private Player player1;
+	private Player player2;
 	
 	public int getChallengeId() {
 		return challengeId;
@@ -81,6 +84,30 @@ public class Challenge implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public Player getPlayer1() {
+		return player1;
+	}
+
+	public Player getPlayer2() {
+		return player2;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public void setPlayer1(Player player1) {
+		this.player1 = player1;
+	}
+
+	public void setPlayer2(Player player2) {
+		this.player2 = player2;
 	}
 
 }

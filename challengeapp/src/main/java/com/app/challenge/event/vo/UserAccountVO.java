@@ -3,6 +3,8 @@ package com.app.challenge.event.vo;
 import java.sql.Blob;
 import java.util.Date;
 
+import com.app.challenge.domain.UserToken;
+
 public class UserAccountVO {
 	private int id;
 	private String userName;
@@ -14,6 +16,7 @@ public class UserAccountVO {
 	private Date createdDate;
 	private Date lastUpdatedDate;
 	private Blob playerImage;
+	private UserToken userToken;
 
 	public int getId() {
 		return id;
@@ -93,6 +96,14 @@ public class UserAccountVO {
 
 	public void setPlayerImage(Blob playerImage) {
 		this.playerImage = playerImage;
+	}
+
+	public UserToken getUserToken() {
+		return userToken;
+	}
+
+	public void setUserToken(UserToken userToken) {
+		this.userToken = userToken;
 	}
 
 }
