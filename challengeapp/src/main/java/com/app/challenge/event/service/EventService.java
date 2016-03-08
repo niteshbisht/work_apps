@@ -12,7 +12,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeAppResponseVO;
-import com.app.challenge.event.vo.ChallengeAppVO;
+import com.app.challenge.event.vo.AllChallengeResponseVO;
+import com.app.challenge.event.vo.ChallengeVO;
 import com.app.challenge.event.vo.UserAccountVO;
 
 @Path("/rivalService")
@@ -30,24 +31,38 @@ public interface EventService {
 	@Path("/registerNewDevice")
 	ChallengeAppResponseVO<AppResponseVO> registerNewDevice(UserAccountVO userAccountVO);
 
-	@GET
+	
+	@POST
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("/createNewChallenge")
+	ChallengeAppResponseVO<AllChallengeResponseVO> createNewChallenge(ChallengeVO challengeVO);
+	
+	
+	@POST
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Path("/acceptChallenge")
+	ChallengeAppResponseVO<AppResponseVO> acceptChallenge(ChallengeVO challengeVO);
+	
+	
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/fetchAllChallenges")
-	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchAllChallengesData(
+	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchAllChallengesData(
 			@QueryParam("challengeFrom") int challengeFrom);
 
 	@GET
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/fetchMyChallenges")
-	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchMyChallengesData(@QueryParam("userID") long userID,
+	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchMyChallengesData(@QueryParam("userID") long userID,
 			@QueryParam("challengeFrom") int challengeFrom);
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/fetchActiveChallenges")
-	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchActiveChallengesData(
+	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchActiveChallengesData(
 			@QueryParam("challengeFrom") int challengeFrom);
 
 }

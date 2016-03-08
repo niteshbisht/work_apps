@@ -20,4 +20,18 @@ public class ChallengeConstants {
 	public static final String DB_PLAYER_IMAGE = "PLAYERIMAGE";
 	public static final String DB_CREATED_DATE = "CREATED_DATE";
 	public static final String DB_UID = "UID";
+	public static final String DB_CREATOR_UID = "CREATORUID";
+	public static final String DB_ACCEPTOR_UID = "ACCEPTORUID";
+	public static final String DB_FB_CHALLENGE_ID = "FBCHALLENGEID";
+	public static final String DB_START_TIME = "STARTTIME";
+	public static final String DB_STATUS = "STATUS";
+	public static final String DB_CHALLENGE_TYPE = "CHALLENGETYPE";
+	public static final String DB_END_TIME = "ENDTIME";
+	public static final String DB_CHALLENGE_ID = "CHALLENGEID";
+	public static final String DB_WIN_STATUS = "WINSTATUS";
+	public static final String DB_FB_LIKES = "FBLIKES";
+	public static final String DB_PLAYERS_IMAGE = "PLAYE_IMAGE";
+	public static final String DB_PLAYER_TYPE = "PLAYERTYPE";
+	public static final String DB_PLAYER_NAME= "PLAYER_NAME";
+	
 }

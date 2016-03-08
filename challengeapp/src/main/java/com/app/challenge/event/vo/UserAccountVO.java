@@ -106,4 +106,6 @@ public class UserAccountVO {
 		this.userToken = userToken;
 	}
 
+		
+	
 }
