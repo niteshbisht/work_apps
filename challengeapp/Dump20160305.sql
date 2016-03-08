@@ -54,6 +54,8 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `player_challenge_mapping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+
+
 CREATE TABLE `player_challenge_mapping` (
   `playerID` int(11) NOT NULL AUTO_INCREMENT,
   `challengeID` int(11) NOT NULL,
@@ -62,10 +64,22 @@ CREATE TABLE `player_challenge_mapping` (
   `fblikes` int(11) DEFAULT NULL,
   `player_image` blob,
   `playertype` varchar(45) DEFAULT NULL,
+  `player_name` varchar(200) DEFAULT NULL,
+  `playerinfo1` varchar(200) DEFAULT NULL,
+  `playerinfo2` varchar(200) DEFAULT NULL,
+  `playerinfo3` varchar(200) DEFAULT NULL,
+  `playerinfo4` varchar(200) DEFAULT NULL,
+  `playerinfo5` varchar(200) DEFAULT NULL,
+  `playerinfo6` varchar(200) DEFAULT NULL,
+  `playerinfo7` varchar(200) DEFAULT NULL,
+  `playerinfo8` varchar(200) DEFAULT NULL,
+  `playerinfo9` varchar(200) DEFAULT NULL,
+  `playerinfo10` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`playerID`),
   KEY `uid_idx` (`uid`),
   CONSTRAINT `userid` FOREIGN KEY (`uid`) REFERENCES `user_tokens` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

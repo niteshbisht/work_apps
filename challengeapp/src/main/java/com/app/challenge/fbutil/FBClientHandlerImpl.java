@@ -151,7 +151,7 @@ public class FBClientHandlerImpl implements FacebookClientHandler {
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
-	public String publishPhotoToWall(String token, String text, boolean isLink) {
+	public String publishPhotoToWall(String token, String text,byte[] image, boolean isLink) {
 		try {
 			facebookClient = new DefaultFacebookClient(token, Version.VERSION_2_5);
 			// BinaryAttachment.with("test.png", imageAsBytes, "image/png"),

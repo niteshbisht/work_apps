@@ -10,7 +10,8 @@ import com.app.challenge.event.dao.EventManagerDao;
 import com.app.challenge.event.manager.EventManager;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeAppResponseVO;
-import com.app.challenge.event.vo.ChallengeAppVO;
+import com.app.challenge.event.vo.AllChallengeResponseVO;
+import com.app.challenge.event.vo.ChallengeVO;
 import com.app.challenge.event.vo.UserAccountVO;
 
 @Service("rivalService")
@@ -52,37 +53,57 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchAllChallengesData(int challengeFrom) {
-		ChallengeAppResponseVO<List<ChallengeAppVO>> response = null;
+	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchAllChallengesData(int challengeFrom) {
+		ChallengeAppResponseVO<List<AllChallengeResponseVO>> response = null;
 		try {
-			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(eventManager.fetchAllChallenges(challengeFrom));
+			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(eventManager.fetchAllChallenges(challengeFrom));
 		} catch (Exception e) {
-			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(true, e.getMessage());
+			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(true, e.getMessage());
 		}
 		return response;
 	}
 
 	@Override
-	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchMyChallengesData(long userID, int challengeFrom) {
-		ChallengeAppResponseVO<List<ChallengeAppVO>> response = null;
+	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchMyChallengesData(long userID, int challengeFrom) {
+		ChallengeAppResponseVO<List<AllChallengeResponseVO>> response = null;
 		try {
-			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(
+			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(
 					eventManager.fetchMyChallenges(userID, challengeFrom));
 		} catch (Exception e) {
-			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(true, e.getMessage());
+			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(true, e.getMessage());
 		}
 		return response;
 	}
 
 	@Override
-	public ChallengeAppResponseVO<List<ChallengeAppVO>> fetchActiveChallengesData(int challengeFrom) {
-		ChallengeAppResponseVO<List<ChallengeAppVO>> response = null;
+	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchActiveChallengesData(int challengeFrom) {
+		ChallengeAppResponseVO<List<AllChallengeResponseVO>> response = null;
 		try {
-			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(
+			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(
 					eventManager.fetchActiveChallenges(challengeFrom));
 		} catch (Exception e) {
-			response = new ChallengeAppResponseVO<List<ChallengeAppVO>>(true, e.getMessage());
+			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(true, e.getMessage());
 		}
 		return response;
+	}
+
+	@Override
+	public ChallengeAppResponseVO<AllChallengeResponseVO> createNewChallenge(ChallengeVO challengeVO) {
+		
+		ChallengeAppResponseVO<AllChallengeResponseVO> response = null;
+		try {
+			response = new ChallengeAppResponseVO<AllChallengeResponseVO>(
+					eventManager.createNewChallenge(challengeVO,false));
+		} catch (Exception e) {
+			response = new ChallengeAppResponseVO<AllChallengeResponseVO>(true, e.getMessage());
+		}
+		return response;
+		
+	}
+
+	@Override
+	public ChallengeAppResponseVO<AppResponseVO> acceptChallenge(ChallengeVO challengeVO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

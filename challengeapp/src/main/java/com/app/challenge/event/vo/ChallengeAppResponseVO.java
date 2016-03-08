@@ -1,5 +1,10 @@
 package com.app.challenge.event.vo;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.map.annotate.JacksonStdImpl;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@JacksonStdImpl
 public class ChallengeAppResponseVO<T> {
 	
 	private T object;

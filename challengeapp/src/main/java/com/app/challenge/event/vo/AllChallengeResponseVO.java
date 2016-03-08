@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.app.challenge.domain.Player;
 
-public class ChallengeAppVO implements Serializable {
+public class AllChallengeResponseVO implements Serializable {
 	/**
 	 * 
 	 */

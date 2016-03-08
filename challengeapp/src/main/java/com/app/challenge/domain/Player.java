@@ -1,7 +1,6 @@
 package com.app.challenge.domain;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.List;
 
 public class Player implements Serializable	{
@@ -14,10 +13,27 @@ public class Player implements Serializable	{
 	private int challengeId;
 	private int userId;
 	private String winStatus;
-	private int fcbkLikeCounts;
-	private Blob playerImage;
+	private int fbLikeCounts;
+	private byte[] playerImage;
 	private String playerType;
 	private List<String> playerInfo;
+	
+	private List<String> fbComments;
+	
+
+	/**
+	 * @return the fbComments
+	 */
+	public List<String> getFbComments() {
+		return fbComments;
+	}
+
+	/**
+	 * @param fbComments the fbComments to set
+	 */
+	public void setFbComments(List<String> fbComments) {
+		this.fbComments = fbComments;
+	}
 
 	/**
 	 * @return the playerInfo
@@ -49,11 +65,11 @@ public class Player implements Serializable	{
 		return winStatus;
 	}
 
-	public int getFcbkLikeCounts() {
-		return fcbkLikeCounts;
+	public int getFbLikeCounts() {
+		return fbLikeCounts;
 	}
 
-	public Blob getPlayerImage() {
+	public byte[] getPlayerImage() {
 		return playerImage;
 	}
 
@@ -77,11 +93,11 @@ public class Player implements Serializable	{
 		this.winStatus = winStatus;
 	}
 
-	public void setFcbkLikeCounts(int fcbkLikeCounts) {
-		this.fcbkLikeCounts = fcbkLikeCounts;
+	public void setFbLikeCounts(int fbLikeCounts) {
+		this.fbLikeCounts = fbLikeCounts;
 	}
 
-	public void setPlayerImage(Blob playerImage) {
+	public void setPlayerImage(byte[] playerImage) {
 		this.playerImage = playerImage;
 	}
 
