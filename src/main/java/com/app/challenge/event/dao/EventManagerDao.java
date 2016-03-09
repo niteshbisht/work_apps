@@ -99,11 +99,13 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_DATE, new Date());
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		String sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE)";
+		String uid;
 		try {
 			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
 			namedParameterJdbcTemplate.update(sql, paramSource, keyHolder);
 			Map<String, Object> keys = keyHolder.getKeys();
 			Long id = (Long) keys.get("GENERATED_KEY");
+			uid = id.toString();
 			paramMap.put(ChallengeConstants.DB_UID, id);
 			sql = "insert into rivals.user_tokens(uid,fbtoken,createddate,useremail) values(:UID,:TOKEN,:DATE,:EMAIL)";
 			namedParameterJdbcTemplate.update(sql, paramMap);
@@ -114,7 +116,7 @@ public class EventManagerDao {
 			e.printStackTrace();
 			throw new SQLException();
 		}
-		return "Success";
+		return uid;
 	}
 
 	@Transactional(rollbackFor = SQLException.class)

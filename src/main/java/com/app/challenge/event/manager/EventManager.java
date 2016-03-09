@@ -63,16 +63,17 @@ public class EventManager {
 	@Transactional(rollbackFor = SQLException.class)
 	public AppResponseVO registerDevice(UserAccountVO userAccountVO) throws SQLException {
 		AppResponseVO response = new AppResponseVO();
-		String responseMessage = null;
 		UserAccount uac = new UserAccount();
 		BeanUtils.copyProperties(userAccountVO, uac);
+		String uid;
 		try {
-			eventManagerDao.registerDevice(uac);
+			uid = eventManagerDao.registerDevice(uac);
 		} catch (Exception e) {
 			throw new SQLException();
 		}
 
-		response.setResponseMessage(responseMessage);
+		response.setResponseMessage("success");
+		response.setUserID(Long.parseLong(uid));
 		return response;
 	}
 
