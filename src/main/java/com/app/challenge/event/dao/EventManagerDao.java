@@ -1,5 +1,6 @@
 package com.app.challenge.event.dao;
 
+import java.io.ByteArrayInputStream;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
@@ -85,28 +86,32 @@ public class EventManagerDao {
 
 	@Transactional(rollbackFor = SQLException.class)
 	public String registerDevice(UserAccount userAccount) throws SQLException {
+		byte[] bytes = userAccount.getUserImage().getBytes();
+		ByteArrayInputStream baos = new ByteArrayInputStream(bytes);
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(ChallengeConstants.DB_DEVICE_ID, userAccount.getDeviceId());
 		paramMap.put(ChallengeConstants.DB_DEVICE_TYPE, userAccount.getDeviceType());
-		paramMap.put(ChallengeConstants.DB_PLAYER_IMAGE, userAccount.getUserImage());
+		paramMap.put(ChallengeConstants.DB_PLAYER_IMAGE, baos);
 		paramMap.put(ChallengeConstants.DB_USERNAME, userAccount.getUserName());
 		paramMap.put(ChallengeConstants.DB_EMAIL, userAccount.getUserEmail());
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
 		paramMap.put(ChallengeConstants.DB_TOKEN, userAccount.getUserToken().getFcbkToken());
 		paramMap.put(ChallengeConstants.DB_DATE, new Date());
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "insert into rivals.useraccount(deviceid,devicetype,userimage,username,useremail,createddate) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE)";
+		String sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE)";
 		try {
 			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
 			namedParameterJdbcTemplate.update(sql, paramSource, keyHolder);
 			Map<String, Object> keys = keyHolder.getKeys();
-			Integer id = (Integer) keys.get("id");
+			Long id = (Long) keys.get("GENERATED_KEY");
 			paramMap.put(ChallengeConstants.DB_UID, id);
-			sql = "insert into rival.user_tokens(uid,fbtoken,createddate,useremail) values(:UID,:TOKEN,:DATE,:EMAIL)";
+			sql = "insert into rivals.user_tokens(uid,fbtoken,createddate,useremail) values(:UID,:TOKEN,:DATE,:EMAIL)";
 			namedParameterJdbcTemplate.update(sql, paramMap);
 		} catch (DataAccessException e) {
+			e.printStackTrace();
 			throw new SQLException();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new SQLException();
 		}
 		return "Success";

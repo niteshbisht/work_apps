@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `rivals` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `rivals`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rivals
@@ -54,8 +52,6 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `player_challenge_mapping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-
-
 CREATE TABLE `player_challenge_mapping` (
   `playerID` int(11) NOT NULL AUTO_INCREMENT,
   `challengeID` int(11) NOT NULL,
@@ -79,7 +75,6 @@ CREATE TABLE `player_challenge_mapping` (
   KEY `uid_idx` (`uid`),
   CONSTRAINT `userid` FOREIGN KEY (`uid`) REFERENCES `user_tokens` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +122,7 @@ DROP TABLE IF EXISTS `user_account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_account` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(500) NOT NULL,
   `useremail` varchar(1000) NOT NULL,
   `devicetype` varchar(45) NOT NULL,
@@ -136,8 +131,9 @@ CREATE TABLE `user_account` (
   `totalwins` int(11) DEFAULT NULL,
   `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `lastupdateddate` timestamp NULL DEFAULT NULL,
-  `userimage` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `userimage` blob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,6 +142,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
+INSERT INTO `user_account` VALUES (1,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:05:35',NULL,'abcobject'),(2,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:09:34',NULL,'abcobject'),(3,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:12:19',NULL,'abcobject');
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,4 +189,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-05 22:14:20
+-- Dump completed on 2016-03-10  1:45:34

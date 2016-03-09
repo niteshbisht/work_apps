@@ -15,7 +15,7 @@ public class UserAccountVO {
 	private int totalWins;
 	private Date createdDate;
 	private Date lastUpdatedDate;
-	private Blob playerImage;
+	private String userImage;
 	private UserToken userToken;
 
 	public int getId() {
@@ -54,10 +54,6 @@ public class UserAccountVO {
 		return lastUpdatedDate;
 	}
 
-	public Blob getPlayerImage() {
-		return playerImage;
-	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -94,16 +90,20 @@ public class UserAccountVO {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 
-	public void setPlayerImage(Blob playerImage) {
-		this.playerImage = playerImage;
-	}
-
 	public UserToken getUserToken() {
 		return userToken;
 	}
 
 	public void setUserToken(UserToken userToken) {
 		this.userToken = userToken;
+	}
+
+	public String getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
 	}
 
 		
