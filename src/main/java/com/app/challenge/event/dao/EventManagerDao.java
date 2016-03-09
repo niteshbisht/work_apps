@@ -88,7 +88,7 @@ public class EventManagerDao {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(ChallengeConstants.DB_DEVICE_ID, userAccount.getDeviceId());
 		paramMap.put(ChallengeConstants.DB_DEVICE_TYPE, userAccount.getDeviceType());
-		paramMap.put(ChallengeConstants.DB_PLAYER_IMAGE, userAccount.getPlayerImage());
+		paramMap.put(ChallengeConstants.DB_PLAYER_IMAGE, userAccount.getUserImage());
 		paramMap.put(ChallengeConstants.DB_USERNAME, userAccount.getUserName());
 		paramMap.put(ChallengeConstants.DB_EMAIL, userAccount.getUserEmail());
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());

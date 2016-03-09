@@ -1,16 +1,20 @@
 package org.gradle;
 
-import org.apache.commons.collections.list.GrowthList;
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import com.app.challenge.domain.UserAccount;
+import com.app.challenge.domain.UserToken;
 
 public class Person {
-    private final String name;
-
-    public Person(String name) {
-        this.name = name;
-        new GrowthList();
-    }
-
-    public String getName() {
-        return name;
-    }
+    public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
+    	UserAccount uac = new UserAccount();
+    	UserToken utc = new UserToken();
+    	uac.setUserToken(utc);
+    	ObjectMapper om = new ObjectMapper();
+    	System.out.println(om.writeValueAsString(uac));
+	}
 }

@@ -1,6 +1,5 @@
 package com.app.challenge.domain;
 
-import java.sql.Blob;
 import java.util.Date;
 
 public class UserAccount {
@@ -13,9 +12,9 @@ public class UserAccount {
 	private int totalWins;
 	private Date createdDate;
 	private Date lastUpdatedDate;
-	private Blob playerImage;
 	private UserToken userToken;
-
+	private String userImage;
+	
 	public int getId() {
 		return id;
 	}
@@ -50,10 +49,6 @@ public class UserAccount {
 
 	public Date getLastUpdatedDate() {
 		return lastUpdatedDate;
-	}
-
-	public Blob getPlayerImage() {
-		return playerImage;
 	}
 
 	public void setId(int id) {
@@ -92,16 +87,20 @@ public class UserAccount {
 		this.lastUpdatedDate = lastUpdatedDate;
 	}
 
-	public void setPlayerImage(Blob playerImage) {
-		this.playerImage = playerImage;
-	}
-
 	public UserToken getUserToken() {
 		return userToken;
 	}
 
 	public void setUserToken(UserToken userToken) {
 		this.userToken = userToken;
+	}
+
+	public String getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
 	}
 
 }
