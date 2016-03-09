@@ -61,6 +61,20 @@ public class EventManager {
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
+	public AppResponseVO updateUserToken(Long uid,String userEmail, String token) throws SQLException {
+		AppResponseVO response = new AppResponseVO();
+		try {
+			eventManagerDao.updateUserToken(uid, userEmail, token);
+		} catch (Exception e) {
+			throw new SQLException();
+		}
+
+		response.setResponseMessage("success");
+		return response;
+	}
+	
+	
+	@Transactional(rollbackFor = SQLException.class)
 	public AppResponseVO registerDevice(UserAccountVO userAccountVO) throws SQLException {
 		AppResponseVO response = new AppResponseVO();
 		UserAccount uac = new UserAccount();

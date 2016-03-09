@@ -106,4 +106,18 @@ public class EventServiceImpl implements EventService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(Long uid,String userEmail, String token) {
+		ChallengeAppResponseVO<AppResponseVO> response = null;
+		try{
+			response = new ChallengeAppResponseVO<AppResponseVO>(eventManager.updateUserToken(uid, userEmail, token));
+		}catch(SQLException sq){
+			response = new ChallengeAppResponseVO<AppResponseVO>(true, sq.getMessage());
+			return response;
+		}catch (Exception e) {
+			response = new ChallengeAppResponseVO<AppResponseVO>(true, e.getMessage());
+			return response;
+		}
+		return response;
+	}
 }

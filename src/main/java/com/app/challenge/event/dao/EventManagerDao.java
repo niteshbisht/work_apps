@@ -55,7 +55,7 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_TOKEN, token);
 		paramMap.put(ChallengeConstants.DB_DATE, new Date());
 
-		String sql = "insert into rival.user_tokens(fbtoken,createddate,useremail) values(:TOKEN,:DATE,:EMAIL)";
+		String sql = "insert into rivals.user_tokens(fbtoken,createddate,useremail) values(:TOKEN,:DATE,:EMAIL)";
 		try {
 			namedParameterJdbcTemplate.update(sql, paramMap);
 		} catch (DataAccessException e) {
@@ -67,18 +67,20 @@ public class EventManagerDao {
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
-	public String updateUserToken(String userEmail, String token) throws SQLException {
+	public String updateUserToken(Long uid,String userEmail, String token) throws SQLException {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(ChallengeConstants.DB_EMAIL, userEmail);
 		paramMap.put(ChallengeConstants.DB_TOKEN, token);
 		paramMap.put(ChallengeConstants.DB_DATE, new Date());
-
-		String sql = "update rival.user_tokens set fbtoken=:TOKEN,lastupdteddate=:DATE where useremail=:EMAIL";
+		paramMap.put("uid", uid);
+		String sql = "update rivals.user_tokens set fbtoken=:TOKEN,lastupdteddate=:DATE,useremail=:EMAIL where uid=:uid";
 		try {
 			namedParameterJdbcTemplate.update(sql, paramMap);
 		} catch (DataAccessException e) {
+			e.printStackTrace();
 			throw new SQLException();
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new SQLException();
 		}
 		return "Success";
