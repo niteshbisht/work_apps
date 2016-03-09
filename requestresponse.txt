@@ -1,0 +1,20 @@
+localhost:8081/work_apps/service/rivalService/registerNewDevice
+{
+	"id": 0,
+	"userName": "fuser",
+	"userEmail": "fuser@gmail.com",
+	"deviceId": "1012312",
+	"deviceType": "android",
+	"totalChallenges": 0,
+	"totalWins": 0,
+	"createdDate": null,
+	"lastUpdatedDate": null,
+	"userToken": {
+		"userId": 0,
+		"fcbkToken": "alpha101",
+		"createdDate": null,
+		"updatedDate": null,
+		"emailId": "fuser@gmail.com"
+	},
+	"userImage": "abcobject"
+}
