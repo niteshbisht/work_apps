@@ -65,4 +65,10 @@ public interface EventService {
 	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchActiveChallengesData(
 			@QueryParam("challengeFrom") int challengeFrom);
 
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/updateUserToken")
+	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(long uid,
+			String userEmail, String token);
+
 }

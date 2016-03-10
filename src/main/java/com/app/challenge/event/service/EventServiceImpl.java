@@ -107,8 +107,8 @@ public class EventServiceImpl implements EventService {
 		return null;
 	}
 	
-	
-	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(Long uid,String userEmail, String token) {
+	@Override
+	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(long uid,String userEmail, String token) {
 		ChallengeAppResponseVO<AppResponseVO> response = null;
 		try{
 			response = new ChallengeAppResponseVO<AppResponseVO>(eventManager.updateUserToken(uid, userEmail, token));
