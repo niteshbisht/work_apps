@@ -12,14 +12,14 @@ public class ChallengeRowMapper implements RowMapper<ChallengeDomain>
 	@Override
 	public ChallengeDomain mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ChallengeDomain challenge = new ChallengeDomain();
-		challenge.setChallengeId(rs.getLong(""));
-		challenge.setCreatorId(rs.getLong(""));
-		challenge.setAcceptorId(rs.getLong(""));
-		challenge.setTopic(rs.getString(""));
-		challenge.setStatus(rs.getString(""));
-		challenge.setFcbkChlngId(rs.getString(""));
-		challenge.setChallengeType(rs.getString(""));
-		challenge.setEndDate(rs.getTimestamp(""));
+		challenge.setChallengeId(rs.getLong("challengeid"));
+		challenge.setCreatorId(rs.getLong("creatoruid"));
+		challenge.setAcceptorId(rs.getLong("acceptoruid"));
+		challenge.setTopic(rs.getString("topic"));
+		challenge.setStatus(rs.getString("status"));
+		challenge.setFcbkChlngId(rs.getString("fbchallengeid"));
+		challenge.setChallengeType(rs.getString("challengetype"));
+		challenge.setEndDate(rs.getTimestamp("endtime"));
 		return challenge;
 	}
 	
