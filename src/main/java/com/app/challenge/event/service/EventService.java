@@ -68,7 +68,7 @@ public interface EventService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/updateUserToken")
-	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(long uid,
-			String userEmail, String token);
+	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(@QueryParam("uid") long uid,
+			@QueryParam("userEmail") String userEmail,@QueryParam("token") String token);
 
 }
