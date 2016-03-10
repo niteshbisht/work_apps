@@ -18,7 +18,7 @@ public interface FacebookClientHandler {
 
 	public String publishMessageTextToWall(String token, String text, boolean isLink);
 
-	public String publishPhotoToWall(String token, String text,byte[] image, boolean isLink);
+	public String publishPhotoToWall(String token, String text,String image, boolean isLink);
 
 	public boolean deletePublishedObject(String token, String postID);
 

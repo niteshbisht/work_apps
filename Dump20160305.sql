@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win32 (AMD64)
 --
 -- Host: localhost    Database: rivals
 -- ------------------------------------------------------
--- Server version	5.7.9-log
+-- Server version	5.7.11-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -32,6 +32,7 @@ CREATE TABLE `challenges` (
   `createddate` timestamp NULL DEFAULT NULL,
   `challengetype` varchar(45) NOT NULL,
   `endtime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `topic` varchar(500) NOT NULL,
   PRIMARY KEY (`challengeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -171,14 +172,6 @@ LOCK TABLES `user_tokens` WRITE;
 /*!40000 ALTER TABLE `user_tokens` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'rivals'
---
-
---
--- Dumping routines for database 'rivals'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -189,4 +182,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-10  1:45:34
+-- Dump completed on 2016-03-10  8:12:36

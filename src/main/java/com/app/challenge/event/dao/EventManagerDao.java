@@ -2,8 +2,10 @@ package com.app.challenge.event.dao;
 
 import java.io.ByteArrayInputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.challenge.constants.ChallengeConstants;
+import com.app.challenge.domain.Player;
 import com.app.challenge.domain.UserAccount;
 import com.app.challenge.domain.UserToken;
 import com.app.challenge.event.vo.ChallengeVO;
@@ -143,7 +146,7 @@ public class EventManagerDao {
 			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
 			namedParameterJdbcTemplate.update(sql, paramSource, keyHolder);
 			Map<String, Object> keys = keyHolder.getKeys();
-			Integer id = (Integer) keys.get("id");
+			Long id = (Long) keys.get("GENERATED_KEY");
 			paramMap.put(ChallengeConstants.DB_CHALLENGE_ID, id);
 			paramMap.put(ChallengeConstants.DB_UID, challengeVO.getUserID());
 			paramMap.put(ChallengeConstants.DB_WIN_STATUS, null);
@@ -222,4 +225,63 @@ public class EventManagerDao {
 		return 0;
 	}
 
+	public List<ChallengeDomain> fetchAllChallenges(long challengeID,String status) throws SQLException {
+		List<ChallengeDomain> rows = new ArrayList<>();;
+	String sql = null;
+	if(challengeID==0)
+		 sql = "select * from rivals.challenge where status='"+status+"' LIMIT 20 ORDER BY challengeid DESC";
+	else
+		sql = "select * from rivals.challenge where status='"+status+"' AND challengeid < "+challengeID+"LIMIT 20 ORDER BY challengeid DESC";
+		try {
+			 rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return rows;
+	}
+	
+
+	
+	public List<ChallengeDomain> fetchMyChallenges(long challengeID,long uid) throws SQLException {
+		List<ChallengeDomain> rows = new ArrayList<>();;
+	String sql = null;
+	if(challengeID==0)
+		 sql = "select * from rivals.challenge where creatoruid="+uid+" OR acceptoruid="+uid+" LIMIT 20 ORDER BY challengeid DESC";
+	else
+		sql = "select * from rivals.challenge where creatoruid="+uid+" OR acceptoruid="+uid+" AND challengeid < "+challengeID+"LIMIT 20 ORDER BY challengeid DESC";
+		try {
+			 rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return rows;
+	}
+	
+	
+	
+	public List<Player> fetchPlayersOfChallenges(Long challengeid) throws SQLException {
+		List<Player> rows = new ArrayList<>();
+		String sql = "select * from rivals.player_challenge_mapping where challengeID = "+challengeid;
+		try {
+			 rows = namedParameterJdbcTemplate.query(sql, new PlayeMapper());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		return rows;
+	}
+	
+	
+	
 }

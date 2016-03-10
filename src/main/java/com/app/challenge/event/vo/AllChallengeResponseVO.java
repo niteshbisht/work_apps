@@ -10,9 +10,9 @@ public class AllChallengeResponseVO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3470535156522698068L;
-	private int challengeId;
-	private int creatorId;
-	private int acceptorId;
+	private long challengeId;
+	private long creatorId;
+	private long acceptorId;
 	private String fcbkChlngId;
 	private Date startDate;
 	private Date endDate;
@@ -64,11 +64,11 @@ public class AllChallengeResponseVO implements Serializable {
 		this.topic = topic;
 	}
 
-	public int getChallengeId() {
+	public long getChallengeId() {
 		return challengeId;
 	}
 
-	public void setChallengeId(int challengeId) {
+	public void setChallengeId(long challengeId) {
 		this.challengeId = challengeId;
 	}
 
@@ -88,11 +88,11 @@ public class AllChallengeResponseVO implements Serializable {
 		this.endDate = endDate;
 	}
 
-	public int getCreatorId() {
+	public long getCreatorId() {
 		return creatorId;
 	}
 
-	public int getAcceptorId() {
+	public long getAcceptorId() {
 		return acceptorId;
 	}
 
@@ -100,11 +100,11 @@ public class AllChallengeResponseVO implements Serializable {
 		return fcbkChlngId;
 	}
 
-	public void setCreatorId(int creatorId) {
+	public void setCreatorId(long creatorId) {
 		this.creatorId = creatorId;
 	}
 
-	public void setAcceptorId(int acceptorId) {
+	public void setAcceptorId(long acceptorId) {
 		this.acceptorId = acceptorId;
 	}
 

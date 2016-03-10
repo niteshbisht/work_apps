@@ -6,6 +6,11 @@
    */
 package com.app.challenge.fbutil;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+
+import javax.imageio.ImageIO;
+
 import org.springframework.stereotype.Component;
 
 import com.app.challenge.constants.ChallengeConstants;
@@ -151,14 +156,21 @@ public class FBClientHandlerImpl implements FacebookClientHandler {
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
-	public String publishPhotoToWall(String token, String text,byte[] image, boolean isLink) {
+	public String publishPhotoToWall(String token, String text,String image, boolean isLink) {
 		try {
 			facebookClient = new DefaultFacebookClient(token, Version.VERSION_2_5);
 			// BinaryAttachment.with("test.png", imageAsBytes, "image/png"),
+			
+
+			byte[] decodedImageArray = Base64.decode(image,0);
+			/*ByteArrayInputStream bis = new ByteArrayInputStream(decodedImageArray);
+			BufferedImage images = ImageIO.read(bis);
+			bis.close();*/
 			publishResponse = facebookClient.publish(
 					ChallengeConstants.FB_USER + ChallengeConstants.FB_POST_SEPARATOR + ChallengeConstants.FB_PHOTO,
 					FacebookType.class,
-					BinaryAttachment.with("rivals.png", getClass().getResourceAsStream("/rivals.png")),
+					//BinaryAttachment.with("rivals.png", getClass().getResourceAsStream("/rivals.png")),
+					BinaryAttachment.with("test.png", decodedImageArray, "image/png"),
 					Parameter.with(ChallengeConstants.FB_MSG, "Rivalry Started"));
 
 			return publishResponse.getId();

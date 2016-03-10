@@ -9,17 +9,32 @@ public class Player implements Serializable	{
 	 * 
 	 */
 	private static final long serialVersionUID = -2657956566609338830L;
-	private int playerId;
-	private int challengeId;
-	private int userId;
+	private long playerId;
+	private long challengeId;
+	private long userId;
 	private String winStatus;
-	private int fbLikeCounts;
-	private byte[] playerImage;
+	private long fbLikeCounts;
+	private String playerImage;
+	
 	private String playerType;
+	private String playerName;
 	private List<String> playerInfo;
 	
 	private List<String> fbComments;
-	
+	/**
+	 * @return the playerName
+	 */
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	/**
+	 * @param playerName the playerName to set
+	 */
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
 
 	/**
 	 * @return the fbComments
@@ -49,15 +64,15 @@ public class Player implements Serializable	{
 		this.playerInfo = playerInfo;
 	}
 
-	public int getPlayerId() {
+	public long getPlayerId() {
 		return playerId;
 	}
 
-	public int getChallengeId() {
+	public long getChallengeId() {
 		return challengeId;
 	}
 
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
@@ -65,11 +80,11 @@ public class Player implements Serializable	{
 		return winStatus;
 	}
 
-	public int getFbLikeCounts() {
+	public long getFbLikeCounts() {
 		return fbLikeCounts;
 	}
 
-	public byte[] getPlayerImage() {
+	public String getPlayerImage() {
 		return playerImage;
 	}
 
@@ -77,15 +92,15 @@ public class Player implements Serializable	{
 		return playerType;
 	}
 
-	public void setPlayerId(int playerId) {
+	public void setPlayerId(long playerId) {
 		this.playerId = playerId;
 	}
 
-	public void setChallengeId(int challengeId) {
+	public void setChallengeId(long challengeId) {
 		this.challengeId = challengeId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
@@ -93,11 +108,11 @@ public class Player implements Serializable	{
 		this.winStatus = winStatus;
 	}
 
-	public void setFbLikeCounts(int fbLikeCounts) {
+	public void setFbLikeCounts(long fbLikeCounts) {
 		this.fbLikeCounts = fbLikeCounts;
 	}
 
-	public void setPlayerImage(byte[] playerImage) {
+	public void setPlayerImage(String playerImage) {
 		this.playerImage = playerImage;
 	}
 

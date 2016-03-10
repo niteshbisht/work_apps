@@ -11,7 +11,7 @@ public class ChallengeVO {
 
 	private long userID;
 	private boolean isNewChallenge;
-	private byte[] playerImage;
+	private String playerImage;
 	private String playerType;
 	private String playerName;
 	private String[] playerInfo;
@@ -109,13 +109,13 @@ public class ChallengeVO {
 	/**
 	 * @return the playerImage
 	 */
-	public byte[] getPlayerImage() {
+	public String getPlayerImage() {
 		return playerImage;
 	}
 	/**
 	 * @param playerImage the playerImage to set
 	 */
-	public void setPlayerImage(byte[] playerImage) {
+	public void setPlayerImage(String playerImage) {
 		this.playerImage = playerImage;
 	}
 	/**
