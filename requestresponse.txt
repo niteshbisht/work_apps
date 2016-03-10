@@ -17,4 +17,27 @@ localhost:8081/work_apps/service/rivalService/registerNewDevice
 		"emailId": "fuser@gmail.com"
 	},
 	"userImage": "abcobject"
+}  // POST
+
+
+GET
+localhost:8081/work_apps/service/rivalService/updateUserToken?uid=va1&userEmail=val2&token=val3
+
+
+POST
+localhost:8081/work_apps/service/rivalService/createNewChallenge
+
+{
+	"userID": 0,
+	"playerImage": "imagestring",
+	"playerType": "cricket",
+	"playerName": "playerName",
+	"playerInfo": ["data1","data2","data3"],
+	"topic": "topic",
+	"fbUserID": "fbid",
+	"duration": 10966565,
+	"challengeType": "OPEN/CLOSED",
+	"challengeId": 0,
+	"openChallenge": false,
+	"newChallenge": false
 }
