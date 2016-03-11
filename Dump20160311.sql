@@ -76,10 +76,10 @@ CREATE TABLE `player_challenge_mapping` (
 -- Table structure for table `qrtz_blob_triggers`
 --
 
-DROP TABLE IF EXISTS `qrtz_blob_triggers`;
+DROP TABLE IF EXISTS `QRTZ_BLOB_TRIGGERS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_blob_triggers` (
+CREATE TABLE `QRTZ_BLOB_TRIGGERS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `TRIGGER_NAME` varchar(200) NOT NULL,
   `TRIGGER_GROUP` varchar(200) NOT NULL,
@@ -93,10 +93,10 @@ CREATE TABLE `qrtz_blob_triggers` (
 -- Table structure for table `qrtz_calendars`
 --
 
-DROP TABLE IF EXISTS `qrtz_calendars`;
+DROP TABLE IF EXISTS `QRTZ_CALENDARS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_calendars` (
+CREATE TABLE `QRTZ_CALENDARS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `CALENDAR_NAME` varchar(200) NOT NULL,
   `CALENDAR` blob NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE `qrtz_calendars` (
 -- Table structure for table `qrtz_cron_triggers`
 --
 
-DROP TABLE IF EXISTS `qrtz_cron_triggers`;
+DROP TABLE IF EXISTS `QRTZ_CRON_TRIGGERS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `qrtz_cron_triggers` (
@@ -126,10 +126,10 @@ CREATE TABLE `qrtz_cron_triggers` (
 -- Table structure for table `qrtz_fired_triggers`
 --
 
-DROP TABLE IF EXISTS `qrtz_fired_triggers`;
+DROP TABLE IF EXISTS `QRTZ_FIRED_TRIGGERS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_fired_triggers` (
+CREATE TABLE `QRTZ_FIRED_TRIGGERS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `ENTRY_ID` varchar(95) NOT NULL,
   `TRIGGER_NAME` varchar(200) NOT NULL,
@@ -151,7 +151,7 @@ CREATE TABLE `qrtz_fired_triggers` (
 -- Table structure for table `qrtz_job_details`
 --
 
-DROP TABLE IF EXISTS `qrtz_job_details`;
+DROP TABLE IF EXISTS `QRTZ_JOB_DETAILS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `qrtz_job_details` (
@@ -173,7 +173,7 @@ CREATE TABLE `qrtz_job_details` (
 -- Table structure for table `qrtz_locks`
 --
 
-DROP TABLE IF EXISTS `qrtz_locks`;
+DROP TABLE IF EXISTS `QRTZ_LOCKS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `qrtz_locks` (
@@ -187,7 +187,7 @@ CREATE TABLE `qrtz_locks` (
 -- Table structure for table `qrtz_paused_trigger_grps`
 --
 
-DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
+DROP TABLE IF EXISTS `QRTZ_PAUSED_TRIGGER_GRPS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `qrtz_paused_trigger_grps` (
@@ -201,7 +201,7 @@ CREATE TABLE `qrtz_paused_trigger_grps` (
 -- Table structure for table `qrtz_scheduler_state`
 --
 
-DROP TABLE IF EXISTS `qrtz_scheduler_state`;
+DROP TABLE IF EXISTS `QRTZ_SCHEDULER_STATE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `qrtz_scheduler_state` (
@@ -217,10 +217,10 @@ CREATE TABLE `qrtz_scheduler_state` (
 -- Table structure for table `qrtz_simple_triggers`
 --
 
-DROP TABLE IF EXISTS `qrtz_simple_triggers`;
+DROP TABLE IF EXISTS `QRTZ_SIMPLE_TRIGGERS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_simple_triggers` (
+CREATE TABLE `QRTZ_SIMPLE_TRIGGERS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `TRIGGER_NAME` varchar(200) NOT NULL,
   `TRIGGER_GROUP` varchar(200) NOT NULL,
@@ -236,10 +236,10 @@ CREATE TABLE `qrtz_simple_triggers` (
 -- Table structure for table `qrtz_simprop_triggers`
 --
 
-DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
+DROP TABLE IF EXISTS `QRTZ_SIMPROP_TRIGGERS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_simprop_triggers` (
+CREATE TABLE `QRTZ_SIMPROP_TRIGGERS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `TRIGGER_NAME` varchar(200) NOT NULL,
   `TRIGGER_GROUP` varchar(200) NOT NULL,
@@ -263,10 +263,10 @@ CREATE TABLE `qrtz_simprop_triggers` (
 -- Table structure for table `qrtz_triggers`
 --
 
-DROP TABLE IF EXISTS `qrtz_triggers`;
+DROP TABLE IF EXISTS `QRTZ_TRIGGERS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_triggers` (
+CREATE TABLE `QRTZ_TRIGGERS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `TRIGGER_NAME` varchar(200) NOT NULL,
   `TRIGGER_GROUP` varchar(200) NOT NULL,
