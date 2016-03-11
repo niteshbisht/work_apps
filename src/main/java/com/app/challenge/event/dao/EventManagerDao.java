@@ -95,34 +95,62 @@ public class EventManagerDao {
 		ByteArrayInputStream baos = new ByteArrayInputStream(bytes);
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(ChallengeConstants.DB_DEVICE_ID, userAccount.getDeviceId());
-		paramMap.put(ChallengeConstants.DB_DEVICE_TYPE, userAccount.getDeviceType());
+		paramMap.put(ChallengeConstants.DB_DEVICE_TYPE,
+				userAccount.getDeviceType());
 		paramMap.put(ChallengeConstants.DB_PLAYER_IMAGE, baos);
 		paramMap.put(ChallengeConstants.DB_USERNAME, userAccount.getUserName());
 		paramMap.put(ChallengeConstants.DB_EMAIL, userAccount.getUserEmail());
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
-		paramMap.put(ChallengeConstants.DB_TOKEN, userAccount.getUserToken().getFcbkToken());
+		paramMap.put(ChallengeConstants.DB_TOKEN, userAccount.getUserToken()
+				.getFcbkToken());
 		paramMap.put(ChallengeConstants.DB_DATE, new Date());
-		paramMap.put("", userAccount.getStatus());
+		paramMap.put(ChallengeConstants.DB_STATUS, userAccount.getStatus());
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "select count * from rivals.user_account where useremail=:EMAIL";
-		
-		sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE)";
-		String uid;
+		String sql = "SELECT EXISTS(select * from rivals.user_account where useremail=:EMAIL)";
+		Boolean userExists = false;
+		String uid = null;
 		try {
-			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
-			namedParameterJdbcTemplate.update(sql, paramSource, keyHolder);
-			Map<String, Object> keys = keyHolder.getKeys();
-			Long id = (Long) keys.get("GENERATED_KEY");
-			uid = id.toString();
-			paramMap.put(ChallengeConstants.DB_UID, id);
-			sql = "insert into rivals.user_tokens(uid,fbtoken,createddate,useremail) values(:UID,:TOKEN,:DATE,:EMAIL)";
-			namedParameterJdbcTemplate.update(sql, paramMap);
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			throw new SQLException();
+			userExists = namedParameterJdbcTemplate.queryForObject(sql,
+					paramMap, Boolean.class);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new SQLException();
+		}
+
+		if (userExists.booleanValue()) {
+			// update block
+			try {
+			sql = "update rivals.user_account set deviceid=:DEVICEID, devicetype=:DEVICETYPE, userimage=:PLAYERIMAGE,lastupdateddate=:DATE";
+			namedParameterJdbcTemplate.update(sql, paramMap);
+			sql = "select id from rivals.user_account where useremail=:EMAIL";
+			Long userId = namedParameterJdbcTemplate.queryForObject(sql, paramMap, Long.class);
+			uid = Long.toString(userId);
+			paramMap.put("USER_ID", userId);
+			sql = "update rivals.user_tokens set fbtoken=:TOKEN, lastupdteddate=:DATE where uid=:USER_ID";
+			namedParameterJdbcTemplate.update(sql, paramMap);
+			}catch(Exception e){
+				e.printStackTrace();
+				throw new SQLException();
+			}
+		} else {
+			sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE)";
+
+			try {
+				SqlParameterSource paramSource = new MapSqlParameterSource(
+						paramMap);
+				namedParameterJdbcTemplate.update(sql, paramSource, keyHolder);
+				Map<String, Object> keys = keyHolder.getKeys();
+				Long id = (Long) keys.get("GENERATED_KEY");
+				uid = id.toString();
+				paramMap.put(ChallengeConstants.DB_UID, id);
+				sql = "insert into rivals.user_tokens(uid,fbtoken,createddate,useremail) values(:UID,:TOKEN,:DATE,:EMAIL)";
+				namedParameterJdbcTemplate.update(sql, paramMap);
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+				throw new SQLException();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new SQLException();
+			}
 		}
 		return uid;
 	}
