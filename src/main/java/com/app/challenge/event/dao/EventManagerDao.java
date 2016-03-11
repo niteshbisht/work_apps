@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -25,6 +24,7 @@ import com.app.challenge.domain.UserAccount;
 import com.app.challenge.domain.UserToken;
 import com.app.challenge.event.vo.ChallengeVO;
 
+@Transactional(rollbackFor=SQLException.class)
 @Repository("eventManagerDao")
 public class EventManagerDao {
 

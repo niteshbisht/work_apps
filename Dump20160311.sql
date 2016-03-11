@@ -300,7 +300,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 
 LOCK TABLES `qrtz_scheduler_state` WRITE;
 /*!40000 ALTER TABLE `qrtz_scheduler_state` DISABLE KEYS */;
-INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','sysxcom1457686129602',1457686171492,20000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','sysxcom1457689075775',1457689558227,20000);
 /*!40000 ALTER TABLE `qrtz_scheduler_state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,7 +477,7 @@ DROP TABLE IF EXISTS `user_tokens`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_tokens` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `fbtoken` varchar(5000) NOT NULL,
+  `fbtoken` varchar(3000) NOT NULL,
   `lastupdateddate` timestamp NULL DEFAULT NULL,
   `createddate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `useremail` varchar(500) NOT NULL,
@@ -511,4 +511,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-11 14:19:38
+-- Dump completed on 2016-03-11 15:16:17
