@@ -40,15 +40,6 @@ CREATE TABLE `challenges` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `challenges`
---
-
-LOCK TABLES `challenges` WRITE;
-/*!40000 ALTER TABLE `challenges` DISABLE KEYS */;
-/*!40000 ALTER TABLE `challenges` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `player_challenge_mapping`
 --
 
@@ -81,15 +72,6 @@ CREATE TABLE `player_challenge_mapping` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `player_challenge_mapping`
---
-
-LOCK TABLES `player_challenge_mapping` WRITE;
-/*!40000 ALTER TABLE `player_challenge_mapping` DISABLE KEYS */;
-/*!40000 ALTER TABLE `player_challenge_mapping` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `qrtz_blob_triggers`
 --
 
@@ -107,15 +89,6 @@ CREATE TABLE `qrtz_blob_triggers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `qrtz_blob_triggers`
---
-
-LOCK TABLES `qrtz_blob_triggers` WRITE;
-/*!40000 ALTER TABLE `qrtz_blob_triggers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qrtz_blob_triggers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `qrtz_calendars`
 --
 
@@ -129,15 +102,6 @@ CREATE TABLE `qrtz_calendars` (
   PRIMARY KEY (`SCHED_NAME`,`CALENDAR_NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qrtz_calendars`
---
-
-LOCK TABLES `qrtz_calendars` WRITE;
-/*!40000 ALTER TABLE `qrtz_calendars` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qrtz_calendars` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `qrtz_cron_triggers`
@@ -156,15 +120,6 @@ CREATE TABLE `qrtz_cron_triggers` (
   CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qrtz_cron_triggers`
---
-
-LOCK TABLES `qrtz_cron_triggers` WRITE;
-/*!40000 ALTER TABLE `qrtz_cron_triggers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qrtz_cron_triggers` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `qrtz_fired_triggers`
@@ -192,15 +147,6 @@ CREATE TABLE `qrtz_fired_triggers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `qrtz_fired_triggers`
---
-
-LOCK TABLES `qrtz_fired_triggers` WRITE;
-/*!40000 ALTER TABLE `qrtz_fired_triggers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qrtz_fired_triggers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `qrtz_job_details`
 --
 
@@ -223,15 +169,6 @@ CREATE TABLE `qrtz_job_details` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `qrtz_job_details`
---
-
-LOCK TABLES `qrtz_job_details` WRITE;
-/*!40000 ALTER TABLE `qrtz_job_details` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qrtz_job_details` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `qrtz_locks`
 --
 
@@ -244,16 +181,6 @@ CREATE TABLE `qrtz_locks` (
   PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qrtz_locks`
---
-
-LOCK TABLES `qrtz_locks` WRITE;
-/*!40000 ALTER TABLE `qrtz_locks` DISABLE KEYS */;
-INSERT INTO `qrtz_locks` VALUES ('scheduler','STATE_ACCESS'),('scheduler','TRIGGER_ACCESS');
-/*!40000 ALTER TABLE `qrtz_locks` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `qrtz_paused_trigger_grps`
@@ -270,15 +197,6 @@ CREATE TABLE `qrtz_paused_trigger_grps` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `qrtz_paused_trigger_grps`
---
-
-LOCK TABLES `qrtz_paused_trigger_grps` WRITE;
-/*!40000 ALTER TABLE `qrtz_paused_trigger_grps` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qrtz_paused_trigger_grps` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `qrtz_scheduler_state`
 --
 
@@ -293,16 +211,6 @@ CREATE TABLE `qrtz_scheduler_state` (
   PRIMARY KEY (`SCHED_NAME`,`INSTANCE_NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qrtz_scheduler_state`
---
-
-LOCK TABLES `qrtz_scheduler_state` WRITE;
-/*!40000 ALTER TABLE `qrtz_scheduler_state` DISABLE KEYS */;
-INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','sysxcom1457689075775',1457689558227,20000);
-/*!40000 ALTER TABLE `qrtz_scheduler_state` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `qrtz_simple_triggers`
@@ -322,15 +230,6 @@ CREATE TABLE `qrtz_simple_triggers` (
   CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qrtz_simple_triggers`
---
-
-LOCK TABLES `qrtz_simple_triggers` WRITE;
-/*!40000 ALTER TABLE `qrtz_simple_triggers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qrtz_simple_triggers` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `qrtz_simprop_triggers`
@@ -358,15 +257,6 @@ CREATE TABLE `qrtz_simprop_triggers` (
   CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qrtz_simprop_triggers`
---
-
-LOCK TABLES `qrtz_simprop_triggers` WRITE;
-/*!40000 ALTER TABLE `qrtz_simprop_triggers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qrtz_simprop_triggers` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `qrtz_triggers`
@@ -399,15 +289,6 @@ CREATE TABLE `qrtz_triggers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `qrtz_triggers`
---
-
-LOCK TABLES `qrtz_triggers` WRITE;
-/*!40000 ALTER TABLE `qrtz_triggers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qrtz_triggers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `scheduler`
 --
 
@@ -427,15 +308,6 @@ CREATE TABLE `scheduler` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `scheduler`
---
-
-LOCK TABLES `scheduler` WRITE;
-/*!40000 ALTER TABLE `scheduler` DISABLE KEYS */;
-/*!40000 ALTER TABLE `scheduler` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user_account`
 --
 
@@ -445,7 +317,7 @@ DROP TABLE IF EXISTS `user_account`;
 CREATE TABLE `user_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(500) NOT NULL,
-  `useremail` varchar(500) NOT NULL,
+  `useremail` varchar(1000) NOT NULL,
   `devicetype` varchar(45) NOT NULL,
   `deviceid` varchar(200) NOT NULL,
   `totalchallenges` int(11) DEFAULT NULL,
@@ -458,15 +330,6 @@ CREATE TABLE `user_account` (
   UNIQUE KEY `useremail_UNIQUE` (`useremail`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_account`
---
-
-LOCK TABLES `user_account` WRITE;
-/*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user_tokens`
@@ -486,15 +349,6 @@ CREATE TABLE `user_tokens` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user_tokens`
---
-
-LOCK TABLES `user_tokens` WRITE;
-/*!40000 ALTER TABLE `user_tokens` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_tokens` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping events for database 'rivals'
 --
 
@@ -511,4 +365,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-11 15:16:17
+-- Dump completed on 2016-03-11 15:39:43
