@@ -111,7 +111,7 @@ CREATE TABLE `QRTZ_CALENDARS` (
 DROP TABLE IF EXISTS `QRTZ_CRON_TRIGGERS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_cron_triggers` (
+CREATE TABLE `QRTZ_CRON_TRIGGERS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `TRIGGER_NAME` varchar(200) NOT NULL,
   `TRIGGER_GROUP` varchar(200) NOT NULL,
@@ -154,7 +154,7 @@ CREATE TABLE `QRTZ_FIRED_TRIGGERS` (
 DROP TABLE IF EXISTS `QRTZ_JOB_DETAILS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_job_details` (
+CREATE TABLE `QRTZ_JOB_DETAILS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `JOB_NAME` varchar(200) NOT NULL,
   `JOB_GROUP` varchar(200) NOT NULL,
@@ -176,7 +176,7 @@ CREATE TABLE `qrtz_job_details` (
 DROP TABLE IF EXISTS `QRTZ_LOCKS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_locks` (
+CREATE TABLE `QRTZ_LOCKS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `LOCK_NAME` varchar(40) NOT NULL,
   PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`)
@@ -190,7 +190,7 @@ CREATE TABLE `qrtz_locks` (
 DROP TABLE IF EXISTS `QRTZ_PAUSED_TRIGGER_GRPS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_paused_trigger_grps` (
+CREATE TABLE `QRTZ_PAUSED_TRIGGER_GRPS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `TRIGGER_GROUP` varchar(200) NOT NULL,
   PRIMARY KEY (`SCHED_NAME`,`TRIGGER_GROUP`)
@@ -204,7 +204,7 @@ CREATE TABLE `qrtz_paused_trigger_grps` (
 DROP TABLE IF EXISTS `QRTZ_SCHEDULER_STATE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_scheduler_state` (
+CREATE TABLE `QRTZ_SCHEDULER_STATE` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `INSTANCE_NAME` varchar(200) NOT NULL,
   `LAST_CHECKIN_TIME` bigint(13) NOT NULL,
