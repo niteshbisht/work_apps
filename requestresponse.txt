@@ -9,6 +9,7 @@ localhost:8081/work_apps/service/rivalService/registerNewDevice
 	"totalWins": 0,
 	"createdDate": null,
 	"lastUpdatedDate": null,
+	"status" :"statusdetail",
 	"userToken": {
 		"userId": 0,
 		"fcbkToken": "CAAGdb5kM4DYBAPe26LJ2ZAP1TFRof6xXYHwkO61yqlUg5GTWoZBukXsAar29A46fDJYyk5ZClYpLCYZCqPVW61qNmlNckwO4PsTjMZBXqpVvcKZC6WKB3QCfNVtES4YTEU2WQlqTpJSVQqJkxGJ98uOdH9QZCLYZBAs0HDxeb1ZBZClrTTLpMqo2eNYZBkfCLOPuer6b5WI8gPy2EUMFLhIndfdwgYUUxbeFjMZD",
@@ -30,6 +31,7 @@ localhost:8081/work_apps/service/rivalService/registerNewDevice
 	"totalWins": 0,  -->  int send default 0
 	"createdDate": null,  -->  long field not required
 	"lastUpdatedDate": null,  -->  long  value not required 
+	"status" :"statusdetail",  --> String
 	"userToken": {
 		"userId": 0,     --> int default zero
 		"fcbkToken": "CAAGdb5kM4DYBAPe26LJ2ZAP1TFRof6xXYHwkO61yqlUg5GTWoZBukXsAar29A46fDJYyk5ZClYpLCYZCqPVW61qNmlNckwO4PsTjMZBXqpVvcKZC6WKB3QCfNVtES4YTEU2WQlqTpJSVQqJkxGJ98uOdH9QZCLYZBAs0HDxeb1ZBZClrTTLpMqo2eNYZBkfCLOPuer6b5WI8gPy2EUMFLhIndfdwgYUUxbeFjMZD",  --> string 

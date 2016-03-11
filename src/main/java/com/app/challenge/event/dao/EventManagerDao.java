@@ -119,15 +119,16 @@ public class EventManagerDao {
 		if (userExists.booleanValue()) {
 			// update block
 			try {
-			sql = "update rivals.user_account set deviceid=:DEVICEID, devicetype=:DEVICETYPE, userimage=:PLAYERIMAGE,lastupdateddate=:DATE";
-			namedParameterJdbcTemplate.update(sql, paramMap);
-			sql = "select id from rivals.user_account where useremail=:EMAIL";
-			Long userId = namedParameterJdbcTemplate.queryForObject(sql, paramMap, Long.class);
-			uid = Long.toString(userId);
-			paramMap.put("USER_ID", userId);
-			sql = "update rivals.user_tokens set fbtoken=:TOKEN, lastupdteddate=:DATE where uid=:USER_ID";
-			namedParameterJdbcTemplate.update(sql, paramMap);
-			}catch(Exception e){
+				sql = "update rivals.user_account set deviceid=:DEVICEID, devicetype=:DEVICETYPE, userimage=:PLAYERIMAGE,lastupdateddate=:DATE";
+				namedParameterJdbcTemplate.update(sql, paramMap);
+				sql = "select id from rivals.user_account where useremail=:EMAIL";
+				Long userId = namedParameterJdbcTemplate.queryForObject(sql,
+						paramMap, Long.class);
+				uid = Long.toString(userId);
+				paramMap.put("USER_ID", userId);
+				sql = "update rivals.user_tokens set fbtoken=:TOKEN, lastupdteddate=:DATE where uid=:USER_ID";
+				namedParameterJdbcTemplate.update(sql, paramMap);
+			} catch (Exception e) {
 				e.printStackTrace();
 				throw new SQLException();
 			}
