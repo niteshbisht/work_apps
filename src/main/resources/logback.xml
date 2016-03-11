@@ -27,10 +27,10 @@
 	<!-- To enable JMX Management -->
 	<jmxConfigurator />
 
-	<logger name="com.app" level="TRACE" />
+	<logger name="com.app" level="DEBUG" />
 
 	<root level="debug">
-		<appender-ref ref="console" />
+		<!-- <appender-ref ref="console" /> -->
 		<appender-ref ref="FILE" />
 	</root>
 
