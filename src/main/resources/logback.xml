@@ -23,15 +23,36 @@
 			</pattern>
 		</encoder>
 	</appender>
+	
+	<appender name="FILE_ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/rivals_error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${LOG_DIR}/rivals_error.%d{yyyy-MM-dd-HH-mm}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
 
 	<!-- To enable JMX Management -->
 	<jmxConfigurator />
 
 	<logger name="com.app" level="DEBUG" />
+	
+	<logger name="com.app" level="ERROR" />
 
 	<root level="debug">
 		<!-- <appender-ref ref="console" /> -->
 		<appender-ref ref="FILE" />
 	</root>
 
+<root level="error">
+		<!-- <appender-ref ref="console" /> -->
+		<appender-ref ref="FILE_ERROR" />
+	</root>
 </configuration>
