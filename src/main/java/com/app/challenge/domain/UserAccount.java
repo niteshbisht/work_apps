@@ -14,6 +14,7 @@ public class UserAccount {
 	private Date lastUpdatedDate;
 	private UserToken userToken;
 	private String userImage;
+	private String status;
 	
 	public int getId() {
 		return id;
@@ -101,6 +102,14 @@ public class UserAccount {
 
 	public void setUserImage(String userImage) {
 		this.userImage = userImage;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

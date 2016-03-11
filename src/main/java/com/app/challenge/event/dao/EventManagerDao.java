@@ -102,8 +102,11 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
 		paramMap.put(ChallengeConstants.DB_TOKEN, userAccount.getUserToken().getFcbkToken());
 		paramMap.put(ChallengeConstants.DB_DATE, new Date());
+		paramMap.put("", userAccount.getStatus());
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE)";
+		String sql = "select count * from rivals.user_account where useremail=:EMAIL";
+		
+		sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE)";
 		String uid;
 		try {
 			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);

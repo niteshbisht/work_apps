@@ -16,6 +16,7 @@ public class UserAccountVO {
 	private Date createdDate;
 	private Date lastUpdatedDate;
 	private String userImage;
+	private String status;
 	private UserToken userToken;
 
 	public int getId() {
@@ -104,6 +105,14 @@ public class UserAccountVO {
 
 	public void setUserImage(String userImage) {
 		this.userImage = userImage;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 		

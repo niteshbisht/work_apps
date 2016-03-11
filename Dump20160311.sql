@@ -454,7 +454,8 @@ CREATE TABLE `user_account` (
   `lastupdateddate` timestamp NULL DEFAULT NULL,
   `userimage` blob,
   `status` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `useremail_UNIQUE` (`useremail`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -464,7 +465,6 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (1,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:05:35',NULL,'abcobject',NULL),(2,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:09:34',NULL,'abcobject',NULL),(3,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:12:19',NULL,'abcobject',NULL);
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -511,4 +511,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-11 13:04:20
+-- Dump completed on 2016-03-11 13:14:19
