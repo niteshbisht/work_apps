@@ -445,7 +445,7 @@ DROP TABLE IF EXISTS `user_account`;
 CREATE TABLE `user_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(500) NOT NULL,
-  `useremail` varchar(1000) NOT NULL,
+  `useremail` varchar(500) NOT NULL,
   `devicetype` varchar(45) NOT NULL,
   `deviceid` varchar(200) NOT NULL,
   `totalchallenges` int(11) DEFAULT NULL,
