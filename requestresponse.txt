@@ -40,6 +40,8 @@ localhost:8081/work_apps/service/rivalService/registerNewDevice
 	"userImage": "abcobject"  --> String encoded image
 }
 
+return userID
+
 
 GET
 localhost:8081/work_apps/service/rivalService/updateUserToken?uid=va1&userEmail=val2&token=val3
