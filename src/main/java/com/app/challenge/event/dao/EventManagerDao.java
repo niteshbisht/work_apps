@@ -133,7 +133,7 @@ public class EventManagerDao {
 				throw new SQLException();
 			}
 		} else {
-			sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE)";
+			sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate,status) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE,:STATUS)";
 
 			try {
 				SqlParameterSource paramSource = new MapSqlParameterSource(
