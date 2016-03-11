@@ -173,7 +173,7 @@ CREATE TABLE `qrtz_job_details` (
 -- Table structure for table `qrtz_locks`
 --
 
-DROP TABLE IF EXISTS `qrtz_locks`;
+DROP TABLE IF EXISTS `qrtz_LOCKS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `qrtz_locks` (
