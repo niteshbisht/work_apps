@@ -2,22 +2,43 @@ localhost:8081/work_apps/service/rivalService/registerNewDevice
 {
 	"id": 0,
 	"userName": "fuser",
-	"userEmail": "fuser@gmail.com",
-	"deviceId": "1012312",
-	"deviceType": "android",
+	"userEmail": "puneet_3107@yahoo.co.in",
+	"deviceId": "1234567890ABCDEFGHO",
+	"deviceType": "iphone",
 	"totalChallenges": 0,
 	"totalWins": 0,
 	"createdDate": null,
 	"lastUpdatedDate": null,
 	"userToken": {
 		"userId": 0,
-		"fcbkToken": "alpha101",
+		"fcbkToken": "CAAGdb5kM4DYBAPe26LJ2ZAP1TFRof6xXYHwkO61yqlUg5GTWoZBukXsAar29A46fDJYyk5ZClYpLCYZCqPVW61qNmlNckwO4PsTjMZBXqpVvcKZC6WKB3QCfNVtES4YTEU2WQlqTpJSVQqJkxGJ98uOdH9QZCLYZBAs0HDxeb1ZBZClrTTLpMqo2eNYZBkfCLOPuer6b5WI8gPy2EUMFLhIndfdwgYUUxbeFjMZD",
 		"createdDate": null,
 		"updatedDate": null,
 		"emailId": "fuser@gmail.com"
 	},
 	"userImage": "abcobject"
 }  // POST
+
+
+{
+	"id": 0,   --> int send 0
+	"userName": "fuser", -->  string
+	"userEmail": "puneet_3107@yahoo.co.in", --> string
+	"deviceId": "1234567890ABCDEFGHO", --> string  
+	"deviceType": "iphone",   --> string
+	"totalChallenges": 0,   --> int send default 0
+	"totalWins": 0,  -->  int send default 0
+	"createdDate": null,  -->  long field not required
+	"lastUpdatedDate": null,  -->  long  value not required 
+	"userToken": {
+		"userId": 0,     --> int default zero
+		"fcbkToken": "CAAGdb5kM4DYBAPe26LJ2ZAP1TFRof6xXYHwkO61yqlUg5GTWoZBukXsAar29A46fDJYyk5ZClYpLCYZCqPVW61qNmlNckwO4PsTjMZBXqpVvcKZC6WKB3QCfNVtES4YTEU2WQlqTpJSVQqJkxGJ98uOdH9QZCLYZBAs0HDxeb1ZBZClrTTLpMqo2eNYZBkfCLOPuer6b5WI8gPy2EUMFLhIndfdwgYUUxbeFjMZD",  --> string 
+		"createdDate": null,  --> long dont send
+		"updatedDate": null,  --> long dont send
+		"emailId": "puneet_3107@yahoo.co.in"  --> string field
+	},
+	"userImage": "abcobject"  --> String encoded image
+}
 
 
 GET
