@@ -20,7 +20,8 @@ USE `rivals`;
 --
 -- Table structure for table `challenges`
 --
-
+set global innodb_large_prefix=on;
+set global innodb_file_format=Barracuda;
 DROP TABLE IF EXISTS `challenges`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -316,7 +317,7 @@ DROP TABLE IF EXISTS `user_account`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(500) NOT NULL,
+  `username` varchar(300) NOT NULL,
   `useremail` varchar(300) NOT NULL,
   `devicetype` varchar(45) NOT NULL,
   `deviceid` varchar(200) NOT NULL,
