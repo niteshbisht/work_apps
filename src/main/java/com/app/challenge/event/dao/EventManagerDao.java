@@ -126,7 +126,7 @@ public class EventManagerDao {
 						paramMap, Long.class);
 				uid = Long.toString(userId);
 				paramMap.put("USER_ID", userId);
-				sql = "update rivals.user_tokens set fbtoken=:TOKEN, lastupdteddate=:DATE where uid=:USER_ID";
+				sql = "update rivals.user_tokens set fbtoken=:TOKEN, lastupdateddate=:DATE where uid=:USER_ID";
 				namedParameterJdbcTemplate.update(sql, paramMap);
 			} catch (Exception e) {
 				e.printStackTrace();
