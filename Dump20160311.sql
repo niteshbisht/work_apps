@@ -176,7 +176,7 @@ CREATE TABLE `qrtz_job_details` (
 DROP TABLE IF EXISTS `qrtz_LOCKS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qrtz_locks` (
+CREATE TABLE `qrtz_LOCKS` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `LOCK_NAME` varchar(40) NOT NULL,
   PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`)
