@@ -60,7 +60,6 @@ public class MethodInvocatingScheduledJob implements Job,
 			NoSuchMethodException, InvocationTargetException,
 			IllegalAccessException {
 		MethodInvoker inv = new ArgumentConvertingMethodInvoker();
-
 		inv.setTargetObject(target);
 		inv.setTargetMethod(method);
 		inv.setArguments(args);

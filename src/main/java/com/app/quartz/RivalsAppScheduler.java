@@ -11,15 +11,14 @@ import org.quartz.SchedulerException;
 import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
 import org.quartz.TriggerKey;
-import org.quartz.core.jmx.JobDetailSupport;
-import org.quartz.impl.JobDetailImpl;
 import org.quartz.impl.triggers.SimpleTriggerImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.scheduling.quartz.JobDetailFactoryBean;
+import org.springframework.stereotype.Component;
 
+@Component("rivalsAppScheduler")
 public class RivalsAppScheduler implements ApplicationContextAware {
 
 	private static final String TARGET_BEAN_NAME_KEY = "targetBean";

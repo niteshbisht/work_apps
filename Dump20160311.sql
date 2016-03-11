@@ -453,6 +453,7 @@ CREATE TABLE `user_account` (
   `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `lastupdateddate` timestamp NULL DEFAULT NULL,
   `userimage` blob,
+  `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -463,7 +464,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (1,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:05:35',NULL,'abcobject'),(2,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:09:34',NULL,'abcobject'),(3,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:12:19',NULL,'abcobject');
+INSERT INTO `user_account` VALUES (1,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:05:35',NULL,'abcobject',NULL),(2,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:09:34',NULL,'abcobject',NULL),(3,'fuser','fuser@gmail.com','android','1012312',NULL,NULL,'2016-03-09 20:12:19',NULL,'abcobject',NULL);
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -476,7 +477,7 @@ DROP TABLE IF EXISTS `user_tokens`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_tokens` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `fbtoken` varchar(1500) NOT NULL,
+  `fbtoken` varchar(5000) NOT NULL,
   `lastupdteddate` timestamp NULL DEFAULT NULL,
   `createddate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `useremail` varchar(500) NOT NULL,
@@ -510,4 +511,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-11 12:46:48
+-- Dump completed on 2016-03-11 13:04:20
