@@ -317,7 +317,7 @@ DROP TABLE IF EXISTS `user_account`;
 CREATE TABLE `user_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(500) NOT NULL,
-  `useremail` varchar(500) NOT NULL,
+  `useremail` varchar(300) NOT NULL,
   `devicetype` varchar(45) NOT NULL,
   `deviceid` varchar(200) NOT NULL,
   `totalchallenges` int(11) DEFAULT NULL,
@@ -343,7 +343,7 @@ CREATE TABLE `user_tokens` (
   `fbtoken` varchar(500) NOT NULL,
   `lastupdateddate` timestamp NULL DEFAULT NULL,
   `createddate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `useremail` varchar(700) NOT NULL,
+  `useremail` varchar(300) NOT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
