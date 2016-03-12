@@ -21,18 +21,19 @@ public class PlayeMapper  implements RowMapper<Player>
 		Player player = new Player();
 		player.setPlayerId(rs.getLong("playerid"));
 		
-		Blob blob = rs.getBlob("SomeDatabaseField");
+		Blob blob = rs.getBlob("player_image");
 
 		int blobLength = (int) blob.length();  
 		byte[] blobAsBytes = blob.getBytes(1, blobLength);
 		player.setPlayerImage(new String(Base64.encode(blobAsBytes, 0)));
 		String[] playerInfo = new String[10];
 		for(int i=0;i<10;i++){
-			playerInfo[i] = rs.getString("playerinfo"+i);
+			playerInfo[i] = rs.getString("playerinfo"+(i+1));
 		}
 		player.setPlayerInfo(Arrays.asList(playerInfo));
 		player.setFbComments(new ArrayList<String>());
 		player.setFbLikeCounts(rs.getLong("fblikes"));
+		player.setUserId(rs.getLong("uid"));
 		player.setWinStatus(rs.getString("winstatus"));
 		player.setPlayerName(rs.getString("player_name"));
 		return player;

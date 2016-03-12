@@ -16,7 +16,7 @@ public class ChallengeRowMapper implements RowMapper<ChallengeDomain>
 		challenge.setCreatorId(rs.getLong("creatoruid"));
 		challenge.setAcceptorId(rs.getLong("acceptoruid"));
 		challenge.setTopic(rs.getString("topic"));
-		challenge.setStatus(rs.getString("status"));
+		challenge.setStatus(rs.getString("wstatus"));
 		challenge.setFcbkChlngId(rs.getString("fbchallengeid"));
 		challenge.setChallengeType(rs.getString("challengetype"));
 		challenge.setEndDate(rs.getTimestamp("endtime"));

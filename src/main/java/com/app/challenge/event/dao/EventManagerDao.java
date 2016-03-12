@@ -163,13 +163,13 @@ public class EventManagerDao {
 
 		paramMap.put(ChallengeConstants.DB_FB_CHALLENGE_ID, fbChallengeID);
 		paramMap.put(ChallengeConstants.DB_START_TIME, new Date());
-		paramMap.put(ChallengeConstants.DB_STATUS, "created");
+		paramMap.put(ChallengeConstants.DB_STATUS, "ACTIVE");
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
 		paramMap.put(ChallengeConstants.DB_CHALLENGE_TYPE, challengeVO.getChallengeType());
 		paramMap.put(ChallengeConstants.DB_END_TIME, new Date());
 		paramMap.put(ChallengeConstants.DB_DURATION, challengeVO.getDuration());
 		paramMap.put(ChallengeConstants.DB_TOPIC, challengeVO.getTopic());
-		String sql = "INSERT INTO rivals.challenges(creatoruid,acceptoruid,fbchallengeid,starttime,status,createddate,topic,challengetype,endtime,duration) VALUES(:CREATORUID,:ACCEPTORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION)";
+		String sql = "INSERT INTO rivals.challenges(creatoruid,acceptoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration) VALUES(:CREATORUID,:ACCEPTORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		long challengeID = 0L;
 
@@ -224,11 +224,11 @@ public class EventManagerDao {
 
 		paramMap.put(ChallengeConstants.DB_FB_CHALLENGE_ID, fbChallengeID);
 		paramMap.put(ChallengeConstants.DB_START_TIME, new Date());
-		paramMap.put(ChallengeConstants.DB_STATUS, "started");
+		paramMap.put(ChallengeConstants.DB_STATUS, "INPROGRESS");
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
 		paramMap.put(ChallengeConstants.DB_END_TIME, 0L);
 		paramMap.put(ChallengeConstants.DB_CHALLENGE_ID, challengeVO.getChallengeId());
-		String sql = "UPDATE table rivals.challenges set acceptoruid = :ACCEPTORUID, starttime = :STARTTIME,status = :STATUS, ENDTIME = :ENDTIME WHERE challengeid = :CHALLENGEID";
+		String sql = "UPDATE table rivals.challenges set acceptoruid = :ACCEPTORUID, starttime = :STARTTIME,wstatus = :STATUS, ENDTIME = :ENDTIME WHERE challengeid = :CHALLENGEID";
 
 		try {
 			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
@@ -239,17 +239,23 @@ public class EventManagerDao {
 			paramMap.put(ChallengeConstants.DB_FB_LIKES, 0);
 			paramMap.put(ChallengeConstants.DB_PLAYERS_IMAGE, challengeVO.getPlayerImage());
 			paramMap.put(ChallengeConstants.DB_PLAYER_NAME, challengeVO.getPlayerName());
+			StringBuffer insideQuery = new StringBuffer();
+			StringBuffer afterQuery = new StringBuffer();
 			StringBuffer sb = new StringBuffer();
 			sb.append(
-					"INSERT INTO rivals.player_challenge_mapping(challengeID,uid,winstatus,fblikes,player_image,playertype,player_name) VALUES(:challengeID,:uid,:winstatus,:fblikes,:player_image,:playertype,:player_name");
+					"INSERT INTO rivals.player_challenge_mapping(challengeID,uid,winstatus,fblikes,player_image,playertype,player_name");
 			String[] playerInfoAr = challengeVO.getPlayerInfo();
 			if (playerInfoAr != null) {
 				for (int i = 0; i < playerInfoAr.length; i++) {
-					sb.append(", :playerinfo" + i);
-					paramMap.put("playerinfo" + i, playerInfoAr[i]);
+					insideQuery.append(",playerinfo" + (i + 1));
+					afterQuery.append(", :playerinfo" + (i + 1));
+					paramMap.put("playerinfo" + (i + 1), playerInfoAr[i]);
 				}
-			}
 
+			}
+			sb.append(insideQuery);
+			sb.append(")  VALUES(:CHALLENGEID,:UID,:WINSTATUS,:FBLIKES,:PLAYER_IMAGE,:PLAYERTYPE,:PLAYER_NAME");
+			sb.append(afterQuery);
 			sb.append(")");
 			sql = sb.toString();
 
@@ -268,10 +274,10 @@ public class EventManagerDao {
 		;
 		String sql = null;
 		if (challengeID == 0)
-			sql = "select * from rivals.challenge where status='" + status + "' LIMIT 20 ORDER BY challengeid DESC";
+			sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS' ORDER BY challengeid DESC LIMIT 20";
 		else
-			sql = "select * from rivals.challenge where status='" + status + "' AND challengeid < " + challengeID
-					+ "LIMIT 20 ORDER BY challengeid DESC";
+			sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS' AND challengeid < " + challengeID
+					+ " ORDER BY challengeid DESC LIMIT 20";
 		try {
 			rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
 		} catch (DataAccessException e) {
@@ -289,11 +295,11 @@ public class EventManagerDao {
 		;
 		String sql = null;
 		if (challengeID == 0)
-			sql = "select * from rivals.challenge where creatoruid=" + uid + " OR acceptoruid=" + uid
-					+ " LIMIT 20 ORDER BY challengeid DESC";
+			sql = "select * from rivals.challenges where creatoruid=" + uid + " OR acceptoruid=" + uid
+					+ " ORDER BY challengeid DESC LIMIT 20";
 		else
-			sql = "select * from rivals.challenge where creatoruid=" + uid + " OR acceptoruid=" + uid
-					+ " AND challengeid < " + challengeID + "LIMIT 20 ORDER BY challengeid DESC";
+			sql = "select * from rivals.challenges where creatoruid=" + uid + " OR acceptoruid=" + uid
+					+ " AND challengeid < " + challengeID + " ORDER BY challengeid DESC LIMIT 20";
 		try {
 			rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
 		} catch (DataAccessException e) {
