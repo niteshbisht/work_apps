@@ -169,7 +169,8 @@ public class EventManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return responseList;	}
+		return responseList;
+	}
 
 	public List<AllChallengeResponseVO> fetchActiveChallenges(int challengeFrom) {
 
@@ -219,16 +220,16 @@ public class EventManager {
 		String playerImage = challengeVO.getPlayerImage();
 		String fbPostID = null;
 		if (playerImage != null && fbUserId != null) {
-			fbPostID = fbClientHandler.publishPhotoToWall(fbUserId, "", playerImage, false);
-
+			fbPostID = fbClientHandler.publishPhotoToWall(fbUserId, "Rivalry Started", playerImage, false);
 		}
-
+		long challengeId = 0L;
 		try {
-			eventManagerDao.createNewChallenge(challengeVO, fbPostID, isAcceptor);
+			challengeId = eventManagerDao.createNewChallenge(challengeVO, fbPostID, isAcceptor);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		responseVO.setChallengeId(challengeId);
+		responseVO.setCreatorId(userId);
 		return responseVO;
 	}
 

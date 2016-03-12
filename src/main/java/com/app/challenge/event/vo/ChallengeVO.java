@@ -18,7 +18,7 @@ public class ChallengeVO {
 	private String topic;
 	private boolean isOpenChallenge;
 	private String fbUserID;
-	private long duration;
+	private String duration;
 	private String challengeType;
 	private long challengeId;
 	
@@ -49,13 +49,13 @@ public class ChallengeVO {
 	/**
 	 * @return the duration
 	 */
-	public long getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 	/**
 	 * @param duration the duration to set
 	 */
-	public void setDuration(long duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 	/**

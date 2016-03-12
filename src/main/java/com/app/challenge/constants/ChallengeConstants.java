@@ -9,7 +9,7 @@ public class ChallengeConstants {
 	public static final String FB_POST = "feed";
 	public static final String FB_USER = "me";
 	public static final String FB_LINK = "link";
-	public static final String FB_PHOTO = "photo";
+	public static final String FB_PHOTO = "photos";
 	public static final String FB_POST_SEPARATOR = "/";
 	public static final String FB_FRIENDS = "friends";
 	public static final String FB_IMAGE_TYPE = "png";
@@ -30,8 +30,10 @@ public class ChallengeConstants {
 	public static final String DB_CHALLENGE_ID = "CHALLENGEID";
 	public static final String DB_WIN_STATUS = "WINSTATUS";
 	public static final String DB_FB_LIKES = "FBLIKES";
-	public static final String DB_PLAYERS_IMAGE = "PLAYE_IMAGE";
+	public static final String DB_PLAYERS_IMAGE = "PLAYER_IMAGE";
 	public static final String DB_PLAYER_TYPE = "PLAYERTYPE";
 	public static final String DB_PLAYER_NAME= "PLAYER_NAME";
+	public static final String DB_TOPIC = "TOPIC";
+	public static final String DB_DURATION = "DURATION";
 	
 }
