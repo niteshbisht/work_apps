@@ -169,7 +169,8 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_END_TIME, new Date());
 		paramMap.put(ChallengeConstants.DB_DURATION, challengeVO.getDuration());
 		paramMap.put(ChallengeConstants.DB_TOPIC, challengeVO.getTopic());
-		String sql = "INSERT INTO rivals.challenges(creatoruid,acceptoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration) VALUES(:CREATORUID,:ACCEPTORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION)";
+		paramMap.put(ChallengeConstants.DB_GAME_TYPE, challengeVO.getGameType());
+		String sql = "INSERT INTO rivals.challenges(creatoruid,acceptoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration,gametype) VALUES(:CREATORUID,:ACCEPTORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION,:GAMETYPE)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		long challengeID = 0L;
 

@@ -21,7 +21,14 @@ public class ChallengeVO {
 	private String duration;
 	private String challengeType;
 	private long challengeId;
+	private String gameType;
 	
+	public String getGameType() {
+		return gameType;
+	}
+	public void setGameType(String gameType) {
+		this.gameType = gameType;
+	}
 	/**
 	 * @return the challengeId
 	 */

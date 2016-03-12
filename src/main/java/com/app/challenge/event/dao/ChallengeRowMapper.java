@@ -19,6 +19,7 @@ public class ChallengeRowMapper implements RowMapper<ChallengeDomain>
 		challenge.setStatus(rs.getString("wstatus"));
 		challenge.setFcbkChlngId(rs.getString("fbchallengeid"));
 		challenge.setChallengeType(rs.getString("challengetype"));
+		challenge.setGameType(rs.getString("gametype")==null?"":rs.getString("gametype"));
 		challenge.setEndDate(rs.getTimestamp("endtime"));
 		return challenge;
 	}

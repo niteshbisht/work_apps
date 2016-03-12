@@ -18,6 +18,15 @@ public class AllChallengeResponseVO implements Serializable {
 	private Date endDate;
 	private String status;
 	private String challengeType;
+	private String gameType;
+	public String getGameType() {
+		return gameType;
+	}
+
+	public void setGameType(String gameType) {
+		this.gameType = gameType;
+	}
+
 	private String topic;
 	private Player player1;
 	private Player player2;

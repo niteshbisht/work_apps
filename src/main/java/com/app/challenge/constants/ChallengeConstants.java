@@ -35,5 +35,6 @@ public class ChallengeConstants {
 	public static final String DB_PLAYER_NAME= "PLAYER_NAME";
 	public static final String DB_TOPIC = "TOPIC";
 	public static final String DB_DURATION = "DURATION";
+	public static final String DB_GAME_TYPE = "GAMETYPE";
 	
 }

@@ -14,12 +14,19 @@ public class ChallengeDomain {
 	private Date endDate;
 	private String status;
 	private String challengeType;
+	private String gameType;
 	private String topic;
 	/**
 	 * @return the challengeId
 	 */
 	public long getChallengeId() {
 		return challengeId;
+	}
+	public String getGameType() {
+		return gameType;
+	}
+	public void setGameType(String gameType) {
+		this.gameType = gameType;
 	}
 	/**
 	 * @param challengeId the challengeId to set
