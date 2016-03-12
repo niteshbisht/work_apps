@@ -20,28 +20,28 @@ import com.app.challenge.event.vo.UserAccountVO;
 public interface EventService {
 
 	@POST
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/registerNewUser")
 	public ChallengeAppResponseVO<AppResponseVO> registerNewUser(String token, String email);
 
 	@POST
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/registerNewDevice")
 	ChallengeAppResponseVO<AppResponseVO> registerNewDevice(UserAccountVO userAccountVO);
 
 	
 	@POST
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/createNewChallenge")
 	ChallengeAppResponseVO<AllChallengeResponseVO> createNewChallenge(ChallengeVO challengeVO);
 	
 	
 	@POST
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/acceptChallenge")
 	ChallengeAppResponseVO<AppResponseVO> acceptChallenge(ChallengeVO challengeVO);
 	
@@ -49,6 +49,7 @@ public interface EventService {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/fetchAllChallenges")
 	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchAllChallengesData(
 			@QueryParam("challengeFrom") int challengeFrom);
@@ -61,12 +62,14 @@ public interface EventService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/fetchActiveChallenges")
 	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchActiveChallengesData(
 			@QueryParam("challengeFrom") int challengeFrom);
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/updateUserToken")
 	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(@QueryParam("uid") long uid,
 			@QueryParam("userEmail") String userEmail,@QueryParam("token") String token);
