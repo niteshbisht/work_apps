@@ -1,6 +1,5 @@
 package com.app.challenge.event.dao;
 
-import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,23 +11,28 @@ import org.springframework.jdbc.core.RowMapper;
 import com.app.challenge.domain.Player;
 import com.app.challenge.fbutil.Base64;
 
-public class PlayeMapper  implements RowMapper<Player>
-{
+public class PlayeMapper implements RowMapper<Player> {
 
-	
 	@Override
 	public Player mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Player player = new Player();
 		player.setPlayerId(rs.getLong("playerid"));
-		
+
 		Blob blob = rs.getBlob("player_image");
 
-		int blobLength = (int) blob.length();  
+		int blobLength = (int) blob.length();
 		byte[] blobAsBytes = blob.getBytes(1, blobLength);
 		player.setPlayerImage(new String(Base64.encode(blobAsBytes, 0)));
 		String[] playerInfo = new String[10];
-		for(int i=0;i<10;i++){
-			playerInfo[i] = rs.getString("playerinfo"+(i+1));
+		String playerinfo = null;
+
+		for (int i = 0; i < 10; i++) {
+			playerinfo = rs.getString("playerinfo" + (i + 1));
+			if (playerinfo == null) {
+				playerInfo[i] = "";
+			} else {
+				playerInfo[i] = playerinfo;
+			}
 		}
 		player.setPlayerInfo(Arrays.asList(playerInfo));
 		player.setFbComments(new ArrayList<String>());
@@ -38,7 +42,5 @@ public class PlayeMapper  implements RowMapper<Player>
 		player.setPlayerName(rs.getString("player_name"));
 		return player;
 	}
-	
 
-	
 }

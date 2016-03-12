@@ -2,7 +2,6 @@ package com.app.challenge.event.manager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,12 +15,10 @@ import com.app.challenge.domain.Player;
 import com.app.challenge.domain.UserAccount;
 import com.app.challenge.event.dao.ChallengeDomain;
 import com.app.challenge.event.dao.EventManagerDao;
+import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
-import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
-import com.app.challenge.fbutil.Base64;
-import com.app.challenge.fbutil.FBClientHandlerImpl;
 import com.app.challenge.fbutil.FacebookClientHandler;
 
 @Component
@@ -242,16 +239,15 @@ public class EventManager {
 
 		String fbPostID = null;
 		if (playerImage != null && fbUserId != null) {
-			fbPostID = fbClientHandler.publishPhotoToWall(fbUserId, "", playerImage, false);
-
+			fbPostID = fbClientHandler.publishPhotoToWall(fbUserId, challengeVO.getTopic(), playerImage, false);
 		}
-
 		try {
 			eventManagerDao.updateAcceptedChallenge(challengeVO, fbPostID, isAcceptor);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		responseVO.setStatus("INPROGRESS");
+		responseVO.setCreatorId(userId);
 		return responseVO;
 	}
 

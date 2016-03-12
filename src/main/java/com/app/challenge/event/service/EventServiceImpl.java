@@ -105,9 +105,15 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public ChallengeAppResponseVO<AppResponseVO> acceptChallenge(ChallengeVO challengeVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public ChallengeAppResponseVO<AllChallengeResponseVO> acceptChallenge(ChallengeVO challengeVO) {
+		ChallengeAppResponseVO<AllChallengeResponseVO> response = null;
+		try {
+			response = new ChallengeAppResponseVO<AllChallengeResponseVO>(
+					eventManager.acceptChallenge(challengeVO,false));
+		} catch (Exception e) {
+			response = new ChallengeAppResponseVO<AllChallengeResponseVO>(true, e.getMessage());
+		}
+		return response;
 	}
 	
 	@Override

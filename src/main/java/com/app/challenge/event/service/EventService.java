@@ -43,7 +43,7 @@ public interface EventService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/acceptChallenge")
-	ChallengeAppResponseVO<AppResponseVO> acceptChallenge(ChallengeVO challengeVO);
+	ChallengeAppResponseVO<AllChallengeResponseVO> acceptChallenge(ChallengeVO challengeVO);
 	
 	
 	
