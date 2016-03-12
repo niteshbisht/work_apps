@@ -44,12 +44,15 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public ChallengeAppResponseVO<AppResponseVO> registerNewDevice(UserAccountVO userAccountVO) {
+		AppResponseVO registerDevice = null;
+		ChallengeAppResponseVO< AppResponseVO> response;
 		try {
-			eventManager.registerDevice(userAccountVO);
+			registerDevice = eventManager.registerDevice(userAccountVO);
 		} catch (Exception e) {
-
+			response = new ChallengeAppResponseVO<>(true, e.getMessage());
 		}
-		return null;
+		response = new ChallengeAppResponseVO<AppResponseVO>(registerDevice);
+		return response;
 	}
 
 	@Override
