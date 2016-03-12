@@ -26,10 +26,10 @@
 	
 	<appender name="FILE_ERROR"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/rivals_error.log</file>
+		<file>${LOG_DIR}/error.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>${LOG_DIR}/rivals_error.%d{yyyy-MM-dd-HH-mm}.log
+			<fileNamePattern>${LOG_DIR}/error.%d{yyyy-MM-dd-HH-mm}.log
 			</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
