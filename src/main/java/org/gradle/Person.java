@@ -6,8 +6,6 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.app.challenge.domain.UserAccount;
-import com.app.challenge.domain.UserToken;
 import com.app.challenge.event.vo.ChallengeVO;
 
 public class Person {
@@ -18,7 +16,7 @@ public class Person {
     	
     	*/
     	ObjectMapper om = new ObjectMapper();
-    	ChallengeVO cvo = new ChallengeVO();
-    	System.out.println(om.writeValueAsString(cvo));
+    	ChallengeVO challengeVO = new ChallengeVO();
+    	System.out.println(om.writeValueAsString(challengeVO));
 	}
 }

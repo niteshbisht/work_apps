@@ -3,6 +3,7 @@ package com.app.quartz;
 import java.util.Date;
 import java.util.List;
 
+import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
@@ -10,6 +11,7 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.quartz.impl.triggers.SimpleTriggerImpl;
 import org.springframework.beans.BeansException;
@@ -30,35 +32,23 @@ public class RivalsAppScheduler implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
 
-	private SimpleTrigger buildExactTimeTrigger(final String jobName,
+	private Trigger buildExactTimeTrigger(final String jobName,
 			final String group, final Date when) {
-		SimpleTriggerImpl trigger = new SimpleTriggerImpl();// new
-															// SimpleTrigger(jobName,
-															// group, when);
-		trigger.setJobName(jobName);
-		trigger.setJobGroup(group);
-		trigger.setStartTime(when);
-		trigger.setEndTime(null);
-		trigger.setRepeatCount(0);
-		trigger.setRepeatInterval(0);
+		Trigger trigger = (Trigger) TriggerBuilder.newTrigger().startAt(when).endAt(null).forJob(jobName, group).build();												// group, when);
 		return trigger;
 	}
 
 	public void scheduleInvocation(final String jobName, final String group,
-			final Date when, final InvocationDetail invocationDetail) {
-		schedule(createDynamicJobDetail(invocationDetail, jobName, group),
+			final Date when, final Job job) {
+		schedule(createDynamicJobDetail(job, jobName, group),
 				buildExactTimeTrigger(jobName, group, when));
 	}
 
 	private JobDetail createDynamicJobDetail(
-			final InvocationDetail invocationDetail, final String jobName,
+			Job job, final String jobName,
 			final String group) {
 		JobDetail detail = JobBuilder.newJob().withIdentity(jobName, group)
-				.ofType(MethodInvocatingScheduledJob.class).build();// new
-																	// JobDetail(jobName,
-																	// group,
-																	// MethodInvocatingScheduledJob.class);
-		setJobArguments(invocationDetail, detail);
+				.ofType(RivalScheduledJob.class).build();// new JobDetail(jobName,// group,
 		setJobToAutoDelete(detail);
 		return detail;
 	}
@@ -109,17 +99,7 @@ public class RivalsAppScheduler implements ApplicationContextAware {
 		}
 	}
 
-	private void setJobArguments(final InvocationDetail invocationDetail,
-			final JobDetail detail) {
-		detail.getJobDataMap().put(TARGET_BEAN_NAME_KEY,
-				invocationDetail.getTargetBeanName());
-		detail.getJobDataMap().put(METHOD_NAME_KEY,
-				invocationDetail.getTargetMethod());
-		detail.getJobDataMap().put(ARGUMENTS_KEY,
-				invocationDetail.getMethodArgs());
-	}
-
-	public static class InvocationDetail {
+	/*public static class InvocationDetail {
 		private String targetBeanName;
 		private String targetMethod;
 		private List<?> methodArgs;
@@ -142,5 +122,5 @@ public class RivalsAppScheduler implements ApplicationContextAware {
 		public Object[] getMethodArgs() {
 			return methodArgs.toArray();
 		}
-	}
+	}*/
 }

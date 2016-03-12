@@ -1,21 +1,16 @@
 package com.app.quartz;
+import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.JobKey;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-
-import com.app.rival.challengebean.RivalBean;
 public class RivalScheduledJob extends QuartzJobBean{
-
-	private RivalBean rivalBean;
-	
 	@Override
 	protected void executeInternal(JobExecutionContext arg0)
 			throws JobExecutionException {
-		this.rivalBean.execute();
+		JobDetail jobDetail = arg0.getJobDetail();
+		JobKey key = jobDetail.getKey();
+		String challengeId = key.getName();
+		RivalAppSchedulerUtil.computeStatsForChallenge(Long.parseLong(challengeId));
 	}
-
-	public void setRivalBean(RivalBean rivalBean) {
-		this.rivalBean = rivalBean;
-	}
-
 }
