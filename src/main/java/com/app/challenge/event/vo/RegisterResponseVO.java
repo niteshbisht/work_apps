@@ -14,6 +14,7 @@ public class RegisterResponseVO implements Serializable{
 	private String userName;
 	private long totalWinCount;
 	private long totalLooseCount;
+	private long activeCount;
 	
 	public long getUserId() {
 		return userId;
@@ -38,6 +39,12 @@ public class RegisterResponseVO implements Serializable{
 	}
 	public void setTotalLooseCount(long totalLooseCount) {
 		this.totalLooseCount = totalLooseCount;
+	}
+	public long getActiveCount() {
+		return activeCount;
+	}
+	public void setActiveCount(long activeCount) {
+		this.activeCount = activeCount;
 	}
 	
 

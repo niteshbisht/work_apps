@@ -97,8 +97,11 @@ public class EventManager {
 		UserAccount uac = new UserAccount();
 		BeanUtils.copyProperties(userAccountVO, uac);
 		RegisterResponseVO responseVO;
+		long count = 0;
 		try {
 			responseVO = eventManagerDao.registerDevice(uac);
+			count = eventManagerDao.fetchAllChallenges(0, null, true).size();
+			responseVO.setActiveCount(count);
 		} catch (Exception e) {
 			throw new SQLException();
 		}

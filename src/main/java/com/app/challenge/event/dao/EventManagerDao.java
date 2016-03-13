@@ -317,23 +317,32 @@ public class EventManagerDao {
 	}
 
 	public List<ChallengeDomain> fetchAllChallenges(long challengeID, String status) throws SQLException {
+		return fetchAllChallenges(challengeID, status, false);
+	}
+	
+	public List<ChallengeDomain> fetchAllChallenges(long challengeID, String status,boolean fetchall) throws SQLException {
 		List<ChallengeDomain> rows = new ArrayList<>();
-		;
 		String sql = null;
-		if (challengeID == 0)
-			sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS' ORDER BY challengeid DESC LIMIT 20";
-		else
-			sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS' AND challengeid < " + challengeID
-					+ " ORDER BY challengeid DESC LIMIT 20";
-		try {
-			rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			throw new SQLException();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new SQLException();
+		
+		if(fetchall){
+			sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS'";
+		} else {
+			if (challengeID == 0)
+				sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS' ORDER BY challengeid DESC LIMIT 20";
+			else
+				sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS' AND challengeid < "
+						+ challengeID + " ORDER BY challengeid DESC LIMIT 20";
 		}
+			try {
+				rows = namedParameterJdbcTemplate.query(sql,
+						new ChallengeRowMapper());
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+				throw new SQLException();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new SQLException();
+			}
 		return rows;
 	}
 
