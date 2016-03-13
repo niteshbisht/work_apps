@@ -279,7 +279,12 @@ public class EventManager {
 			cl.add(Calendar.HOUR, hours);
 			cl.add(Calendar.MINUTE, minutes);
 			Date when = cl.getTime();
-			rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);
+			long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);
+			try {
+				eventManagerDao.createEvent(challengeId, userId, duration);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			responseVO.setChallengeId(challengeId);
 			responseVO.setCreatorId(userId);
 		}

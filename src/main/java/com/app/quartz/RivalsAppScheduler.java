@@ -31,9 +31,9 @@ public class RivalsAppScheduler implements ApplicationContextAware {
 		return trigger;
 	}
 
-	public void scheduleInvocation(final String jobName, final String group,
+	public long scheduleInvocation(final String jobName, final String group,
 			final Date when, final Job job) {
-		schedule(createDynamicJobDetail(job, jobName, group),
+		return schedule(createDynamicJobDetail(job, jobName, group),
 				buildExactTimeTrigger(jobName, group, when));
 	}
 
@@ -58,11 +58,11 @@ public class RivalsAppScheduler implements ApplicationContextAware {
 		this.applicationContext = applicationContext;
 	}
 
-	public void schedule(final JobDetail job, final Trigger trigger) {
+	public long schedule(final JobDetail job, final Trigger trigger) {
 		/*if (isJobExists(job)) {
 			rescheduleJob(job, trigger);
 		} else {*/
-			doScheduleJob(job, trigger);
+			return doScheduleJob(job, trigger);
 		/*}*/
 	}
 
@@ -84,12 +84,14 @@ public class RivalsAppScheduler implements ApplicationContextAware {
 		}
 	}
 
-	private void doScheduleJob(final JobDetail job, final Trigger trigger) {
+	private long doScheduleJob(final JobDetail job, final Trigger trigger) {
+		long scheduleId;
 		try {
-			this.scheduler.scheduleJob(job, trigger);
+			scheduleId = this.scheduler.scheduleJob(job, trigger).getTime();
 		} catch (SchedulerException e) {
 			throw new IllegalStateException("Failed to schedule the Job.", e);
 		}
+		return scheduleId;
 	}
 
 	/*public static class InvocationDetail {

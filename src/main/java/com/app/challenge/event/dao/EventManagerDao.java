@@ -32,9 +32,21 @@ public class EventManagerDao {
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	@Transactional
-	public void createEvent() {
-
+	@Transactional(rollbackFor=DataAccessException.class)
+	public void createEvent(long challengeId, long creatorId, String expiryInDays) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("challengeId", challengeId);
+		params.put("creatorId", creatorId);
+		params.put("createdDate", new Date());
+		params.put("expiryindays", expiryInDays);
+		SqlParameterSource paramMap = new MapSqlParameterSource(params);
+		String sql = "insert into rivals.scheduler(challengeid,creatoruid,createddate,expiryindays) values(:challengeId,:creatorId,:createdDate,:expiryindays)";
+		try {
+			namedParameterJdbcTemplate.update(sql, paramMap);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	public boolean userExists(String emailId) {
