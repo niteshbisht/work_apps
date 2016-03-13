@@ -6,6 +6,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+	
+	<bean id="quartzJobFactory" class="com.app.quartz.AutowiringSpringBeanJobFactory">
+			<!-- I will not explain this setting, just use it as shown: -->
+			<property name="ignoredUnknownProperties" value="applicationContext" />
+	</bean>
+	
 	<!-- Start Scheduling -->
 	<bean id="scheduler" name="scheduler"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
@@ -17,7 +23,12 @@
 		<property name="transactionManager">
 			<ref bean="dataSourceTxManager" />
 		</property>
+		<property name="autoStartup" value="true" />
 		<property name="overwriteExistingJobs" value="true" />
+		<!-- reference to our 'autowiring job factory bean', defined above: -->
+		<property name="jobFactory" ref="quartzJobFactory"/>
+		<property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+		
 		<property name="quartzProperties">
 			<props>
 				<prop key="org.quartz.scheduler.instanceId">AUTO</prop>
@@ -35,7 +46,21 @@
 				<prop key="org.quartz.threadPool.threadCount">10</prop>
 			</props>
 		</property>
+		
+		
 		<!-- <property name="triggers"> <list> <ref bean="trigger" /> </list> </property> -->
 	</bean>
+	
+	
+
+
+    <!-- I will not explain the next three properties, just use it as shown: -->
+    
+    
+
+    <!-- Controls whether to wait for jobs completion on app shutdown, we use 'true' -->
+    <!-- <property name="waitForJobsToCompleteOnShutdown" 
+                   value="${scheduler.shutdown.wait-for-jobs-completion}"/> -->
+	
 	<!-- End Scheduling -->
 </beans>

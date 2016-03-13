@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,19 +26,24 @@ import com.app.challenge.event.vo.UserAccountVO;
 import com.app.challenge.fbutil.FacebookClientHandler;
 import com.app.quartz.RivalScheduledJob;
 import com.app.quartz.RivalsAppScheduler;
-import com.app.rival.challengebean.RivalBean;
 
 @Component
 public class EventManager {
 
 	@Autowired
-	EventManagerDao eventManagerDao;
+	private EventManagerDao eventManagerDao;
 
 	@Autowired
-	FacebookClientHandler fbClientHandler;
+	private FacebookClientHandler fbClientHandler;
 
 	@Autowired
-	RivalsAppScheduler rivalsAppScheduler;
+	private RivalsAppScheduler rivalsAppScheduler;
+	
+	@Autowired
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
+	@Autowired
+	RivalScheduledJob rivalScheduledJob;
 	
 	public void createChallenge(Challenge challenge) {
 
@@ -234,42 +240,49 @@ public class EventManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		String jobName = Long.toString(challengeId);
-		String group = "rivalApp";
-		String duration = challengeVO.getDuration();
-		StringTokenizer strToken = new StringTokenizer(duration,":");
-		int i = 1; int days = 0; int hours = 0; int minutes = 0;
-		try{
-		while (strToken.hasMoreTokens()) {
-
-			switch (i) {
-
-			case 1:
-				days = Integer.parseInt(strToken.nextToken());
-				break;
-			case 2:
-				hours = Integer.parseInt(strToken.nextToken());
-				hours = hours < 24 ? hours : hours - (hours-24);
-				break;
-			case 3:
-				minutes = Integer.parseInt(strToken.nextToken());
-				minutes = minutes<60?minutes:minutes - (minutes-60);
-				break;
-			}
-			i++;
-		}}catch(NumberFormatException ne){
-			ne.printStackTrace();
-		}
 		
-		Calendar cl = Calendar.getInstance();
-		cl.add(Calendar.DATE, days);
-		cl.add(Calendar.HOUR, hours);
-		cl.add(Calendar.MINUTE, minutes);
-		Date when = cl.getTime();
-		RivalScheduledJob rvs = new RivalScheduledJob();
-		rivalsAppScheduler.scheduleInvocation(jobName, group, when, rvs);
-		responseVO.setChallengeId(challengeId);
-		responseVO.setCreatorId(userId);
+		if (challengeId > 0L) {
+			String jobName = Long.toString(challengeId);
+			String group = "rivalApp";
+			String duration = challengeVO.getDuration();
+			StringTokenizer strToken = new StringTokenizer(duration, ":");
+			int i = 1;
+			int days = 0;
+			int hours = 0;
+			int minutes = 0;
+			try {
+				while (strToken.hasMoreTokens()) {
+
+					switch (i) {
+
+					case 1:
+						days = Integer.parseInt(strToken.nextToken());
+						break;
+					case 2:
+						hours = Integer.parseInt(strToken.nextToken());
+						hours = hours < 24 ? hours : hours - (hours - 24);
+						break;
+					case 3:
+						minutes = Integer.parseInt(strToken.nextToken());
+						minutes = minutes < 60 ? minutes : minutes
+								- (minutes - 60);
+						break;
+					}
+					i++;
+				}
+			} catch (NumberFormatException ne) {
+				ne.printStackTrace();
+			}
+
+			Calendar cl = Calendar.getInstance();
+			cl.add(Calendar.DATE, days);
+			cl.add(Calendar.HOUR, hours);
+			cl.add(Calendar.MINUTE, minutes);
+			Date when = cl.getTime();
+			rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);
+			responseVO.setChallengeId(challengeId);
+			responseVO.setCreatorId(userId);
+		}
 		return responseVO;
 	}
 

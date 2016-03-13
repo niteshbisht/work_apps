@@ -1,7 +1,6 @@
 package com.app.quartz;
 
 import java.util.Date;
-import java.util.List;
 
 import org.quartz.Job;
 import org.quartz.JobBuilder;
@@ -9,11 +8,9 @@ import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
-import org.quartz.impl.triggers.SimpleTriggerImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -22,10 +19,6 @@ import org.springframework.stereotype.Component;
 
 @Component("rivalsAppScheduler")
 public class RivalsAppScheduler implements ApplicationContextAware {
-
-	private static final String TARGET_BEAN_NAME_KEY = "targetBean";
-	private static final String METHOD_NAME_KEY = "method";
-	private static final String ARGUMENTS_KEY = "arguments";
 
 	@Autowired
 	private Scheduler scheduler;
@@ -66,11 +59,11 @@ public class RivalsAppScheduler implements ApplicationContextAware {
 	}
 
 	public void schedule(final JobDetail job, final Trigger trigger) {
-		if (isJobExists(job)) {
+		/*if (isJobExists(job)) {
 			rescheduleJob(job, trigger);
-		} else {
+		} else {*/
 			doScheduleJob(job, trigger);
-		}
+		/*}*/
 	}
 
 	private void rescheduleJob(final JobDetail job, final Trigger trigger) {
