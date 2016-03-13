@@ -53,9 +53,15 @@ public class EventManagerDao {
 	public boolean userExists(String emailId) {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(ChallengeConstants.DB_EMAIL, emailId);
-		Map<String, Object> queryForMap = namedParameterJdbcTemplate.queryForMap("", paramMap);
-		boolean result = null == queryForMap ? true : false;
-		return result;
+		String sql = "SELECT EXISTS(select * from rivals.user_account where useremail=:EMAIL)";
+		Boolean exists = false;
+		try {
+			exists = namedParameterJdbcTemplate.queryForObject(sql, paramMap, Boolean.class);
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exists;
 	}
 
 	public UserToken checkUserExists(String emailId) {
@@ -121,7 +127,6 @@ public class EventManagerDao {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		String sql = "SELECT EXISTS(select * from rivals.user_account where useremail=:EMAIL)";
 		Boolean userExists = false;
-		String uid = null;
 		try {
 			userExists = namedParameterJdbcTemplate.queryForObject(sql, paramMap, Boolean.class);
 		} catch (Exception e) {
@@ -136,7 +141,6 @@ public class EventManagerDao {
 				sql = "select id from rivals.user_account where useremail=:EMAIL";
 				Long userId = namedParameterJdbcTemplate.queryForObject(sql,
 						paramMap, Long.class);
-				uid = Long.toString(userId);
 				paramMap.put("USER_ID", userId);
 				sql = "update rivals.user_tokens set fbtoken=:TOKEN, lastupdateddate=:DATE where uid=:USER_ID";
 				namedParameterJdbcTemplate.update(sql, paramMap);
@@ -145,10 +149,10 @@ public class EventManagerDao {
 				Map<String, Object> queryForMap = namedParameterJdbcTemplate
 						.queryForMap(gatherDataSql, paramMap);
 				String username = (String) queryForMap.get("username");
-				Long totalChallenges = (Long) queryForMap
-						.get("totalchallenges");
-				Long totalwins = (Long) queryForMap
-						.get("totalwins");
+				Long totalChallenges = (Long) ((Integer)queryForMap
+						.get("totalchallenges")).longValue();
+				Long totalwins = (Long) ((Integer)queryForMap
+						.get("totalwins")).longValue();
 				Long totalLoseCount = totalChallenges.longValue() - totalwins.longValue();
 				response.setTotalLooseCount(totalLoseCount);
 				response.setTotalWinCount(totalwins);
@@ -167,7 +171,6 @@ public class EventManagerDao {
 				namedParameterJdbcTemplate.update(sql, paramSource, keyHolder);
 				Map<String, Object> keys = keyHolder.getKeys();
 				Long id = (Long) keys.get("GENERATED_KEY");
-				uid = id.toString();
 				paramMap.put(ChallengeConstants.DB_UID, id);
 				sql = "insert into rivals.user_tokens(uid,fbtoken,createddate,useremail) values(:UID,:TOKEN,:DATE,:EMAIL)";
 				namedParameterJdbcTemplate.update(sql, paramMap);
@@ -175,10 +178,10 @@ public class EventManagerDao {
 				Map<String, Object> queryForMap = namedParameterJdbcTemplate
 						.queryForMap(gatherDataSql, paramMap);
 				String username = (String) queryForMap.get("username");
-				Long totalChallenges = (Long) queryForMap
-						.get("totalchallenges");
-				Long totalwins = (Long) queryForMap
-						.get("totalwins");
+				Long totalChallenges = ((Integer) queryForMap
+						.get("totalchallenges")).longValue();
+				Long totalwins = ((Integer)queryForMap
+						.get("totalwins")).longValue();
 				Long totalLoseCount = totalChallenges.longValue() - totalwins.longValue();
 				response.setTotalLooseCount(totalLoseCount);
 				response.setTotalWinCount(totalwins);

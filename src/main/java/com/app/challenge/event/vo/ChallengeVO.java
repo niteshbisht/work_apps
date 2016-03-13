@@ -22,6 +22,7 @@ public class ChallengeVO {
 	private String challengeType;
 	private long challengeId;
 	private String gameType;
+	private String acceptorEmailId;
 	
 	public String getGameType() {
 		return gameType;
@@ -172,6 +173,12 @@ public class ChallengeVO {
 	 */
 	public void setTopic(String topic) {
 		this.topic = topic;
+	}
+	public String getAcceptorEmailId() {
+		return acceptorEmailId;
+	}
+	public void setAcceptorEmailId(String acceptorEmailId) {
+		this.acceptorEmailId = acceptorEmailId;
 	}
 	
 	

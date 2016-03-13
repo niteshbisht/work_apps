@@ -246,15 +246,39 @@ public class EventManager {
 		return responseList;
 	}
 
-	public AllChallengeResponseVO createNewChallenge(ChallengeVO challengeVO, boolean isAcceptor) {
+	public AllChallengeResponseVO createNewChallenge(ChallengeVO challengeVO, boolean isAcceptor) throws SQLException {
 		AllChallengeResponseVO responseVO = new AllChallengeResponseVO();
 
 		long userId = challengeVO.getUserID();
 		String fbUserId = challengeVO.getFbUserID();
 		String playerImage = challengeVO.getPlayerImage();
 		String fbPostID = null;
-		if (playerImage != null && fbUserId != null) {
-			fbPostID = fbClientHandler.publishPhotoToWall(fbUserId, "Rivalry Started", playerImage, false);
+		String acceptorEmailId = challengeVO.getAcceptorEmailId();
+		boolean userExists = false;
+		try{
+			userExists = eventManagerDao.userExists(acceptorEmailId);
+		}catch(Exception e){
+			throw new SQLException();
+		}
+		// add the logic for posting to friends wall on fb
+		
+		if (userExists) {
+			// post to friends wall and self wall
+			if (playerImage != null && fbUserId != null) {
+				fbPostID = fbClientHandler.publishPhotoToWall(fbUserId,
+						"Rivalry Started", playerImage, false);
+			}
+			
+		}else{
+			if (playerImage != null && fbUserId != null) {
+				fbPostID = fbClientHandler.publishPhotoToWall(fbUserId,
+						"Rivalry Started", playerImage, false);
+			}
+			// for open challenge wall challenge
+			// ----------------------------------//
+			
+			
+			//--                            ---//
 		}
 		long challengeId = 0L;
 		try {
