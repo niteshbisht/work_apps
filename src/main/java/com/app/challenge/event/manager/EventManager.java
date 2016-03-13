@@ -400,8 +400,11 @@ public class EventManager {
 		cl.add(Calendar.HOUR, hours);
 		cl.add(Calendar.MINUTE, minutes);
 		Date when = cl.getTime();
+		try{
 		long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);
-		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		responseVO.setStatus("INPROGRESS");
 		responseVO.setCreatorId(userId);
 		return responseVO;
