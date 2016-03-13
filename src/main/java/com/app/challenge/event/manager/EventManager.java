@@ -182,6 +182,10 @@ public class EventManager {
 					String acceptorImage = acceptorDetail.getUserImage();
 					responseVO.setCreatorImage(creatorImage);
 					responseVO.setAcceptorImage(acceptorImage);
+					responseVO.setAcceptorId(acceptorId);
+					responseVO.setCreatorId(creatorId);
+					responseVO.setAcceptorName(acceptorDetail.getUserName());
+					responseVO.setCreatorName(userAccountCreator.getUserName());
 					BeanUtils.copyProperties(domain, responseVO);
 					players = eventManagerDao.fetchPlayersOfChallenges(id);
 					if (players != null && !players.isEmpty()) {
