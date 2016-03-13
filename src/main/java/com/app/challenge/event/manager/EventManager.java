@@ -4,8 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.BeanUtils;
@@ -153,6 +156,19 @@ public class EventManager {
 			challenges = eventManagerDao.fetchMyChallenges(challengeFrom, userID);
 			List<Player> players = null;
 			Player player = null;
+			Set<Long> userIdSet = new HashSet<>();
+			for (ChallengeDomain challenge : challenges) {
+				
+				long creatorId = challenge.getCreatorId();
+				long acceptorId = challenge.getAcceptorId();
+				userIdSet.add(creatorId);
+				userIdSet.add(acceptorId);
+			}
+			
+			ArrayList<Long> userIdList = new ArrayList<>();
+			userIdList.addAll(userIdSet);
+			Map<Long, UserAccount> userDetailsMap = eventManagerDao.fetchUserDetails(userIdList);
+			
 			if (challenges != null) {
 				Iterator<ChallengeDomain> iter = challenges.iterator();
 				ChallengeDomain domain = null;
@@ -161,9 +177,16 @@ public class EventManager {
 					responseVO = new AllChallengeResponseVO();
 					domain = iter.next();
 					long id = domain.getChallengeId();
+					long creatorId = domain.getCreatorId();
+					long acceptorId = domain.getAcceptorId();
+					UserAccount userAccountCreator = userDetailsMap.get(creatorId);
+					UserAccount acceptorDetail = userDetailsMap.get(acceptorId);
+					String creatorImage = userAccountCreator.getUserImage();
+					String acceptorImage = acceptorDetail.getUserImage();
+					responseVO.setCreatorImage(creatorImage);
+					responseVO.setAcceptorImage(acceptorImage);
 					BeanUtils.copyProperties(domain, responseVO);
 					players = eventManagerDao.fetchPlayersOfChallenges(id);
-
 					if (players != null && !players.isEmpty()) {
 
 						Iterator<Player> iters = players.iterator();
@@ -178,6 +201,8 @@ public class EventManager {
 				}
 
 			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
