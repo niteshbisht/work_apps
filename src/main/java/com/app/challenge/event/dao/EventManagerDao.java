@@ -23,6 +23,7 @@ import com.app.challenge.domain.Player;
 import com.app.challenge.domain.UserAccount;
 import com.app.challenge.domain.UserToken;
 import com.app.challenge.event.vo.ChallengeVO;
+import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.fbutil.Base64;
 
 @Transactional(rollbackFor = SQLException.class)
@@ -103,7 +104,8 @@ public class EventManagerDao {
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
-	public String registerDevice(UserAccount userAccount) throws SQLException {
+	public RegisterResponseVO registerDevice(UserAccount userAccount) throws SQLException {
+		RegisterResponseVO response = new RegisterResponseVO();
 		byte[] bytes = Base64.decode(userAccount.getUserImage(), 0);//userAccount.getUserImage().getBytes();
 		ByteArrayInputStream baos = new ByteArrayInputStream(bytes);
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
@@ -132,17 +134,33 @@ public class EventManagerDao {
 				sql = "update rivals.user_account set deviceid=:DEVICEID, devicetype=:DEVICETYPE, userimage=:PLAYERIMAGE,lastupdateddate=:DATE";
 				namedParameterJdbcTemplate.update(sql, paramMap);
 				sql = "select id from rivals.user_account where useremail=:EMAIL";
-				Long userId = namedParameterJdbcTemplate.queryForObject(sql, paramMap, Long.class);
+				Long userId = namedParameterJdbcTemplate.queryForObject(sql,
+						paramMap, Long.class);
 				uid = Long.toString(userId);
 				paramMap.put("USER_ID", userId);
 				sql = "update rivals.user_tokens set fbtoken=:TOKEN, lastupdateddate=:DATE where uid=:USER_ID";
 				namedParameterJdbcTemplate.update(sql, paramMap);
+				String gatherDataSql = "select * from rivals.user_account where id=:USER_ID";
+
+				Map<String, Object> queryForMap = namedParameterJdbcTemplate
+						.queryForMap(gatherDataSql, paramMap);
+				String username = (String) queryForMap.get("username");
+				Long totalChallenges = (Long) queryForMap
+						.get("totalchallenges");
+				Long totalwins = (Long) queryForMap
+						.get("totalwins");
+				Long totalLoseCount = totalChallenges.longValue() - totalwins.longValue();
+				response.setTotalLooseCount(totalLoseCount);
+				response.setTotalWinCount(totalwins);
+				response.setUserId(userId);
+				response.setUserName(username);
+				return response;
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new SQLException();
 			}
 		} else {
-			sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate,status) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE,:STATUS)";
+			sql = "insert into rivals.user_account(deviceid,devicetype,userimage,username,useremail,createddate,status,totalchallenges,totalwins) values(:DEVICEID,:DEVICETYPE,:PLAYERIMAGE,:USERNAME,:EMAIL,:CREATED_DATE,:STATUS,0,0)";
 
 			try {
 				SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
@@ -153,6 +171,20 @@ public class EventManagerDao {
 				paramMap.put(ChallengeConstants.DB_UID, id);
 				sql = "insert into rivals.user_tokens(uid,fbtoken,createddate,useremail) values(:UID,:TOKEN,:DATE,:EMAIL)";
 				namedParameterJdbcTemplate.update(sql, paramMap);
+				String gatherDataSql = "select * from rivals.user_account where id=:UID";
+				Map<String, Object> queryForMap = namedParameterJdbcTemplate
+						.queryForMap(gatherDataSql, paramMap);
+				String username = (String) queryForMap.get("username");
+				Long totalChallenges = (Long) queryForMap
+						.get("totalchallenges");
+				Long totalwins = (Long) queryForMap
+						.get("totalwins");
+				Long totalLoseCount = totalChallenges.longValue() - totalwins.longValue();
+				response.setTotalLooseCount(totalLoseCount);
+				response.setTotalWinCount(totalwins);
+				response.setUserId(id);
+				response.setUserName(username);
+				return response;
 			} catch (DataAccessException e) {
 				e.printStackTrace();
 				throw new SQLException();
@@ -161,7 +193,6 @@ public class EventManagerDao {
 				throw new SQLException();
 			}
 		}
-		return uid;
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
@@ -359,6 +390,18 @@ public class EventManagerDao {
 			throw new SQLException();
 		}
 		return rows;
+	}
+	
+	public String getDurationForChallengId(long challengeId){
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("challengeId", challengeId);
+		String sql = "select expiryindays from rivals.scheduller where challengeId = :challengeId";
+		try{
+			return namedParameterJdbcTemplate.queryForObject(sql, paramMap, String.class);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

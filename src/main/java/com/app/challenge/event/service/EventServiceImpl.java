@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.app.challenge.event.dao.EventManagerDao;
 import com.app.challenge.event.manager.EventManager;
+import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeAppResponseVO;
-import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
+import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
 
 @Service("rivalService")
@@ -43,15 +44,15 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public ChallengeAppResponseVO<AppResponseVO> registerNewDevice(UserAccountVO userAccountVO) {
-		AppResponseVO registerDevice = null;
-		ChallengeAppResponseVO< AppResponseVO> response;
+	public ChallengeAppResponseVO<RegisterResponseVO> registerNewDevice(UserAccountVO userAccountVO) {
+		RegisterResponseVO registerDevice = null;
+		ChallengeAppResponseVO< RegisterResponseVO> response;
 		try {
 			registerDevice = eventManager.registerDevice(userAccountVO);
 		} catch (Exception e) {
 			response = new ChallengeAppResponseVO<>(true, e.getMessage());
 		}
-		response = new ChallengeAppResponseVO<AppResponseVO>(registerDevice);
+		response = new ChallengeAppResponseVO<RegisterResponseVO>(registerDevice);
 		return response;
 	}
 

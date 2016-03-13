@@ -10,10 +10,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeAppResponseVO;
-import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
+import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
 
 @Path("/rivalService")
@@ -29,7 +30,7 @@ public interface EventService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/registerNewDevice")
-	ChallengeAppResponseVO<AppResponseVO> registerNewDevice(UserAccountVO userAccountVO);
+	ChallengeAppResponseVO<RegisterResponseVO> registerNewDevice(UserAccountVO userAccountVO);
 
 	
 	@POST

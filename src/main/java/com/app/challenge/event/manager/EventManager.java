@@ -25,6 +25,7 @@ import com.app.challenge.event.dao.EventManagerDao;
 import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
+import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
 import com.app.challenge.fbutil.FacebookClientHandler;
 import com.app.quartz.RivalScheduledJob;
@@ -92,20 +93,16 @@ public class EventManager {
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
-	public AppResponseVO registerDevice(UserAccountVO userAccountVO) throws SQLException {
-		AppResponseVO response = new AppResponseVO();
+	public RegisterResponseVO registerDevice(UserAccountVO userAccountVO) throws SQLException {
 		UserAccount uac = new UserAccount();
 		BeanUtils.copyProperties(userAccountVO, uac);
-		String uid;
+		RegisterResponseVO responseVO;
 		try {
-			uid = eventManagerDao.registerDevice(uac);
+			responseVO = eventManagerDao.registerDevice(uac);
 		} catch (Exception e) {
 			throw new SQLException();
 		}
-
-		response.setResponseMessage("success");
-		response.setUserID(Long.parseLong(uid));
-		return response;
+		return responseVO;
 	}
 
 	public List<AllChallengeResponseVO> fetchAllChallenges(int challengeFrom) {
@@ -267,7 +264,8 @@ public class EventManager {
 		}
 		
 		if (challengeId > 0L) {
-			String jobName = Long.toString(challengeId);
+			String duration = challengeVO.getDuration();
+			/*String jobName = Long.toString(challengeId);
 			String group = "rivalApp";
 			String duration = challengeVO.getDuration();
 			StringTokenizer strToken = new StringTokenizer(duration, ":");
@@ -304,7 +302,7 @@ public class EventManager {
 			cl.add(Calendar.HOUR, hours);
 			cl.add(Calendar.MINUTE, minutes);
 			Date when = cl.getTime();
-			long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);
+			long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);*/
 			try {
 				eventManagerDao.createEvent(challengeId, userId, duration);
 			} catch (Exception e) {
@@ -332,6 +330,47 @@ public class EventManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		long challengeId = challengeVO.getChallengeId();
+		
+		String jobName = Long.toString(challengeId);
+		String group = "rivalApp";
+		String duration = challengeVO.getDuration();
+		StringTokenizer strToken = new StringTokenizer(duration, ":");
+		int i = 1;
+		int days = 0;
+		int hours = 0;
+		int minutes = 0;
+		try {
+			while (strToken.hasMoreTokens()) {
+
+				switch (i) {
+
+				case 1:
+					days = Integer.parseInt(strToken.nextToken());
+					break;
+				case 2:
+					hours = Integer.parseInt(strToken.nextToken());
+					hours = hours < 24 ? hours : hours - (hours - 24);
+					break;
+				case 3:
+					minutes = Integer.parseInt(strToken.nextToken());
+					minutes = minutes < 60 ? minutes : minutes
+							- (minutes - 60);
+					break;
+				}
+				i++;
+			}
+		} catch (NumberFormatException ne) {
+			ne.printStackTrace();
+		}
+
+		Calendar cl = Calendar.getInstance();
+		cl.add(Calendar.DATE, days);
+		cl.add(Calendar.HOUR, hours);
+		cl.add(Calendar.MINUTE, minutes);
+		Date when = cl.getTime();
+		long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);
+		
 		responseVO.setStatus("INPROGRESS");
 		responseVO.setCreatorId(userId);
 		return responseVO;
