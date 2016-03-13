@@ -334,11 +334,11 @@ public class EventManager {
 			cl.add(Calendar.MINUTE, minutes);
 			Date when = cl.getTime();
 			long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);*/
-			try {
+			/*try {
 				eventManagerDao.createEvent(challengeId, userId, duration);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			}*/
 			responseVO.setChallengeId(challengeId);
 			responseVO.setCreatorId(userId);
 		}
@@ -358,6 +358,7 @@ public class EventManager {
 		}
 		try {
 			eventManagerDao.updateAcceptedChallenge(challengeVO, fbPostID, isAcceptor);
+			eventManagerDao.createEvent(challengeVO.getChallengeId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -401,7 +402,7 @@ public class EventManager {
 		cl.add(Calendar.MINUTE, minutes);
 		Date when = cl.getTime();
 		try{
-		long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);
+			long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

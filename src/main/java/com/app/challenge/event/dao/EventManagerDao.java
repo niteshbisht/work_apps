@@ -34,12 +34,16 @@ public class EventManagerDao {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Transactional(rollbackFor=DataAccessException.class)
-	public void createEvent(long challengeId, long creatorId, String expiryInDays) {
+	public void createEvent(long challengeId) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("challengeId", challengeId);
-		params.put("creatorId", creatorId);
+		String challengeSql = "select * from challenges where challengeid="+challengeId;
+		Map<String, Object> queryForMap = namedParameterJdbcTemplate.queryForMap(challengeSql, params);
+		Long creatorUid = ((Integer) queryForMap.get("creatoruid")).longValue();
+		String duration = ((String) queryForMap.get("duration"));
+		params.put("creatorId", creatorUid);
 		params.put("createdDate", new Date());
-		params.put("expiryindays", expiryInDays);
+		params.put("expiryindays", duration);
 		SqlParameterSource paramMap = new MapSqlParameterSource(params);
 		String sql = "insert into rivals.scheduler(challengeid,creatoruid,createddate,expiryindays) values(:challengeId,:creatorId,:createdDate,:expiryindays)";
 		try {
