@@ -293,7 +293,6 @@ public class EventManagerDao {
 
 	public List<ChallengeDomain> fetchMyChallenges(long challengeID, long uid) throws SQLException {
 		List<ChallengeDomain> rows = new ArrayList<>();
-		;
 		String sql = null;
 		if (challengeID == 0)
 			sql = "select * from rivals.challenges where creatoruid=" + uid + " OR acceptoruid=" + uid
@@ -311,6 +310,28 @@ public class EventManagerDao {
 			throw new SQLException();
 		}
 		return rows;
+	}
+	
+	public Map<Long, UserAccount> fetchUserDetails(List<Long> uids) throws SQLException {
+		List<UserAccount> rowsUAC = new ArrayList<>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		HashMap<Long, UserAccount> userAccountDetailMap = new HashMap<>();
+		paramMap.put("userIdList", uids);
+		String sqlForUserId = "select * from rivals.user_account where id in(:userIdList)";
+		try {
+			rowsUAC = namedParameterJdbcTemplate.query(sqlForUserId, new UserAccountRowMapper());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
+		for (UserAccount userAccount : rowsUAC) {
+			long id = userAccount.getId();
+			userAccountDetailMap.put(id, userAccount);
+		}
+		return userAccountDetailMap;
 	}
 
 	public List<Player> fetchPlayersOfChallenges(Long challengeid) throws SQLException {

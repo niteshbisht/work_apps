@@ -19,6 +19,9 @@ public class AllChallengeResponseVO implements Serializable {
 	private String status;
 	private String challengeType;
 	private String gameType;
+	private String creatorImage;
+	private String acceptorImage;
+	
 	public String getGameType() {
 		return gameType;
 	}
@@ -135,5 +138,21 @@ public class AllChallengeResponseVO implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getCreatorImage() {
+		return creatorImage;
+	}
+
+	public void setCreatorImage(String creatorImage) {
+		this.creatorImage = creatorImage;
+	}
+
+	public String getAcceptorImage() {
+		return acceptorImage;
+	}
+
+	public void setAcceptorImage(String acceptorImage) {
+		this.acceptorImage = acceptorImage;
 	}
 }
