@@ -231,7 +231,7 @@ public class EventManagerDao {
 			paramMap.put(ChallengeConstants.DB_FB_LIKES, 0);
 			paramMap.put(ChallengeConstants.DB_PLAYERS_IMAGE, bytes);
 			paramMap.put(ChallengeConstants.DB_PLAYER_NAME, challengeVO.getPlayerName());
-			paramMap.put(ChallengeConstants.DB_PLAYER_TYPE, "player");
+			paramMap.put(ChallengeConstants.DB_PLAYER_TYPE, challengeVO.getPlayerType());
 			StringBuffer insideQuery = new StringBuffer();
 			StringBuffer afterQuery = new StringBuffer();
 			StringBuffer sb = new StringBuffer();
@@ -275,7 +275,7 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
 		paramMap.put(ChallengeConstants.DB_END_TIME, 0L);
 		paramMap.put(ChallengeConstants.DB_CHALLENGE_ID, challengeVO.getChallengeId());
-		String sql = "UPDATE table rivals.challenges set acceptoruid = :ACCEPTORUID, starttime = :STARTTIME,wstatus = :STATUS, ENDTIME = :ENDTIME WHERE challengeid = :CHALLENGEID";
+		String sql = "UPDATE rivals.challenges set acceptoruid = :ACCEPTORUID, starttime = :STARTTIME, wstatus = :STATUS, ENDTIME = :ENDTIME WHERE challengeid = :CHALLENGEID";
 
 		try {
 			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
@@ -286,6 +286,7 @@ public class EventManagerDao {
 			paramMap.put(ChallengeConstants.DB_FB_LIKES, 0);
 			paramMap.put(ChallengeConstants.DB_PLAYERS_IMAGE, challengeVO.getPlayerImage());
 			paramMap.put(ChallengeConstants.DB_PLAYER_NAME, challengeVO.getPlayerName());
+			paramMap.put(ChallengeConstants.DB_PLAYER_TYPE, challengeVO.getPlayerType());
 			StringBuffer insideQuery = new StringBuffer();
 			StringBuffer afterQuery = new StringBuffer();
 			StringBuffer sb = new StringBuffer();
@@ -316,6 +317,11 @@ public class EventManagerDao {
 		return 0;
 	}
 
+	
+	/*public void updateSchedullerTables(String duration,long challengeid){
+		namedParameterJdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+	}*/
+	
 	public List<ChallengeDomain> fetchAllChallenges(long challengeID, String status) throws SQLException {
 		return fetchAllChallenges(challengeID, status, false);
 	}
