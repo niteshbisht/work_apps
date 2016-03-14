@@ -10,13 +10,13 @@ package com.app.challenge.event.vo;
 public class ChallengeVO {
 
 	private long userID;
-	private boolean isNewChallenge;
+	private boolean newChallenge;
 	private String playerImage;
 	private String playerType;
 	private String playerName;
 	private String[] playerInfo;
 	private String topic;
-	private boolean isOpenChallenge;
+	private boolean openChallenge;
 	private String fbUserID;
 	private String duration;
 	private String challengeType;
@@ -70,13 +70,13 @@ public class ChallengeVO {
 	 * @return the isOpenChallenge
 	 */
 	public boolean isOpenChallenge() {
-		return isOpenChallenge;
+		return openChallenge;
 	}
 	/**
 	 * @param isOpenChallenge the isOpenChallenge to set
 	 */
 	public void setOpenChallenge(boolean isOpenChallenge) {
-		this.isOpenChallenge = isOpenChallenge;
+		this.openChallenge = isOpenChallenge;
 	}
 	/**
 	 * @return the fbUserID
@@ -106,13 +106,13 @@ public class ChallengeVO {
 	 * @return the isNewChallenge
 	 */
 	public boolean isNewChallenge() {
-		return isNewChallenge;
+		return newChallenge;
 	}
 	/**
 	 * @param isNewChallenge the isNewChallenge to set
 	 */
 	public void setNewChallenge(boolean isNewChallenge) {
-		this.isNewChallenge = isNewChallenge;
+		this.newChallenge = isNewChallenge;
 	}
 	/**
 	 * @return the playerImage

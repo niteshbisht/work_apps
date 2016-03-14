@@ -33,11 +33,11 @@ public class EventManagerDao {
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	@Transactional(rollbackFor=DataAccessException.class)
+	@Transactional(rollbackFor = DataAccessException.class)
 	public void createEvent(long challengeId) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("challengeId", challengeId);
-		String challengeSql = "select * from challenges where challengeid="+challengeId;
+		String challengeSql = "select * from challenges where challengeid=" + challengeId;
 		Map<String, Object> queryForMap = namedParameterJdbcTemplate.queryForMap(challengeSql, params);
 		Long creatorUid = ((Integer) queryForMap.get("creatoruid")).longValue();
 		String duration = ((String) queryForMap.get("duration"));
@@ -116,7 +116,7 @@ public class EventManagerDao {
 	@Transactional(rollbackFor = SQLException.class)
 	public RegisterResponseVO registerDevice(UserAccount userAccount) throws SQLException {
 		RegisterResponseVO response = new RegisterResponseVO();
-		byte[] bytes = Base64.decode(userAccount.getUserImage(), 0);//userAccount.getUserImage().getBytes();
+		byte[] bytes = Base64.decode(userAccount.getUserImage(), 0);// userAccount.getUserImage().getBytes();
 		ByteArrayInputStream baos = new ByteArrayInputStream(bytes);
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(ChallengeConstants.DB_DEVICE_ID, userAccount.getDeviceId());
@@ -143,20 +143,16 @@ public class EventManagerDao {
 				sql = "update rivals.user_account set deviceid=:DEVICEID, devicetype=:DEVICETYPE, userimage=:PLAYERIMAGE,lastupdateddate=:DATE";
 				namedParameterJdbcTemplate.update(sql, paramMap);
 				sql = "select id from rivals.user_account where useremail=:EMAIL";
-				Long userId = namedParameterJdbcTemplate.queryForObject(sql,
-						paramMap, Long.class);
+				Long userId = namedParameterJdbcTemplate.queryForObject(sql, paramMap, Long.class);
 				paramMap.put("USER_ID", userId);
 				sql = "update rivals.user_tokens set fbtoken=:TOKEN, lastupdateddate=:DATE where uid=:USER_ID";
 				namedParameterJdbcTemplate.update(sql, paramMap);
 				String gatherDataSql = "select * from rivals.user_account where id=:USER_ID";
 
-				Map<String, Object> queryForMap = namedParameterJdbcTemplate
-						.queryForMap(gatherDataSql, paramMap);
+				Map<String, Object> queryForMap = namedParameterJdbcTemplate.queryForMap(gatherDataSql, paramMap);
 				String username = (String) queryForMap.get("username");
-				Long totalChallenges = (Long) ((Integer)queryForMap
-						.get("totalchallenges")).longValue();
-				Long totalwins = (Long) ((Integer)queryForMap
-						.get("totalwins")).longValue();
+				Long totalChallenges = (Long) ((Integer) queryForMap.get("totalchallenges")).longValue();
+				Long totalwins = (Long) ((Integer) queryForMap.get("totalwins")).longValue();
 				Long totalLoseCount = totalChallenges.longValue() - totalwins.longValue();
 				response.setTotalLooseCount(totalLoseCount);
 				response.setTotalWinCount(totalwins);
@@ -179,13 +175,10 @@ public class EventManagerDao {
 				sql = "insert into rivals.user_tokens(uid,fbtoken,createddate,useremail) values(:UID,:TOKEN,:DATE,:EMAIL)";
 				namedParameterJdbcTemplate.update(sql, paramMap);
 				String gatherDataSql = "select * from rivals.user_account where id=:UID";
-				Map<String, Object> queryForMap = namedParameterJdbcTemplate
-						.queryForMap(gatherDataSql, paramMap);
+				Map<String, Object> queryForMap = namedParameterJdbcTemplate.queryForMap(gatherDataSql, paramMap);
 				String username = (String) queryForMap.get("username");
-				Long totalChallenges = ((Integer) queryForMap
-						.get("totalchallenges")).longValue();
-				Long totalwins = ((Integer)queryForMap
-						.get("totalwins")).longValue();
+				Long totalChallenges = ((Integer) queryForMap.get("totalchallenges")).longValue();
+				Long totalwins = ((Integer) queryForMap.get("totalwins")).longValue();
 				Long totalLoseCount = totalChallenges.longValue() - totalwins.longValue();
 				response.setTotalLooseCount(totalLoseCount);
 				response.setTotalWinCount(totalwins);
@@ -208,19 +201,27 @@ public class EventManagerDao {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		byte[] bytes = Base64.decode(challengeVO.getPlayerImage(), 0);
 		paramMap.put(ChallengeConstants.DB_CREATOR_UID, challengeVO.getUserID());
-		if (!isAcceptor)
-			paramMap.put(ChallengeConstants.DB_ACCEPTOR_UID, null);
-
+		/*
+		 * if (!isAcceptor) paramMap.put(ChallengeConstants.DB_ACCEPTOR_UID,
+		 * null);
+		 */
+		if (!challengeVO.isOpenChallenge()) {
+			paramMap.put(ChallengeConstants.DB_ACCEPTOR_MAIL_ID, challengeVO.getAcceptorEmailId());
+		}
 		paramMap.put(ChallengeConstants.DB_FB_CHALLENGE_ID, fbChallengeID);
 		paramMap.put(ChallengeConstants.DB_START_TIME, new Date());
-		paramMap.put(ChallengeConstants.DB_STATUS, "ACTIVE");
+		paramMap.put(ChallengeConstants.DB_STATUS, challengeVO.getChallengeType());
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
 		paramMap.put(ChallengeConstants.DB_CHALLENGE_TYPE, challengeVO.getChallengeType());
 		paramMap.put(ChallengeConstants.DB_END_TIME, new Date());
 		paramMap.put(ChallengeConstants.DB_DURATION, challengeVO.getDuration());
 		paramMap.put(ChallengeConstants.DB_TOPIC, challengeVO.getTopic());
 		paramMap.put(ChallengeConstants.DB_GAME_TYPE, challengeVO.getGameType());
-		String sql = "INSERT INTO rivals.challenges(creatoruid,acceptoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration,gametype) VALUES(:CREATORUID,:ACCEPTORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION,:GAMETYPE)";
+		String sql = null;
+		if (!challengeVO.isOpenChallenge())
+			sql = "INSERT INTO rivals.challenges(creatoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration,gametype,acceptorfbmailid) VALUES(:CREATORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION,:GAMETYPE,:ACCEPTORMAILID)";
+		else
+			sql = "INSERT INTO rivals.challenges(creatoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration,gametype) VALUES(:CREATORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION,:GAMETYPE)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		long challengeID = 0L;
 
@@ -279,7 +280,7 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
 		paramMap.put(ChallengeConstants.DB_END_TIME, 0L);
 		paramMap.put(ChallengeConstants.DB_CHALLENGE_ID, challengeVO.getChallengeId());
-		String sql = "UPDATE rivals.challenges set acceptoruid = :ACCEPTORUID, starttime = :STARTTIME, wstatus = :STATUS, ENDTIME = :ENDTIME WHERE challengeid = :CHALLENGEID";
+		String sql = "UPDATE rivals.challenges set acceptoruid = :ACCEPTORUID, fbchallengeAcceptorID = :FBCHALLENGEID, starttime = :STARTTIME, wstatus = :STATUS, ENDTIME = :ENDTIME WHERE challengeid = :CHALLENGEID";
 
 		try {
 			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
@@ -321,38 +322,39 @@ public class EventManagerDao {
 		return 0;
 	}
 
-	
-	/*public void updateSchedullerTables(String duration,long challengeid){
-		namedParameterJdbcTemplate.queryForObject(sql, paramMap, Integer.class);
-	}*/
-	
+	/*
+	 * public void updateSchedullerTables(String duration,long challengeid){
+	 * namedParameterJdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+	 * }
+	 */
+
 	public List<ChallengeDomain> fetchAllChallenges(long challengeID, String status) throws SQLException {
 		return fetchAllChallenges(challengeID, status, false);
 	}
-	
-	public List<ChallengeDomain> fetchAllChallenges(long challengeID, String status,boolean fetchall) throws SQLException {
+
+	public List<ChallengeDomain> fetchAllChallenges(long challengeID, String status, boolean fetchall)
+			throws SQLException {
 		List<ChallengeDomain> rows = new ArrayList<>();
 		String sql = null;
-		
-		if(fetchall){
-			sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS'";
+
+		if (fetchall) {
+			sql = "select * from rivals.challenges";
 		} else {
 			if (challengeID == 0)
-				sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS' ORDER BY challengeid DESC LIMIT 20";
+				sql = "select * from rivals.challenges where wstatus='OPEN' OR wstatus='FRIEND' OR wstatus = 'INPROGRESS' ORDER BY challengeid DESC LIMIT 20";
 			else
-				sql = "select * from rivals.challenges where wstatus='ACTIVE' OR wstatus = 'INPROGRESS' AND challengeid < "
+				sql = "select * from rivals.challenges where wstatus='OPEN' OR wstatus='FRIEND' OR wstatus = 'INPROGRESS' AND challengeid < "
 						+ challengeID + " ORDER BY challengeid DESC LIMIT 20";
 		}
-			try {
-				rows = namedParameterJdbcTemplate.query(sql,
-						new ChallengeRowMapper());
-			} catch (DataAccessException e) {
-				e.printStackTrace();
-				throw new SQLException();
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new SQLException();
-			}
+		try {
+			rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
 		return rows;
 	}
 
@@ -376,7 +378,7 @@ public class EventManagerDao {
 		}
 		return rows;
 	}
-	
+
 	public Map<Long, UserAccount> fetchUserDetails(List<Long> uids) throws SQLException {
 		List<UserAccount> rowsUAC = new ArrayList<>();
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
@@ -413,14 +415,14 @@ public class EventManagerDao {
 		}
 		return rows;
 	}
-	
-	public String getDurationForChallengId(long challengeId){
+
+	public String getDurationForChallengId(long challengeId) {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("challengeId", challengeId);
 		String sql = "select expiryindays from rivals.scheduller where challengeId = :challengeId";
-		try{
+		try {
 			return namedParameterJdbcTemplate.queryForObject(sql, paramMap, String.class);
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
