@@ -101,8 +101,8 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_DATE, new Date());
 		paramMap.put("uid", uid);
 		paramMap.put("username", userName);
-		String sql = "update rivals.user_tokens set fbtoken=:TOKEN,lastupdteddate=:DATE,useremail=:EMAIL where uid=:uid";
-		String sqlUsername = "update rivals.user_account set username=:username,useremail=:EMAIL where id=:uid";
+		String sql = "update rivals.user_tokens set fbtoken=:TOKEN,lastupdateddate=:DATE,useremail=:EMAIL where uid=:uid";
+		String sqlUsername = "update rivals.user_account set username=:username where id=:uid";
 		try {
 			namedParameterJdbcTemplate.update(sql, paramMap);
 			namedParameterJdbcTemplate.update(sqlUsername, paramMap);
