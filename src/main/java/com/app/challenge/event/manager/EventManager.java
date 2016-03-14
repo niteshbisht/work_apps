@@ -80,10 +80,10 @@ public class EventManager {
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
-	public AppResponseVO updateUserToken(Long uid, String userEmail, String token) throws SQLException {
+	public AppResponseVO updateUserToken(Long uid, String userEmail, String token, String userName) throws SQLException {
 		AppResponseVO response = new AppResponseVO();
 		try {
-			eventManagerDao.updateUserToken(uid, userEmail, token);
+			eventManagerDao.updateUserToken(uid, userEmail, token,userName);
 		} catch (Exception e) {
 			throw new SQLException();
 		}

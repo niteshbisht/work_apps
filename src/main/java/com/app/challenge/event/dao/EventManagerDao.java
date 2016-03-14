@@ -94,15 +94,18 @@ public class EventManagerDao {
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
-	public String updateUserToken(Long uid, String userEmail, String token) throws SQLException {
+	public String updateUserToken(Long uid, String userEmail, String token, String userName) throws SQLException {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(ChallengeConstants.DB_EMAIL, userEmail);
 		paramMap.put(ChallengeConstants.DB_TOKEN, token);
 		paramMap.put(ChallengeConstants.DB_DATE, new Date());
 		paramMap.put("uid", uid);
+		paramMap.put("username", userName);
 		String sql = "update rivals.user_tokens set fbtoken=:TOKEN,lastupdteddate=:DATE,useremail=:EMAIL where uid=:uid";
+		String sqlUsername = "update rivals.user_account set username=:username,useremail=:EMAIL where id=:uid";
 		try {
 			namedParameterJdbcTemplate.update(sql, paramMap);
+			namedParameterJdbcTemplate.update(sqlUsername, paramMap);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			throw new SQLException();
