@@ -41,7 +41,10 @@ CREATE TABLE `challenges` (
   PRIMARY KEY (`challengeid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
+ALTER TABLE `rivals`.`challenges` 
+ADD COLUMN `fbchallengeAcceptorID` VARCHAR(100) NULL DEFAULT NULL AFTER `gametype`;
+ALTER TABLE `rivals`.`challenges` 
+ADD COLUMN `acceptorfbmailid` VARCHAR(300) NULL DEFAULT NULL AFTER `fbchallengeAcceptorID`;
 --
 -- Table structure for table `player_challenge_mapping`
 --

@@ -15,6 +15,9 @@ public class RivalAppSchedulerUtil {
 	
 	public static void computeStatsForChallenge(long challengeId, NamedParameterJdbcTemplate namedParameterJdbcTemplate,FacebookClientHandler facebookClientHandler){
 		String sql = "select * from rivals.user_account";
+		
+		long fblikesCount = 0;
+		long msgCounts = 0;
 		try{
 			SqlParameterSource paramMap = new MapSqlParameterSource();
 			List<Map<String, Object>> queryForList = namedParameterJdbcTemplate.queryForList(sql, paramMap);
