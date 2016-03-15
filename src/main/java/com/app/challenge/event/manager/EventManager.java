@@ -180,14 +180,20 @@ public class EventManager {
 					long creatorId = domain.getCreatorId();
 					long acceptorId = domain.getAcceptorId();
 					UserAccount userAccountCreator = userDetailsMap.get(creatorId);
-					UserAccount acceptorDetail = userDetailsMap.get(acceptorId);
+					String acceptorImage  = "no image";
+					UserAccount acceptorDetail = new UserAccount();
+					if(acceptorId>0){
+						acceptorDetail = userDetailsMap.get(acceptorId);
+						acceptorImage= acceptorDetail.getUserImage();
+					}
+					 
 					String creatorImage = userAccountCreator.getUserImage();
-					String acceptorImage = acceptorDetail.getUserImage();
+					
 					responseVO.setCreatorImage(creatorImage);
 					responseVO.setAcceptorImage(acceptorImage);
 					responseVO.setAcceptorId(acceptorId);
 					responseVO.setCreatorId(creatorId);
-					responseVO.setAcceptorName(acceptorDetail.getUserName());
+					responseVO.setAcceptorName(acceptorDetail.getUserName()==null?"":acceptorDetail.getUserName());
 					responseVO.setCreatorName(userAccountCreator.getUserName());
 					BeanUtils.copyProperties(domain, responseVO);
 					players = eventManagerDao.fetchPlayersOfChallenges(id);

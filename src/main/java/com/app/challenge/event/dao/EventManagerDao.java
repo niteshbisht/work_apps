@@ -366,10 +366,10 @@ public class EventManagerDao {
 		String sql = null;
 		if (challengeID == 0)
 			sql = "select * from rivals.challenges where creatoruid=" + uid + " OR acceptoruid=" + uid
-					+ " ORDER BY challengeid DESC LIMIT 20";
+					+ "  OR wstatus = 'OPEN' ORDER BY challengeid DESC LIMIT 20";
 		else
 			sql = "select * from rivals.challenges where creatoruid=" + uid + " OR acceptoruid=" + uid
-					+ " AND challengeid < " + challengeID + " ORDER BY challengeid DESC LIMIT 20";
+					+ " AND challengeid < " + challengeID + " OR wstatus = 'OPEN' ORDER BY challengeid DESC LIMIT 20";
 		try {
 			rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
 		} catch (DataAccessException e) {
@@ -389,7 +389,7 @@ public class EventManagerDao {
 		paramMap.put("userIdList", uids);
 		String sqlForUserId = "select * from rivals.user_account where id in(:userIdList)";
 		try {
-			rowsUAC = namedParameterJdbcTemplate.query(sqlForUserId, new UserAccountRowMapper());
+			rowsUAC = namedParameterJdbcTemplate.query(sqlForUserId, paramMap,new UserAccountRowMapper());
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			throw new SQLException();
