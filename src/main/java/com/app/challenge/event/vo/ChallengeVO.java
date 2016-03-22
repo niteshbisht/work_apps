@@ -23,6 +23,7 @@ public class ChallengeVO {
 	private long challengeId;
 	private String gameType;
 	private String acceptorEmailId;
+	private String fbUserName;
 	
 	public String getGameType() {
 		return gameType;
@@ -179,6 +180,12 @@ public class ChallengeVO {
 	}
 	public void setAcceptorEmailId(String acceptorEmailId) {
 		this.acceptorEmailId = acceptorEmailId;
+	}
+	public String getFbUserName() {
+		return fbUserName;
+	}
+	public void setFbUserName(String fbUserName) {
+		this.fbUserName = fbUserName;
 	}
 	
 	

@@ -366,10 +366,10 @@ public class EventManagerDao {
 		String sql = null;
 		if (challengeID == 0)
 			sql = "select * from rivals.challenges where creatoruid=" + uid + " OR acceptoruid=" + uid
-					+ "  OR wstatus = 'OPEN' ORDER BY challengeid DESC LIMIT 20";
+					+ "  OR wstatus = 'OPEN' or wstatus = 'open' ORDER BY challengeid DESC LIMIT 20";
 		else
 			sql = "select * from rivals.challenges where creatoruid=" + uid + " OR acceptoruid=" + uid
-					+ " AND challengeid < " + challengeID + " OR wstatus = 'OPEN' ORDER BY challengeid DESC LIMIT 20";
+					+ " AND challengeid < " + challengeID + " OR wstatus = 'OPEN' or wstatus = 'open' ORDER BY challengeid DESC LIMIT 20";
 		try {
 			rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
 		} catch (DataAccessException e) {

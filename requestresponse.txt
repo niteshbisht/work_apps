@@ -44,7 +44,8 @@ req
 	"challengeType": "OPEN",
 	"challengeId": 0,
 	"openChallenge": false,
-	"newChallenge": false
+	"newChallenge": false,
+	"fbUserName": "nitesb"
 }
 
 resp 
@@ -82,7 +83,8 @@ http://62.151.180.32:8447/work_apps/service/rivalService/acceptChallenge
 	"challengeType": "OPEN",
 	"challengeId": 0,
 	"openChallenge": false,
-	"newChallenge": false
+	"newChallenge": false,
+	"fbUserName": "nitesb"
 }
 
 =================================================================================================
