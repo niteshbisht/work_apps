@@ -2,6 +2,7 @@ package com.app.challenge.event.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.app.challenge.domain.Player;
 
@@ -23,7 +24,17 @@ public class AllChallengeResponseVO implements Serializable {
 	private String acceptorImage;
 	private String creatorName;
 	private String acceptorName;
+	private List<String> comments;
 	
+	
+	public List<String> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<String> comments) {
+		this.comments = comments;
+	}
+
 	public String getGameType() {
 		return gameType;
 	}

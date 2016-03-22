@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ import com.app.challenge.domain.Player;
 import com.app.challenge.domain.UserAccount;
 import com.app.challenge.domain.UserToken;
 import com.app.challenge.event.vo.ChallengeVO;
+import com.app.challenge.event.vo.CommentVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.fbutil.Base64;
 
@@ -371,7 +373,8 @@ public class EventManagerDao {
 					+ "  OR wstatus = 'OPEN' or wstatus = 'open' ORDER BY challengeid DESC LIMIT 20";
 		else
 			sql = "select * from rivals.challenges where creatoruid=" + uid + " OR acceptoruid=" + uid
-					+ " AND challengeid < " + challengeID + " OR wstatus = 'OPEN' or wstatus = 'open' ORDER BY challengeid DESC LIMIT 20";
+					+ " AND challengeid < " + challengeID
+					+ " OR wstatus = 'OPEN' or wstatus = 'open' ORDER BY challengeid DESC LIMIT 20";
 		try {
 			rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
 		} catch (DataAccessException e) {
@@ -391,7 +394,7 @@ public class EventManagerDao {
 		paramMap.put("userIdList", uids);
 		String sqlForUserId = "select * from rivals.user_account where id in(:userIdList)";
 		try {
-			rowsUAC = namedParameterJdbcTemplate.query(sqlForUserId, paramMap,new UserAccountRowMapper());
+			rowsUAC = namedParameterJdbcTemplate.query(sqlForUserId, paramMap, new UserAccountRowMapper());
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			throw new SQLException();
@@ -432,8 +435,8 @@ public class EventManagerDao {
 		}
 		return null;
 	}
-	
-	public int updateEndDate(long challengeId,Date endDate) {
+
+	public int updateEndDate(long challengeId, Date endDate) {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("challengeId", challengeId);
 		paramMap.put("endDate", endDate);
@@ -446,4 +449,65 @@ public class EventManagerDao {
 		return 0;
 	}
 
+	public long insertCommentOnChallenge(CommentVO commentVO) throws SQLException {
+
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("CREATORUID", commentVO.getUserId());
+		paramMap.put("USERNAME", commentVO.getUserName());
+		paramMap.put("CHALLENGEID", commentVO.getChallengeId());
+		paramMap.put("COMMENT", commentVO.getComment());
+		paramMap.put("CREATEDDATE", new Date());
+
+		String sql = null;
+
+		sql = "INSERT INTO rivals.comments(creatoruid,username,challengeid,comment,createddate) VALUES(:CREATORUID,:USERNAME,:CHALLENGEID,:COMMENT,:CREATEDDATE)";
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		long commentId = 0L;
+
+		try {
+			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
+			namedParameterJdbcTemplate.update(sql, paramSource, keyHolder);
+			Map<String, Object> keys = keyHolder.getKeys();
+			commentId = (Long) keys.get("GENERATED_KEY");
+		} catch (Exception e) {
+			throw new SQLException("error for comment" + e.getMessage());
+		}
+
+		return commentId;
+	}
+
+	public Map<Long, List<String>> fetchCommentsForChallenges(List<Long> challengeIdList) throws SQLException {
+		Map<Long, List<String>> commentMap = new HashMap<Long, List<String>>();
+		List<String> comments = new ArrayList<>();
+
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("CHALLENGEIDS", challengeIdList);
+
+		String sql = null;
+
+		sql = "Select * from rivals.comments where challengeid in (:CHALLENGEIDS) order by challengeid";
+
+		try {
+			SqlRowSet rs = namedParameterJdbcTemplate.queryForRowSet(sql, paramMap);
+			long prev = 0;
+			long latest = 0;
+			while (rs.next()) {
+				latest = rs.getLong("challengeid");
+
+				if (latest != prev & latest > 0 && prev!=0) {
+					commentMap.put(latest, comments);
+					comments = new ArrayList<>();
+
+				}
+				comments.add(rs.getString("comment") != null ? rs.getString("comment") : "");
+				prev = latest;
+			}
+			if (comments.size() > 0)
+				commentMap.put(latest, comments);
+		} catch (Exception e) {
+			throw new SQLException("" + e.getMessage());
+		}
+
+		return commentMap;
+	}
 }

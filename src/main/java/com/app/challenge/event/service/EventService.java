@@ -14,6 +14,7 @@ import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeAppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
+import com.app.challenge.event.vo.CommentVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
 
@@ -75,4 +76,14 @@ public interface EventService {
 	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(@QueryParam("uid") long uid,
 			@QueryParam("userEmail") String userEmail,@QueryParam("token") String token,@QueryParam("userName") String userName);
 
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/submitComment")
+	public ChallengeAppResponseVO<String> submitComment(CommentVO commentVO);
+	
+	
+	
+	
 }

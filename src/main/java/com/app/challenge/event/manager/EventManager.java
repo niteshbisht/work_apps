@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +26,7 @@ import com.app.challenge.event.dao.EventManagerDao;
 import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
+import com.app.challenge.event.vo.CommentVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
 import com.app.challenge.fbutil.FacebookClientHandler;
@@ -42,13 +44,12 @@ public class EventManager {
 
 	@Autowired
 	private RivalsAppScheduler rivalsAppScheduler;
-	
+
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
+
 	@Autowired
 	RivalScheduledJob rivalScheduledJob;
-	
 
 	@Transactional(rollbackFor = SQLException.class)
 	public AppResponseVO registerNewUserId(String token, String email) throws SQLException {
@@ -77,10 +78,11 @@ public class EventManager {
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
-	public AppResponseVO updateUserToken(Long uid, String userEmail, String token, String userName) throws SQLException {
+	public AppResponseVO updateUserToken(Long uid, String userEmail, String token, String userName)
+			throws SQLException {
 		AppResponseVO response = new AppResponseVO();
 		try {
-			eventManagerDao.updateUserToken(uid, userEmail, token,userName);
+			eventManagerDao.updateUserToken(uid, userEmail, token, userName);
 		} catch (Exception e) {
 			throw new SQLException();
 		}
@@ -116,11 +118,23 @@ public class EventManager {
 			if (challenges != null) {
 				Iterator<ChallengeDomain> iter = challenges.iterator();
 				ChallengeDomain domain = null;
-
+				List<Long> ids = null;
+				Map<Long, List<String>> commentMap = new HashMap<>();
 				while (iter.hasNext()) {
+					ids = new ArrayList<>();
+
 					responseVO = new AllChallengeResponseVO();
 					domain = iter.next();
+
 					long id = domain.getChallengeId();
+					ids.add(id);
+					try {
+						commentMap = eventManagerDao.fetchCommentsForChallenges(ids);
+						domain.setComments(commentMap.containsKey(id) ? commentMap.get(id) : new ArrayList<String>());
+					} catch (Exception e) {
+						e.printStackTrace();
+						domain.setComments(new ArrayList<String>());
+					}
 					BeanUtils.copyProperties(domain, responseVO);
 					players = eventManagerDao.fetchPlayersOfChallenges(id);
 
@@ -155,42 +169,54 @@ public class EventManager {
 			Player player = null;
 			Set<Long> userIdSet = new HashSet<>();
 			for (ChallengeDomain challenge : challenges) {
-				
+
 				long creatorId = challenge.getCreatorId();
 				long acceptorId = challenge.getAcceptorId();
 				userIdSet.add(creatorId);
 				userIdSet.add(acceptorId);
 			}
-			
+
 			ArrayList<Long> userIdList = new ArrayList<>();
 			userIdList.addAll(userIdSet);
 			Map<Long, UserAccount> userDetailsMap = eventManagerDao.fetchUserDetails(userIdList);
-			
+
 			if (challenges != null) {
 				Iterator<ChallengeDomain> iter = challenges.iterator();
 				ChallengeDomain domain = null;
-
+				List<Long> ids = null;
+				Map<Long, List<String>> commentMap = new HashMap<>();
 				while (iter.hasNext()) {
 					responseVO = new AllChallengeResponseVO();
 					domain = iter.next();
 					long id = domain.getChallengeId();
+					ids = new ArrayList<>();
+					ids.add(id);
+					try {
+						commentMap = eventManagerDao.fetchCommentsForChallenges(ids);
+						domain.setComments(commentMap.containsKey(id) ? commentMap.get(id) : new ArrayList<String>());
+					} catch (Exception e) {
+						e.printStackTrace();
+						domain.setComments(new ArrayList<String>());
+					}
+					
 					long creatorId = domain.getCreatorId();
 					long acceptorId = domain.getAcceptorId();
 					UserAccount userAccountCreator = userDetailsMap.get(creatorId);
-					String acceptorImage  = "no image";
+					String acceptorImage = "no image";
 					UserAccount acceptorDetail = new UserAccount();
-					if(acceptorId>0){
+					if (acceptorId > 0) {
 						acceptorDetail = userDetailsMap.get(acceptorId);
-						acceptorImage= acceptorDetail.getUserImage();
+						acceptorImage = acceptorDetail.getUserImage();
 					}
-					 
+
 					String creatorImage = userAccountCreator.getUserImage();
-					
+
 					responseVO.setCreatorImage(creatorImage);
 					responseVO.setAcceptorImage(acceptorImage);
 					responseVO.setAcceptorId(acceptorId);
 					responseVO.setCreatorId(creatorId);
-					responseVO.setAcceptorName(acceptorDetail.getUserName()==null?"":acceptorDetail.getUserName());
+					responseVO
+							.setAcceptorName(acceptorDetail.getUserName() == null ? "" : acceptorDetail.getUserName());
 					responseVO.setCreatorName(userAccountCreator.getUserName());
 					BeanUtils.copyProperties(domain, responseVO);
 					players = eventManagerDao.fetchPlayersOfChallenges(id);
@@ -208,8 +234,7 @@ public class EventManager {
 				}
 
 			}
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -228,11 +253,22 @@ public class EventManager {
 			if (challenges != null) {
 				Iterator<ChallengeDomain> iter = challenges.iterator();
 				ChallengeDomain domain = null;
-
+				List<Long> ids = null;
+				Map<Long, List<String>> commentMap = new HashMap<>();
 				while (iter.hasNext()) {
 					responseVO = new AllChallengeResponseVO();
 					domain = iter.next();
 					long id = domain.getChallengeId();
+					ids = new ArrayList<>();
+					ids.add(id);
+					try {
+						commentMap = eventManagerDao.fetchCommentsForChallenges(ids);
+						domain.setComments(commentMap.containsKey(id) ? commentMap.get(id) : new ArrayList<String>());
+					} catch (Exception e) {
+						e.printStackTrace();
+						domain.setComments(new ArrayList<String>());
+					}
+					
 					BeanUtils.copyProperties(domain, responseVO);
 					players = eventManagerDao.fetchPlayersOfChallenges(id);
 
@@ -265,30 +301,27 @@ public class EventManager {
 		String fbPostID = null;
 		String acceptorEmailId = challengeVO.getAcceptorEmailId();
 		boolean userExists = false;
-		try{
+		try {
 			userExists = eventManagerDao.userExists(acceptorEmailId);
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw new SQLException();
 		}
 		// add the logic for posting to friends wall on fb
-		
+
 		if (userExists) {
 			// post to friends wall and self wall
 			if (playerImage != null && fbUserId != null) {
-				fbPostID = fbClientHandler.publishPhotoToWall(fbUserId,
-						"Rivalry Started", playerImage, false);
+				fbPostID = fbClientHandler.publishPhotoToWall(fbUserId, "Rivalry Started", playerImage, false);
 			}
-			
-		}else{
+
+		} else {
 			if (playerImage != null && fbUserId != null) {
-				fbPostID = fbClientHandler.publishPhotoToWall(fbUserId,
-						"Rivalry Started", playerImage, false);
+				fbPostID = fbClientHandler.publishPhotoToWall(fbUserId, "Rivalry Started", playerImage, false);
 			}
 			// for open challenge wall challenge
 			// ----------------------------------//
-			
-			
-			//--                            ---//
+
+			// -- ---//
 		}
 		long challengeId = 0L;
 		try {
@@ -296,52 +329,35 @@ public class EventManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		if (challengeId > 0L) {
 			String duration = challengeVO.getDuration();
-			/*String jobName = Long.toString(challengeId);
-			String group = "rivalApp";
-			String duration = challengeVO.getDuration();
-			StringTokenizer strToken = new StringTokenizer(duration, ":");
-			int i = 1;
-			int days = 0;
-			int hours = 0;
-			int minutes = 0;
-			try {
-				while (strToken.hasMoreTokens()) {
-
-					switch (i) {
-
-					case 1:
-						days = Integer.parseInt(strToken.nextToken());
-						break;
-					case 2:
-						hours = Integer.parseInt(strToken.nextToken());
-						hours = hours < 24 ? hours : hours - (hours - 24);
-						break;
-					case 3:
-						minutes = Integer.parseInt(strToken.nextToken());
-						minutes = minutes < 60 ? minutes : minutes
-								- (minutes - 60);
-						break;
-					}
-					i++;
-				}
-			} catch (NumberFormatException ne) {
-				ne.printStackTrace();
-			}
-
-			Calendar cl = Calendar.getInstance();
-			cl.add(Calendar.DATE, days);
-			cl.add(Calendar.HOUR, hours);
-			cl.add(Calendar.MINUTE, minutes);
-			Date when = cl.getTime();
-			long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);*/
-			/*try {
-				eventManagerDao.createEvent(challengeId, userId, duration);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}*/
+			/*
+			 * String jobName = Long.toString(challengeId); String group =
+			 * "rivalApp"; String duration = challengeVO.getDuration();
+			 * StringTokenizer strToken = new StringTokenizer(duration, ":");
+			 * int i = 1; int days = 0; int hours = 0; int minutes = 0; try {
+			 * while (strToken.hasMoreTokens()) {
+			 * 
+			 * switch (i) {
+			 * 
+			 * case 1: days = Integer.parseInt(strToken.nextToken()); break;
+			 * case 2: hours = Integer.parseInt(strToken.nextToken()); hours =
+			 * hours < 24 ? hours : hours - (hours - 24); break; case 3: minutes
+			 * = Integer.parseInt(strToken.nextToken()); minutes = minutes < 60
+			 * ? minutes : minutes - (minutes - 60); break; } i++; } } catch
+			 * (NumberFormatException ne) { ne.printStackTrace(); }
+			 * 
+			 * Calendar cl = Calendar.getInstance(); cl.add(Calendar.DATE,
+			 * days); cl.add(Calendar.HOUR, hours); cl.add(Calendar.MINUTE,
+			 * minutes); Date when = cl.getTime(); long scheduleInvocation =
+			 * rivalsAppScheduler.scheduleInvocation(jobName, group, when,
+			 * rivalScheduledJob);
+			 */
+			/*
+			 * try { eventManagerDao.createEvent(challengeId, userId, duration);
+			 * } catch (Exception e) { e.printStackTrace(); }
+			 */
 			responseVO.setChallengeId(challengeId);
 			responseVO.setCreatorId(userId);
 		}
@@ -360,12 +376,12 @@ public class EventManager {
 			fbPostID = fbClientHandler.publishPhotoToWall(fbUserId, challengeVO.getTopic(), playerImage, false);
 		}
 		String duration = challengeVO.getDuration();
-		try{
+		try {
 			duration = eventManagerDao.getDurationForChallengId(challengeVO.getChallengeId());
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		StringTokenizer strToken = new StringTokenizer(duration, ":");
 		int i = 1;
 		int days = 0;
@@ -385,8 +401,7 @@ public class EventManager {
 					break;
 				case 3:
 					minutes = Integer.parseInt(strToken.nextToken());
-					minutes = minutes < 60 ? minutes : minutes
-							- (minutes - 60);
+					minutes = minutes < 60 ? minutes : minutes - (minutes - 60);
 					break;
 				}
 				i++;
@@ -400,34 +415,41 @@ public class EventManager {
 		cl.add(Calendar.HOUR, hours);
 		cl.add(Calendar.MINUTE, minutes);
 		Date endTime = cl.getTime();
-		
+
 		try {
-			eventManagerDao.updateAcceptedChallenge(challengeVO, fbPostID, isAcceptor,endTime);
+			eventManagerDao.updateAcceptedChallenge(challengeVO, fbPostID, isAcceptor, endTime);
 			eventManagerDao.createEvent(challengeVO.getChallengeId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		long challengeId = challengeVO.getChallengeId();
-		
+
 		String jobName = Long.toString(challengeId);
 		String group = "rivalApp";
-		
-		try{
+
+		try {
 			long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, endTime, rivalScheduledJob);
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		try{
+
+		try {
 			eventManagerDao.updateEndDate(challengeId, endTime);
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		responseVO.setStatus("INPROGRESS");
 		responseVO.setCreatorId(userId);
 		responseVO.setAcceptorId(userId);
 		return responseVO;
+	}
+
+	public String submitComment(CommentVO commentVO) throws SQLException {
+
+		long commentID = eventManagerDao.insertCommentOnChallenge(commentVO);
+
+		return "Comment Submitted Successfully!";
 	}
 
 }

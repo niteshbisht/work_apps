@@ -12,6 +12,7 @@ import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeAppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
+import com.app.challenge.event.vo.CommentVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
 
@@ -46,7 +47,7 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public ChallengeAppResponseVO<RegisterResponseVO> registerNewDevice(UserAccountVO userAccountVO) {
 		RegisterResponseVO registerDevice = null;
-		ChallengeAppResponseVO< RegisterResponseVO> response;
+		ChallengeAppResponseVO<RegisterResponseVO> response;
 		try {
 			registerDevice = eventManager.registerDevice(userAccountVO);
 		} catch (Exception e) {
@@ -60,7 +61,8 @@ public class EventServiceImpl implements EventService {
 	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchAllChallengesData(int challengeFrom) {
 		ChallengeAppResponseVO<List<AllChallengeResponseVO>> response = null;
 		try {
-			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(eventManager.fetchAllChallenges(challengeFrom));
+			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(
+					eventManager.fetchAllChallenges(challengeFrom));
 		} catch (Exception e) {
 			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(true, e.getMessage());
 		}
@@ -93,16 +95,16 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public ChallengeAppResponseVO<AllChallengeResponseVO> createNewChallenge(ChallengeVO challengeVO) {
-		
+
 		ChallengeAppResponseVO<AllChallengeResponseVO> response = null;
 		try {
 			response = new ChallengeAppResponseVO<AllChallengeResponseVO>(
-					eventManager.createNewChallenge(challengeVO,false));
+					eventManager.createNewChallenge(challengeVO, false));
 		} catch (Exception e) {
 			response = new ChallengeAppResponseVO<AllChallengeResponseVO>(true, e.getMessage());
 		}
 		return response;
-		
+
 	}
 
 	@Override
@@ -110,24 +112,37 @@ public class EventServiceImpl implements EventService {
 		ChallengeAppResponseVO<AllChallengeResponseVO> response = null;
 		try {
 			response = new ChallengeAppResponseVO<AllChallengeResponseVO>(
-					eventManager.acceptChallenge(challengeVO,false));
+					eventManager.acceptChallenge(challengeVO, false));
 		} catch (Exception e) {
 			response = new ChallengeAppResponseVO<AllChallengeResponseVO>(true, e.getMessage());
 		}
 		return response;
 	}
-	
+
 	@Override
-	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(long uid,String userEmail, String token,String userName) {
+	public ChallengeAppResponseVO<AppResponseVO> updateUserToken(long uid, String userEmail, String token,
+			String userName) {
 		ChallengeAppResponseVO<AppResponseVO> response = null;
-		try{
-			response = new ChallengeAppResponseVO<AppResponseVO>(eventManager.updateUserToken(uid, userEmail, token,userName));
-		}catch(SQLException sq){
+		try {
+			response = new ChallengeAppResponseVO<AppResponseVO>(
+					eventManager.updateUserToken(uid, userEmail, token, userName));
+		} catch (SQLException sq) {
 			response = new ChallengeAppResponseVO<AppResponseVO>(true, sq.getMessage());
 			return response;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			response = new ChallengeAppResponseVO<AppResponseVO>(true, e.getMessage());
 			return response;
+		}
+		return response;
+	}
+
+	@Override
+	public ChallengeAppResponseVO<String> submitComment(CommentVO commentVO) {
+		ChallengeAppResponseVO<String> response = null;
+		try {
+			response = new ChallengeAppResponseVO<String>(eventManager.submitComment(commentVO));
+		} catch (Exception e) {
+			response = new ChallengeAppResponseVO<>(Boolean.TRUE, e.getMessage());
 		}
 		return response;
 	}

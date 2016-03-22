@@ -124,6 +124,24 @@ CREATE TABLE `user_account` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+--
+-- Table structure for table `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+
+CREATE TABLE `rivals`.`comments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `creatoruid` INT NOT NULL,
+  `challengeid` INT NOT NULL,
+  `username` VARCHAR(300) NOT NULL,
+  `comment` LONGTEXT NOT NULL,
+  `createddate` DATETIME NOT NULL,
+  PRIMARY KEY (`id`))ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;;
+
 --
 -- Table structure for table `user_tokens`
 --
