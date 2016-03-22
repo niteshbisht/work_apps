@@ -16,6 +16,7 @@ public class ChallengeDomain {
 	private String challengeType;
 	private String gameType;
 	private String topic;
+	private String fbUserName;
 	/**
 	 * @return the challengeId
 	 */
@@ -129,6 +130,12 @@ public class ChallengeDomain {
 	 */
 	public void setTopic(String topic) {
 		this.topic = topic;
+	}
+	public String getFbUserName() {
+		return fbUserName;
+	}
+	public void setFbUserName(String fbUserName) {
+		this.fbUserName = fbUserName;
 	}
 	
 	
