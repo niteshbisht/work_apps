@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>work_apps</groupId>
 	<artifactId>work_apps</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>work_apps</version>
 	<packaging>war</packaging>
 	<name>rivals</name>
 	<description>challengeAppServices</description>
