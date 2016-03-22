@@ -412,6 +412,13 @@ public class EventManager {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		try{
+			eventManagerDao.updateEndDate(challengeId, when);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		responseVO.setStatus("INPROGRESS");
 		responseVO.setCreatorId(userId);
 		return responseVO;

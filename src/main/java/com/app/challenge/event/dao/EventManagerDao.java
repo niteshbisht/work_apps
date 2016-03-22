@@ -430,5 +430,18 @@ public class EventManagerDao {
 		}
 		return null;
 	}
+	
+	public int updateEndDate(long challengeId,Date endDate) {
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("challengeId", challengeId);
+		paramMap.put("endDate", endDate);
+		String sql = "update rivals.challenges set endtime=:endDate where challengeId = :challengeId";
+		try {
+			return namedParameterJdbcTemplate.update(sql, paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 }
