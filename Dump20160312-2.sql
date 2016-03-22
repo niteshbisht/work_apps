@@ -14,7 +14,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
+use rivals;
 set global innodb_large_prefix=on;
 set global innodb_file_format=Barracuda;
 
@@ -38,6 +38,7 @@ CREATE TABLE `challenges` (
   `topic` varchar(500) NOT NULL,
   `duration` varchar(100) NOT NULL,
   `gametype` varchar(200) DEFAULT NULL,
+  `fbusername` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`challengeid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
