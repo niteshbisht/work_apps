@@ -39,6 +39,8 @@ CREATE TABLE `challenges` (
   `duration` varchar(100) NOT NULL,
   `gametype` varchar(200) DEFAULT NULL,
   `fbusername` varchar(200) DEFAULT NULL,
+  `creatorname` varchar(200) DEFAULT ' ',
+  `acceptorname` varchar(200) DEFAULT ' ',
   PRIMARY KEY (`challengeid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

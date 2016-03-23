@@ -220,7 +220,7 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_DURATION, challengeVO.getDuration());
 		paramMap.put(ChallengeConstants.DB_TOPIC, challengeVO.getTopic());
 		paramMap.put(ChallengeConstants.DB_GAME_TYPE, challengeVO.getGameType());
-		paramMap.put(ChallengeConstants.DB_CREATOR_UNAME, challengeVO.getFbUserName());
+		paramMap.put(ChallengeConstants.DB_CREATOR_UNAME, challengeVO.getCreatorName());
 		String sql = null;
 		if (!challengeVO.isOpenChallenge())
 			sql = "INSERT INTO rivals.challenges(creatoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration,gametype,acceptorfbmailid,creatorname) VALUES(:CREATORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION,:GAMETYPE,:ACCEPTORMAILID,:CREATOR_NAME)";
