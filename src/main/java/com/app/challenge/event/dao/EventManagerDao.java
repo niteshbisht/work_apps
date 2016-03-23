@@ -284,7 +284,8 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
 		paramMap.put(ChallengeConstants.DB_END_TIME, 0L);
 		paramMap.put(ChallengeConstants.DB_CHALLENGE_ID, challengeVO.getChallengeId());
-		String sql = "UPDATE rivals.challenges set acceptoruid = :ACCEPTORUID, fbchallengeAcceptorID = :FBCHALLENGEID, starttime = :STARTTIME, wstatus = :STATUS, ENDTIME = :ENDTIME WHERE challengeid = :CHALLENGEID";
+		paramMap.put(ChallengeConstants.DB_ACCEPTORNAME, challengeVO.getAcceptorName());
+		String sql = "UPDATE rivals.challenges set acceptoruid = :ACCEPTORUID, fbchallengeAcceptorID = :FBCHALLENGEID, starttime = :STARTTIME, wstatus = :STATUS, ENDTIME = :ENDTIME, acceptorname=:ACCEPTOR_NAME  WHERE challengeid = :CHALLENGEID";
 
 		try {
 			SqlParameterSource paramSource = new MapSqlParameterSource(paramMap);
