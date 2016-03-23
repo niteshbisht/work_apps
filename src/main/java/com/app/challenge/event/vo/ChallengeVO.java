@@ -3,6 +3,8 @@
  */
 package com.app.challenge.event.vo;
 
+import java.util.List;
+
 /**
  * @author Vikash Sharma
  *
@@ -24,6 +26,9 @@ public class ChallengeVO {
 	private String gameType;
 	private String acceptorEmailId;
 	private String fbUserName;
+	private String creatorName;
+	private String acceptorName;
+	private List<String> comments;
 	
 	public String getGameType() {
 		return gameType;
@@ -186,6 +191,24 @@ public class ChallengeVO {
 	}
 	public void setFbUserName(String fbUserName) {
 		this.fbUserName = fbUserName;
+	}
+	public String getCreatorName() {
+		return creatorName;
+	}
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+	public String getAcceptorName() {
+		return acceptorName;
+	}
+	public void setAcceptorName(String acceptorName) {
+		this.acceptorName = acceptorName;
+	}
+	public List<String> getComments() {
+		return comments;
+	}
+	public void setComments(List<String> comments) {
+		this.comments = comments;
 	}
 	
 	

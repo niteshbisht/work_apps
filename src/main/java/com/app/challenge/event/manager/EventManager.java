@@ -49,9 +49,6 @@ public class EventManager {
 	@Autowired
 	RivalScheduledJob rivalScheduledJob;
 	
-	public void createChallenge(Challenge challenge) {
-
-	}
 
 	@Transactional(rollbackFor = SQLException.class)
 	public AppResponseVO registerNewUserId(String token, String email) throws SQLException {

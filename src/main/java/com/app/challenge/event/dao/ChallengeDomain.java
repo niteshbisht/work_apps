@@ -1,6 +1,7 @@
 package com.app.challenge.event.dao;
 
 import java.util.Date;
+import java.util.List;
 
 public class ChallengeDomain {
 
@@ -17,6 +18,10 @@ public class ChallengeDomain {
 	private String gameType;
 	private String topic;
 	private String fbUserName;
+	private String creatorName;
+	private String acceptorName;
+	private List<String> comments;
+	
 	/**
 	 * @return the challengeId
 	 */
@@ -136,6 +141,24 @@ public class ChallengeDomain {
 	}
 	public void setFbUserName(String fbUserName) {
 		this.fbUserName = fbUserName;
+	}
+	public String getCreatorName() {
+		return creatorName;
+	}
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+	public String getAcceptorName() {
+		return acceptorName;
+	}
+	public void setAcceptorName(String acceptorName) {
+		this.acceptorName = acceptorName;
+	}
+	public List<String> getComments() {
+		return comments;
+	}
+	public void setComments(List<String> comments) {
+		this.comments = comments;
 	}
 	
 	

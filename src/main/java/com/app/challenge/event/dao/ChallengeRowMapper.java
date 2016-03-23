@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.RowMapper;
 public class ChallengeRowMapper implements RowMapper<ChallengeDomain>
 {
 
-	
 	@Override
 	public ChallengeDomain mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ChallengeDomain challenge = new ChallengeDomain();
@@ -22,6 +21,8 @@ public class ChallengeRowMapper implements RowMapper<ChallengeDomain>
 		challenge.setGameType(rs.getString("gametype")==null?"":rs.getString("gametype"));
 		challenge.setEndDate(rs.getTimestamp("endtime"));
 		challenge.setFbUserName(rs.getString("fbusername"));
+		challenge.setAcceptorName(rs.getString("acceptorname"));
+		challenge.setCreatorName(rs.getString("creatorname"));
 		return challenge;
 	}
 	

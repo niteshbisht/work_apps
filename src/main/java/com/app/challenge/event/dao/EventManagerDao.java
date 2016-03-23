@@ -220,11 +220,12 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_DURATION, challengeVO.getDuration());
 		paramMap.put(ChallengeConstants.DB_TOPIC, challengeVO.getTopic());
 		paramMap.put(ChallengeConstants.DB_GAME_TYPE, challengeVO.getGameType());
+		paramMap.put(ChallengeConstants.DB_CREATOR_UNAME, challengeVO.getFbUserName());
 		String sql = null;
 		if (!challengeVO.isOpenChallenge())
-			sql = "INSERT INTO rivals.challenges(creatoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration,gametype,acceptorfbmailid) VALUES(:CREATORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION,:GAMETYPE,:ACCEPTORMAILID)";
+			sql = "INSERT INTO rivals.challenges(creatoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration,gametype,acceptorfbmailid,creatorname) VALUES(:CREATORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION,:GAMETYPE,:ACCEPTORMAILID,:CREATOR_NAME)";
 		else
-			sql = "INSERT INTO rivals.challenges(creatoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration,gametype) VALUES(:CREATORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION,:GAMETYPE)";
+			sql = "INSERT INTO rivals.challenges(creatoruid,fbchallengeid,starttime,wstatus,createddate,topic,challengetype,endtime,duration,gametype,creatorname) VALUES(:CREATORUID,:FBCHALLENGEID,:STARTTIME,:STATUS,:CREATED_DATE,:TOPIC,:CHALLENGETYPE,:ENDTIME,:DURATION,:GAMETYPE,:CREATOR_NAME)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		long challengeID = 0L;
 

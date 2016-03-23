@@ -90,3 +90,9 @@ http://62.151.180.32:8447/work_apps/service/rivalService/acceptChallenge
 =================================================================================================
 
 http://62.151.180.32:8447/work_apps/service/rivalService/updateUserToken?uid=12&userEmail=nitesb@gmail.com&token=wwptt1234w&userName=nitesb
+
+
+
+fbtoken;
+
+CAAXzorEpPMcBAFSdZBtaZBlwfuX8TZCpd3iyGQ6gP2XUBvAVRhLQZCxUGoPchXZARk4KY3dbVb9hQEFqhScns3Dz7jaNgNUJGTzQI23fcUi1n4Ljovolf0jrPlGw1iZCSmGVKeDgyxqa3hKM5oiAlmZAQYXO8xQZAApjYjZAFST4K6p3xAJpgpfzQgGFEwS17600ZD
