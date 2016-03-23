@@ -359,17 +359,13 @@ public class EventManager {
 		if (playerImage != null && fbUserId != null) {
 			fbPostID = fbClientHandler.publishPhotoToWall(fbUserId, challengeVO.getTopic(), playerImage, false);
 		}
-		try {
-			eventManagerDao.updateAcceptedChallenge(challengeVO, fbPostID, isAcceptor);
-			eventManagerDao.createEvent(challengeVO.getChallengeId());
-		} catch (SQLException e) {
+		String duration = challengeVO.getDuration();
+		try{
+			duration = eventManagerDao.getDurationForChallengId(challengeVO.getChallengeId());
+		}catch(Exception e){
 			e.printStackTrace();
 		}
-		long challengeId = challengeVO.getChallengeId();
 		
-		String jobName = Long.toString(challengeId);
-		String group = "rivalApp";
-		String duration = challengeVO.getDuration();
 		StringTokenizer strToken = new StringTokenizer(duration, ":");
 		int i = 1;
 		int days = 0;
@@ -403,21 +399,34 @@ public class EventManager {
 		cl.add(Calendar.DATE, days);
 		cl.add(Calendar.HOUR, hours);
 		cl.add(Calendar.MINUTE, minutes);
-		Date when = cl.getTime();
+		Date endTime = cl.getTime();
+		
+		try {
+			eventManagerDao.updateAcceptedChallenge(challengeVO, fbPostID, isAcceptor,endTime);
+			eventManagerDao.createEvent(challengeVO.getChallengeId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		long challengeId = challengeVO.getChallengeId();
+		
+		String jobName = Long.toString(challengeId);
+		String group = "rivalApp";
+		
 		try{
-			long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, when, rivalScheduledJob);
+			long scheduleInvocation = rivalsAppScheduler.scheduleInvocation(jobName, group, endTime, rivalScheduledJob);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
 		try{
-			eventManagerDao.updateEndDate(challengeId, when);
+			eventManagerDao.updateEndDate(challengeId, endTime);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
 		responseVO.setStatus("INPROGRESS");
 		responseVO.setCreatorId(userId);
+		responseVO.setAcceptorId(userId);
 		return responseVO;
 	}
 

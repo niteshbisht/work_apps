@@ -272,7 +272,7 @@ public class EventManagerDao {
 	}
 
 	@Transactional(rollbackFor = SQLException.class)
-	public long updateAcceptedChallenge(ChallengeVO challengeVO, String fbChallengeID, boolean isAcceptor)
+	public long updateAcceptedChallenge(ChallengeVO challengeVO, String fbChallengeID, boolean isAcceptor, Date endTime)
 			throws SQLException {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 
@@ -282,7 +282,7 @@ public class EventManagerDao {
 		paramMap.put(ChallengeConstants.DB_START_TIME, new Date());
 		paramMap.put(ChallengeConstants.DB_STATUS, "INPROGRESS");
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
-		paramMap.put(ChallengeConstants.DB_END_TIME, 0L);
+		paramMap.put(ChallengeConstants.DB_END_TIME, endTime);
 		paramMap.put(ChallengeConstants.DB_CHALLENGE_ID, challengeVO.getChallengeId());
 		paramMap.put(ChallengeConstants.DB_ACCEPTORNAME, challengeVO.getAcceptorName());
 		String sql = "UPDATE rivals.challenges set acceptoruid = :ACCEPTORUID, fbchallengeAcceptorID = :FBCHALLENGEID, starttime = :STARTTIME, wstatus = :STATUS, ENDTIME = :ENDTIME, acceptorname=:ACCEPTOR_NAME  WHERE challengeid = :CHALLENGEID";
@@ -424,7 +424,7 @@ public class EventManagerDao {
 	public String getDurationForChallengId(long challengeId) {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("challengeId", challengeId);
-		String sql = "select expiryindays from rivals.scheduller where challengeId = :challengeId";
+		String sql = "select duration from rivals.challenges where challengeId = :challengeId";
 		try {
 			return namedParameterJdbcTemplate.queryForObject(sql, paramMap, String.class);
 		} catch (Exception e) {
