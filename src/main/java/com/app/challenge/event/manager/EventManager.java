@@ -141,10 +141,13 @@ public class EventManager {
 					if (players != null && !players.isEmpty()) {
 
 						Iterator<Player> iters = players.iterator();
-
+						int i = 0;
 						while (iters.hasNext()) {
 							player = iters.next();
-							responseVO.setPlayer1(player);
+							if (i++ == 0)
+								responseVO.setPlayer1(player);
+							else
+								responseVO.setPlayer2(player);
 						}
 
 					}
@@ -198,7 +201,7 @@ public class EventManager {
 						e.printStackTrace();
 						domain.setComments(new ArrayList<String>());
 					}
-					
+
 					long creatorId = domain.getCreatorId();
 					long acceptorId = domain.getAcceptorId();
 					UserAccount userAccountCreator = userDetailsMap.get(creatorId);
@@ -223,10 +226,13 @@ public class EventManager {
 					if (players != null && !players.isEmpty()) {
 
 						Iterator<Player> iters = players.iterator();
-
+						int i = 0;
 						while (iters.hasNext()) {
 							player = iters.next();
-							responseVO.setPlayer1(player);
+							if (i++ == 0)
+								responseVO.setPlayer1(player);
+							else
+								responseVO.setPlayer2(player);
 						}
 
 					}
@@ -268,17 +274,20 @@ public class EventManager {
 						e.printStackTrace();
 						domain.setComments(new ArrayList<String>());
 					}
-					
+
 					BeanUtils.copyProperties(domain, responseVO);
 					players = eventManagerDao.fetchPlayersOfChallenges(id);
 
 					if (players != null && !players.isEmpty()) {
 
 						Iterator<Player> iters = players.iterator();
-
+						int i = 0;
 						while (iters.hasNext()) {
 							player = iters.next();
-							responseVO.setPlayer1(player);
+							if (i++ == 0)
+								responseVO.setPlayer1(player);
+							else
+								responseVO.setPlayer2(player);
 						}
 
 					}
