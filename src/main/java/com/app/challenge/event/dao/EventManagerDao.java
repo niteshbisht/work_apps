@@ -277,7 +277,7 @@ public class EventManagerDao {
 	public long updateAcceptedChallenge(ChallengeVO challengeVO, String fbChallengeID, boolean isAcceptor, Date endTime)
 			throws SQLException {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-
+		byte[] bytes = Base64.decode(challengeVO.getPlayerImage(), 0);
 		paramMap.put(ChallengeConstants.DB_ACCEPTOR_UID, challengeVO.getUserID());
 
 		paramMap.put(ChallengeConstants.DB_FB_CHALLENGE_ID, fbChallengeID);
@@ -296,7 +296,7 @@ public class EventManagerDao {
 			paramMap.put(ChallengeConstants.DB_UID, challengeVO.getUserID());
 			paramMap.put(ChallengeConstants.DB_WIN_STATUS, null);
 			paramMap.put(ChallengeConstants.DB_FB_LIKES, 0);
-			paramMap.put(ChallengeConstants.DB_PLAYERS_IMAGE, challengeVO.getPlayerImage());
+			paramMap.put(ChallengeConstants.DB_PLAYERS_IMAGE, bytes);
 			paramMap.put(ChallengeConstants.DB_PLAYER_NAME, challengeVO.getPlayerName());
 			paramMap.put(ChallengeConstants.DB_PLAYER_TYPE, challengeVO.getPlayerType());
 			StringBuffer insideQuery = new StringBuffer();
