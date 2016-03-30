@@ -27,6 +27,7 @@ import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
 import com.app.challenge.event.vo.CommentVO;
+import com.app.challenge.event.vo.CommentsResponseVO;
 import com.app.challenge.event.vo.LikeResponseVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
@@ -473,4 +474,12 @@ public class EventManager {
 		resp.setMessage(submitLike);
 		return resp;
 	}
+	
+	
+	public List<CommentsResponseVO> fetchComments(long challengeID) throws SQLException{
+		return eventManagerDao.fetchComments(challengeID);
+	}
+	
+	
+	
 }

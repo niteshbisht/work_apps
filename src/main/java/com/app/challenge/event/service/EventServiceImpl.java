@@ -13,6 +13,7 @@ import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeAppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
 import com.app.challenge.event.vo.CommentVO;
+import com.app.challenge.event.vo.CommentsResponseVO;
 import com.app.challenge.event.vo.LikeResponseVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
@@ -62,7 +63,7 @@ public class EventServiceImpl implements EventService {
 	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchAllChallengesData(int challengeFrom) {
 		ChallengeAppResponseVO<List<AllChallengeResponseVO>> response = null;
 		try {
-			
+
 			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(
 					eventManager.fetchAllChallenges(challengeFrom));
 		} catch (Exception e) {
@@ -148,17 +149,31 @@ public class EventServiceImpl implements EventService {
 		}
 		return response;
 	}
-	
+
 	@Override
-	public ChallengeAppResponseVO<LikeResponseVO> submitLike(int playerId,int userId,int challengeId){
+	public ChallengeAppResponseVO<LikeResponseVO> submitLike(int playerId, int userId, int challengeId) {
 		ChallengeAppResponseVO<LikeResponseVO> response = null;
-		try{
+		try {
 			LikeResponseVO submitLike = eventManager.submitLike(playerId, userId, challengeId);
 			response = new ChallengeAppResponseVO<LikeResponseVO>(submitLike);
 			return response;
-		}catch(Exception e){
+		} catch (Exception e) {
 			response = new ChallengeAppResponseVO<>(Boolean.TRUE, e.getMessage());
 			return response;
 		}
+	}
+
+	@Override
+	public ChallengeAppResponseVO<List<CommentsResponseVO>> fetchComments(long userId, long challengeId) {
+		ChallengeAppResponseVO<List<CommentsResponseVO>> response = null;
+
+		try {
+			response = new ChallengeAppResponseVO<List<CommentsResponseVO>>(eventManager.fetchComments(challengeId));
+
+		} catch (Exception e) {
+			response = new ChallengeAppResponseVO<List<CommentsResponseVO>>(Boolean.TRUE, e.getMessage());
+
+		}
+		return response;
 	}
 }
