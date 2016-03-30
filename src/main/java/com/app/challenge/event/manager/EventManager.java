@@ -27,6 +27,7 @@ import com.app.challenge.event.vo.AllChallengeResponseVO;
 import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
 import com.app.challenge.event.vo.CommentVO;
+import com.app.challenge.event.vo.LikeResponseVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
 import com.app.challenge.fbutil.FacebookClientHandler;
@@ -461,4 +462,21 @@ public class EventManager {
 		return "Comment Submitted Successfully!";
 	}
 
+	public LikeResponseVO submitLike(int playerId,int userId,int challengeId){
+		LikeResponseVO resp = new LikeResponseVO();
+		boolean submitLike = false;
+		try{
+			submitLike = eventManagerDao.submitLike(playerId, userId, challengeId);
+		}catch(Exception e){
+			
+		}
+		
+		if(submitLike){
+			resp.setMessage("success");
+		}else{
+			resp.setMessage("already liked");
+		}
+		
+		return resp;
+	}
 }

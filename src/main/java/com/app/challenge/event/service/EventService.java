@@ -15,6 +15,7 @@ import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeAppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
 import com.app.challenge.event.vo.CommentVO;
+import com.app.challenge.event.vo.LikeResponseVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
 
@@ -82,6 +83,11 @@ public interface EventService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/submitComment")
 	public ChallengeAppResponseVO<String> submitComment(CommentVO commentVO);
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/submitLike")
+	ChallengeAppResponseVO<LikeResponseVO> submitLike(@QueryParam("playerId") int playerId,@QueryParam("userId") int userId,@QueryParam("challengeId") int challengeId);
 	
 	
 	

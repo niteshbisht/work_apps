@@ -13,6 +13,7 @@ import com.app.challenge.event.vo.AppResponseVO;
 import com.app.challenge.event.vo.ChallengeAppResponseVO;
 import com.app.challenge.event.vo.ChallengeVO;
 import com.app.challenge.event.vo.CommentVO;
+import com.app.challenge.event.vo.LikeResponseVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.event.vo.UserAccountVO;
 
@@ -145,5 +146,18 @@ public class EventServiceImpl implements EventService {
 			response = new ChallengeAppResponseVO<>(Boolean.TRUE, e.getMessage());
 		}
 		return response;
+	}
+	
+	@Override
+	public ChallengeAppResponseVO<LikeResponseVO> submitLike(int playerId,int userId,int challengeId){
+		ChallengeAppResponseVO<LikeResponseVO> response = null;
+		try{
+			LikeResponseVO submitLike = eventManager.submitLike(playerId, userId, challengeId);
+			response = new ChallengeAppResponseVO<LikeResponseVO>(submitLike);
+			return response;
+		}catch(Exception e){
+			response = new ChallengeAppResponseVO<>(Boolean.TRUE, e.getMessage());
+			return response;
+		}
 	}
 }
