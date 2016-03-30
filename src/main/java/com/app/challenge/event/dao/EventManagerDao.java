@@ -509,6 +509,7 @@ public class EventManagerDao {
 		return commentMap;
 	}
 	
+	@Transactional
 	public boolean submitLike(int playerId,int userId,int challengeId){
 		String sql = "insert into rivals.likes(userId,challengeId,playerId) values(:userId,:challengeId,:playerId)";
 		HashMap<String, Object> paramMap = new HashMap<>();
@@ -517,6 +518,8 @@ public class EventManagerDao {
 		paramMap.put("userId", userId);
 		paramMap.put("like", " ");
 		try{
+			namedParameterJdbcTemplate.update(sql, paramMap);
+			sql = "UPDATE rivals.player_challenge_mapping SET fblikes = (select count(*) from rivals.likes where playerID=:playerId and challengeId=:challengeId)) WHERE playerID = :playerId";
 			namedParameterJdbcTemplate.update(sql, paramMap);
 		}catch(Exception e){
 			return false;
