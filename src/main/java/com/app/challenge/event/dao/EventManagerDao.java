@@ -519,7 +519,7 @@ public class EventManagerDao {
 		paramMap.put("like", " ");
 		try{
 			namedParameterJdbcTemplate.update(sql, paramMap);
-			sql = "UPDATE rivals.player_challenge_mapping SET fblikes = (select count(*) from rivals.likes where playerID=:playerId and challengeId=:challengeId)) WHERE playerID = :playerId";
+			sql = "UPDATE rivals.player_challenge_mapping SET fblikes = (select count(*) from rivals.likes where playerID=:playerId and challengeId=:challengeId) WHERE playerID = :playerId";
 			namedParameterJdbcTemplate.update(sql, paramMap);
 		}catch(Exception e){
 			return false;
