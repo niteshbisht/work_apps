@@ -510,7 +510,7 @@ public class EventManagerDao {
 	}
 	
 	public boolean submitLike(int playerId,int userId,int challengeId){
-		String sql = "insert into rivals.likes(userId,challengeId,playerId,like) values(:userId,:challengeId,:userId,:like)";
+		String sql = "insert into rivals.likes(userId,challengeId,playerId,like) values(:userId,:challengeId,:playerId,:like)";
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("playerId", playerId);
 		paramMap.put("challengeId", challengeId);
