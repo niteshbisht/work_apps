@@ -493,11 +493,9 @@ public class EventManagerDao {
 			long latest = 0;
 			while (rs.next()) {
 				latest = rs.getLong("challengeid");
-
 				if (latest != prev & latest > 0 && prev!=0) {
 					commentMap.put(latest, comments);
 					comments = new ArrayList<>();
-
 				}
 				comments.add(rs.getString("comment") != null ? rs.getString("comment") : "");
 				prev = latest;
@@ -509,5 +507,20 @@ public class EventManagerDao {
 		}
 
 		return commentMap;
+	}
+	
+	public boolean submitLike(int playerId,int userId,int challengeId){
+		String sql = "insert into rivals.likes(userId,challengeId,playerId,like) values(:userId,:challengeId,:userId,:like)";
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("playerId", playerId);
+		paramMap.put("challengeId", challengeId);
+		paramMap.put("userId", userId);
+		paramMap.put("like", " ");
+		try{
+			namedParameterJdbcTemplate.update(sql, paramMap);
+		}catch(Exception e){
+			return false;
+		}
+		return true;
 	}
 }
