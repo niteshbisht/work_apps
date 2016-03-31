@@ -320,6 +320,21 @@ Response:
 	"error": false
 }
 
+======================================================================================================
+
+http://62.151.180.32:8080/work_apps/service/rivalService/submitLike?playerId=8&userId=5&challengeId=8
+
+
+==> |number is count
+ResponseonFailure==>
+
+{"object":{"message":"failure|3"},"error":false}
+
+Responseon Success==>
+{"object":{"message":"success|4"},"error":false}
+
+
+
 
 
 ==================================================================================================
