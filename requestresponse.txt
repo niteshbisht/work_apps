@@ -111,6 +111,7 @@ POST:
 	"fbUserID": "CAAXzorEpPMcBAFSdZBtaZBlwfuX8TZCpd3iyGQ6gP2XUBvAVRhLQZCxUGoPchXZARk4KY3dbVb9hQEFqhScns3Dz7jaNgNUJGTzQI23fcUi1n4Ljovolf0jrPlGw1iZCSmGVKeDgyxqa3hKM5oiAlmZAQYXO8xQZAApjYjZAFST4K6p3xAJpgpfzQgGFEwS17600ZD",
 	"duration": "0:0:10",
 	"challengeType": "OPEN",
+	"gameType": "cricket",
 	"challengeId": 0,
 	"openChallenge": false,
 	"newChallenge": false,
