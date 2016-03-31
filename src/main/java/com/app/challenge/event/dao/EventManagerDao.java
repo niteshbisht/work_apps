@@ -25,6 +25,7 @@ import com.app.challenge.domain.UserAccount;
 import com.app.challenge.domain.UserToken;
 import com.app.challenge.event.vo.ChallengeVO;
 import com.app.challenge.event.vo.CommentVO;
+import com.app.challenge.event.vo.CommentsResponseVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.fbutil.Base64;
 import com.app.quartz.RivalAppSchedulerUtil;
@@ -337,7 +338,8 @@ public class EventManagerDao {
 	 */
 
 	public List<ChallengeDomain> fetchAllChallenges(long challengeID, String status) throws SQLException {
-		//RivalAppSchedulerUtil.computeStatsForChallenge(challengeID, namedParameterJdbcTemplate, null);
+		// RivalAppSchedulerUtil.computeStatsForChallenge(challengeID,
+		// namedParameterJdbcTemplate, null);
 		return fetchAllChallenges(challengeID, status, false);
 	}
 
@@ -350,11 +352,14 @@ public class EventManagerDao {
 			sql = "select * from rivals.challenges";
 		} else {
 			if (challengeID == 0)
-				//sql = "select * from rivals.challenges where wstatus='OPEN' OR wstatus='FRIEND' OR wstatus = 'INPROGRESS' ORDER BY challengeid DESC LIMIT 20";
-				sql = "select * from rivals.challenges where wstatus='"+status+"' ORDER BY challengeid DESC LIMIT 20";
+				// sql = "select * from rivals.challenges where wstatus='OPEN'
+				// OR wstatus='FRIEND' OR wstatus = 'INPROGRESS' ORDER BY
+				// challengeid DESC LIMIT 20";
+				sql = "select * from rivals.challenges where wstatus='" + status
+						+ "' ORDER BY challengeid DESC LIMIT 20";
 			else
-				sql = "select * from rivals.challenges where wstatus='"+status+"' AND challengeid < "
-						+ challengeID + " ORDER BY challengeid DESC LIMIT 20";
+				sql = "select * from rivals.challenges where wstatus='" + status + "' AND challengeid < " + challengeID
+						+ " ORDER BY challengeid DESC LIMIT 20";
 		}
 		try {
 			rows = namedParameterJdbcTemplate.query(sql, new ChallengeRowMapper());
@@ -496,7 +501,7 @@ public class EventManagerDao {
 			long latest = 0;
 			while (rs.next()) {
 				latest = rs.getLong("challengeid");
-				if (latest != prev & latest > 0 && prev!=0) {
+				if (latest != prev & latest > 0 && prev != 0) {
 					commentMap.put(latest, comments);
 					comments = new ArrayList<>();
 				}
@@ -511,9 +516,9 @@ public class EventManagerDao {
 
 		return commentMap;
 	}
-	
+
 	@Transactional
-	public String submitLike(int playerId,int userId,int challengeId){
+	public String submitLike(int playerId, int userId, int challengeId) {
 		String sql = "insert into rivals.likes(userId,challengeId,playerId) values(:userId,:challengeId,:playerId)";
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("playerId", playerId);
@@ -522,20 +527,34 @@ public class EventManagerDao {
 		paramMap.put("like", " ");
 		String resultString = "";
 		int count = 0;
-		String countSql="select count(*) from rivals.likes where playerID=:playerId and challengeId=:challengeId";
-		try{
+		String countSql = "select count(*) from rivals.likes where playerID=:playerId and challengeId=:challengeId";
+		try {
 			namedParameterJdbcTemplate.update(sql, paramMap);
 			sql = "UPDATE rivals.player_challenge_mapping SET fblikes = (select count(*) from rivals.likes where playerID=:playerId and challengeId=:challengeId) WHERE playerID = :playerId";
 			namedParameterJdbcTemplate.update(sql, paramMap);
 			count = namedParameterJdbcTemplate.queryForObject(countSql, paramMap, Integer.class);
-			resultString = "success|"+count;
+			resultString = "success|" + count;
 			return resultString;
-		}catch(Exception e){
+		} catch (Exception e) {
 			count = namedParameterJdbcTemplate.queryForObject(countSql, paramMap, Integer.class);
-			resultString = "failure|"+count;
+			resultString = "failure|" + count;
 			return resultString;
 		}
 	}
-	
-	
+
+	public List<CommentsResponseVO> fetchComments(long challengeID) throws SQLException {
+		List<CommentsResponseVO> resList = new ArrayList<>();
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put(ChallengeConstants.DB_CHALLENGE_ID, challengeID);
+
+		String sql = "select a.challengeid,a.username,a.comment,a.createddate,b.userimage from rivals.comments a left join user_account b on a.creatoruid = b.id where challengeid="
+				+ challengeID +" order by a.createddate";
+		try {
+			resList = namedParameterJdbcTemplate.query(sql, new CommentsRowMapper());
+
+		} catch (Exception e) {
+			throw new SQLException("" + e.getMessage());
+		}
+		return resList;
+	}
 }
