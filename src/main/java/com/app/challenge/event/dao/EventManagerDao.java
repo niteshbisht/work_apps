@@ -351,9 +351,9 @@ public class EventManagerDao {
 		} else {
 			if (challengeID == 0)
 				//sql = "select * from rivals.challenges where wstatus='OPEN' OR wstatus='FRIEND' OR wstatus = 'INPROGRESS' ORDER BY challengeid DESC LIMIT 20";
-				sql = "select * from rivals.challenges where wstatus="+status+" ORDER BY challengeid DESC LIMIT 20";
+				sql = "select * from rivals.challenges where wstatus='"+status+"' ORDER BY challengeid DESC LIMIT 20";
 			else
-				sql = "select * from rivals.challenges where wstatus="+status+" AND challengeid < "
+				sql = "select * from rivals.challenges where wstatus='"+status+"' AND challengeid < "
 						+ challengeID + " ORDER BY challengeid DESC LIMIT 20";
 		}
 		try {
