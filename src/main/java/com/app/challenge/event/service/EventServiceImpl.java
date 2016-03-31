@@ -62,6 +62,7 @@ public class EventServiceImpl implements EventService {
 	public ChallengeAppResponseVO<List<AllChallengeResponseVO>> fetchAllChallengesData(int challengeFrom) {
 		ChallengeAppResponseVO<List<AllChallengeResponseVO>> response = null;
 		try {
+			
 			response = new ChallengeAppResponseVO<List<AllChallengeResponseVO>>(
 					eventManager.fetchAllChallenges(challengeFrom));
 		} catch (Exception e) {

@@ -27,6 +27,7 @@ import com.app.challenge.event.vo.ChallengeVO;
 import com.app.challenge.event.vo.CommentVO;
 import com.app.challenge.event.vo.RegisterResponseVO;
 import com.app.challenge.fbutil.Base64;
+import com.app.quartz.RivalAppSchedulerUtil;
 
 @Transactional(rollbackFor = SQLException.class)
 @Repository("eventManagerDao")
@@ -336,6 +337,7 @@ public class EventManagerDao {
 	 */
 
 	public List<ChallengeDomain> fetchAllChallenges(long challengeID, String status) throws SQLException {
+		//RivalAppSchedulerUtil.computeStatsForChallenge(challengeID, namedParameterJdbcTemplate, null);
 		return fetchAllChallenges(challengeID, status, false);
 	}
 
@@ -510,20 +512,29 @@ public class EventManagerDao {
 	}
 	
 	@Transactional
-	public boolean submitLike(int playerId,int userId,int challengeId){
+	public String submitLike(int playerId,int userId,int challengeId){
 		String sql = "insert into rivals.likes(userId,challengeId,playerId) values(:userId,:challengeId,:playerId)";
 		HashMap<String, Object> paramMap = new HashMap<>();
 		paramMap.put("playerId", playerId);
 		paramMap.put("challengeId", challengeId);
 		paramMap.put("userId", userId);
 		paramMap.put("like", " ");
+		String resultString = "";
+		int count = 0;
+		String countSql="select count(*) from rivals.likes where playerID=:playerId and challengeId=:challengeId";
 		try{
 			namedParameterJdbcTemplate.update(sql, paramMap);
 			sql = "UPDATE rivals.player_challenge_mapping SET fblikes = (select count(*) from rivals.likes where playerID=:playerId and challengeId=:challengeId) WHERE playerID = :playerId";
 			namedParameterJdbcTemplate.update(sql, paramMap);
+			count = namedParameterJdbcTemplate.queryForObject(countSql, paramMap, Integer.class);
+			resultString = "success|"+count;
+			return resultString;
 		}catch(Exception e){
-			return false;
+			count = namedParameterJdbcTemplate.queryForObject(countSql, paramMap, Integer.class);
+			resultString = "failure|"+count;
+			return resultString;
 		}
-		return true;
 	}
+	
+	
 }

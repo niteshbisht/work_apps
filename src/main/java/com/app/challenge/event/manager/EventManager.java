@@ -464,19 +464,13 @@ public class EventManager {
 
 	public LikeResponseVO submitLike(int playerId,int userId,int challengeId){
 		LikeResponseVO resp = new LikeResponseVO();
-		boolean submitLike = false;
+		String submitLike = "";
 		try{
 			submitLike = eventManagerDao.submitLike(playerId, userId, challengeId);
 		}catch(Exception e){
 			
 		}
-		
-		if(submitLike){
-			resp.setMessage("success");
-		}else{
-			resp.setMessage("already liked");
-		}
-		
+		resp.setMessage(submitLike);
 		return resp;
 	}
 }
