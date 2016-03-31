@@ -23,6 +23,7 @@ public class ChallengeRowMapper implements RowMapper<ChallengeDomain>
 		challenge.setFbUserName(rs.getString("fbusername"));
 		challenge.setAcceptorName(rs.getString("acceptorname"));
 		challenge.setCreatorName(rs.getString("creatorname"));
+		challenge.setWinnerId(rs.getInt("winnerId"));
 		return challenge;
 	}
 	

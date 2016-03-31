@@ -25,7 +25,7 @@ public class AllChallengeResponseVO implements Serializable {
 	private String creatorName;
 	private String acceptorName;
 	private List<String> comments;
-	
+	private long winnerId;
 	
 	public List<String> getComments() {
 		return comments;
@@ -183,5 +183,13 @@ public class AllChallengeResponseVO implements Serializable {
 
 	public void setAcceptorName(String acceptorName) {
 		this.acceptorName = acceptorName;
+	}
+
+	public long getWinnerId() {
+		return winnerId;
+	}
+
+	public void setWinnerId(long winnerId) {
+		this.winnerId = winnerId;
 	}
 }

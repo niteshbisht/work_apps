@@ -29,6 +29,7 @@ public class ChallengeVO {
 	private String creatorName;
 	private String acceptorName;
 	private List<String> comments;
+	private long winnerId;
 	
 	public String getGameType() {
 		return gameType;
@@ -209,6 +210,12 @@ public class ChallengeVO {
 	}
 	public void setComments(List<String> comments) {
 		this.comments = comments;
+	}
+	public long getWinnerId() {
+		return winnerId;
+	}
+	public void setWinnerId(long winnerId) {
+		this.winnerId = winnerId;
 	}
 	
 	

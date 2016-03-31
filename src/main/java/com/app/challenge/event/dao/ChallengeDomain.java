@@ -21,6 +21,7 @@ public class ChallengeDomain {
 	private String creatorName;
 	private String acceptorName;
 	private List<String> comments;
+	private long winnerId;
 	
 	/**
 	 * @return the challengeId
@@ -159,6 +160,12 @@ public class ChallengeDomain {
 	}
 	public void setComments(List<String> comments) {
 		this.comments = comments;
+	}
+	public long getWinnerId() {
+		return winnerId;
+	}
+	public void setWinnerId(long winnerId) {
+		this.winnerId = winnerId;
 	}
 	
 	
