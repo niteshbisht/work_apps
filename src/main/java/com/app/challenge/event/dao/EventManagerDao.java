@@ -124,11 +124,11 @@ public class EventManagerDao {
 	public RegisterResponseVO registerDevice(UserAccount userAccount) throws SQLException {
 		RegisterResponseVO response = new RegisterResponseVO();
 		byte[] bytes = Base64.decode(userAccount.getUserImage(), 0);// userAccount.getUserImage().getBytes();
-		ByteArrayInputStream baos = new ByteArrayInputStream(bytes);
+		//ByteArrayInputStream baos = new ByteArrayInputStream(bytes);
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(ChallengeConstants.DB_DEVICE_ID, userAccount.getDeviceId());
 		paramMap.put(ChallengeConstants.DB_DEVICE_TYPE, userAccount.getDeviceType());
-		paramMap.put(ChallengeConstants.DB_PLAYER_IMAGE, baos);
+		paramMap.put(ChallengeConstants.DB_PLAYER_IMAGE, bytes);
 		paramMap.put(ChallengeConstants.DB_USERNAME, userAccount.getUserName());
 		paramMap.put(ChallengeConstants.DB_EMAIL, userAccount.getUserEmail());
 		paramMap.put(ChallengeConstants.DB_CREATED_DATE, new Date());
